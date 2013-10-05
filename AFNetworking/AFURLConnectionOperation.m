@@ -22,9 +22,10 @@
 
 #import "AFURLConnectionOperation.h"
 #import "NSDataGZipAdditions.h"
-
+#import "GZIP.h"
 #if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
 #import <UIKit/UIKit.h>
+
 #endif
 
 #if !__has_feature(objc_arc)
@@ -518,7 +519,7 @@ static BOOL AFSecKeyIsEqualToKey(SecKeyRef key1, SecKeyRef key2) {
     if (! [self isCancelled]) {
         NSMutableURLRequest * requestM = [self.request mutableCopy];
         NSMutableDictionary* headers = [[NSMutableDictionary alloc] init];
-        [headers setObject:@"gzip, deflate" forKey:@"Accept-Encoding"];
+        [headers setObject:@"gzip" forKey:@"Accept-Encoding"];
         
         // other headers
         [requestM setAllHTTPHeaderFields:headers];
@@ -768,8 +769,14 @@ didReceiveResponse:(NSURLResponse *)response
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection __unused *)connection {
-    self.responseData = [self.outputStream propertyForKey:NSStreamDataWrittenToMemoryStreamKey];
+    NSData * dataS = [self.outputStream propertyForKey:NSStreamDataWrittenToMemoryStreamKey];
+    NSLog(@"Data Length: %d",[dataS length]);
+    self.responseData = [dataS gunzippedData];
+       NSLog(@"Data  Response Length: %d",[self.responseData length]); 
     
+    
+ // self.responseData = [self.outputStream propertyForKey:NSStreamDataWrittenToMemoryStreamKey];
+ //  NSLog(@"Data  Response Length: %d",[self.responseData length]);
     
     [self.outputStream close];
     

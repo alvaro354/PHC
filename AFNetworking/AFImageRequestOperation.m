@@ -188,9 +188,9 @@ static UIImage * AFInflatedImageFromResponseWithDataAtScale(NSHTTPURLResponse *r
             UIImage *image= [[UIImage alloc]init] ;
             
             
-               NSData * datas = responseObject ;
+               NSData * data = responseObject ;
            
-               __block  NSData * data = [datas gzippedData] ;
+              // __block  NSData * data = [datas gzippedData] ;
             
             NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
             
@@ -218,7 +218,7 @@ static UIImage * AFInflatedImageFromResponseWithDataAtScale(NSHTTPURLResponse *r
             
             // NSLog(@"%@",error);
             
-            // NSLog(@" %@ Response Cache",responseString);
+             NSLog(@"Response:  %@ ",responseString);
             // NSMutableArray *mmutable = [NSMutableArray array];
             for (NSDictionary *dict in returned){
                 
