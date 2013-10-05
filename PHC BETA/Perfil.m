@@ -32,9 +32,9 @@
 
 -(IBAction)cambiarImagen:(id)sender{
     // PRUEBA DE GIT
-    //Prueba numero 2
-    //Prueba numero 3
-   
+ 
+    
+   // Prueba NUmero 4
     imagePicker = [[UIImagePickerController alloc] init];
     imagePicker.delegate = self;
     imagePicker.allowsEditing=YES;
