@@ -34,6 +34,8 @@
     // PRUEBA DE GIT
  
     //Prueba 2
+    
+    
    // Prueba NUmero 4
     imagePicker = [[UIImagePickerController alloc] init];
     imagePicker.delegate = self;
@@ -41,7 +43,7 @@
     imagePicker.view.clipsToBounds=YES;
     imagePicker.view.layer.cornerRadius = 8.0;
     [self presentViewController:imagePicker animated:YES completion:nil];
-    
+    // prueba 3
     
 }
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo {
