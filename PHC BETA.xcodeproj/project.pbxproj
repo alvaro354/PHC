@@ -233,6 +233,7 @@
 		B1D2B7EE173ECDC9007CE785 /* AsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B1D2B7ED173ECDC9007CE785 /* AsyncImageView.m */; };
 		B1D2B7F1173EEC14007CE785 /* Imagenes.m in Sources */ = {isa = PBXBuildFile; fileRef = B1D2B7F0173EEC13007CE785 /* Imagenes.m */; };
 		B1D2B7F417401A9E007CE785 /* ScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = B1D2B7F317401A9D007CE785 /* ScrollView.m */; };
+		B1DF315D18003C0C007035DD /* GZIP.m in Sources */ = {isa = PBXBuildFile; fileRef = B1DF315C18003C0C007035DD /* GZIP.m */; };
 		B1F340081770668B00016782 /* VerMensajes.m in Sources */ = {isa = PBXBuildFile; fileRef = B1F340071770668B00016782 /* VerMensajes.m */; };
 		B1FBEFF0176374BE00B98C45 /* ImagenAsync.m in Sources */ = {isa = PBXBuildFile; fileRef = B1FBEFEF176374BE00B98C45 /* ImagenAsync.m */; };
 		B1FEAB5A16C673F4003BABBB /* Amigos.m in Sources */ = {isa = PBXBuildFile; fileRef = B1FEAB5916C673F3003BABBB /* Amigos.m */; };
@@ -562,6 +563,8 @@
 		B1D2B7F0173EEC13007CE785 /* Imagenes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Imagenes.m; sourceTree = "<group>"; };
 		B1D2B7F217401A9C007CE785 /* ScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollView.h; sourceTree = "<group>"; };
 		B1D2B7F317401A9D007CE785 /* ScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollView.m; sourceTree = "<group>"; };
+		B1DF315B18003C0C007035DD /* GZIP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GZIP.h; sourceTree = "<group>"; };
+		B1DF315C18003C0C007035DD /* GZIP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GZIP.m; sourceTree = "<group>"; };
 		B1F340061770668B00016782 /* VerMensajes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerMensajes.h; sourceTree = "<group>"; };
 		B1F340071770668B00016782 /* VerMensajes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerMensajes.m; sourceTree = "<group>"; };
 		B1FBEFEE176374BE00B98C45 /* ImagenAsync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagenAsync.h; sourceTree = "<group>"; };
@@ -858,6 +861,7 @@
 				B1764F7517CD104E00845AF8 /* AFNetworking */,
 				B1293FB7175276A4002F5587 /* MessageTableViewCell.h */,
 				B1293FB8175276A4002F5587 /* MessageTableViewCell.m */,
+				B1DF315A18003C0C007035DD /* GZIP */,
 				B1B5063317F853130047DB28 /* ComentariosCell.h */,
 				B1B5063417F853130047DB28 /* ComentariosCell.m */,
 				B1293FB4175275EC002F5587 /* SpeechBubbleView.h */,
@@ -1118,6 +1122,15 @@
 			path = SBSJason;
 			sourceTree = "<group>";
 		};
+		B1DF315A18003C0C007035DD /* GZIP */ = {
+			isa = PBXGroup;
+			children = (
+				B1DF315B18003C0C007035DD /* GZIP.h */,
+				B1DF315C18003C0C007035DD /* GZIP.m */,
+			);
+			path = GZIP;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1371,6 +1384,7 @@
 				B1764F8D17CD104E00845AF8 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				B15CBFBE1696F350000AAED0 /* PhcViewController.m in Sources */,
 				B15CC01D1696F51C000AAED0 /* BaseViewController.m in Sources */,
+				B1DF315D18003C0C007035DD /* GZIP.m in Sources */,
 				B15CC0371696FC0C000AAED0 /* CustomNavigationBar.m in Sources */,
 				B1B5063517F853140047DB28 /* ComentariosCell.m in Sources */,
 				B1764F8E17CD104E00845AF8 /* AFPropertyListRequestOperation.m in Sources */,

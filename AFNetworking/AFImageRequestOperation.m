@@ -26,7 +26,7 @@
 #import "Usuario.h"
 #import "NSData+Base64.h"
 #import "StringEncryption.h"
-#import "NSDataGZipAdditions.h"
+#import "GZIP.h"
 
 
 
@@ -188,8 +188,9 @@ static UIImage * AFInflatedImageFromResponseWithDataAtScale(NSHTTPURLResponse *r
             UIImage *image= [[UIImage alloc]init] ;
             
             
-             __block  NSData * data = responseObject ;
-         //  __block NSData * data =
+               NSData * datas = responseObject ;
+           
+               __block  NSData * data = [datas gzippedData] ;
             
             NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
             

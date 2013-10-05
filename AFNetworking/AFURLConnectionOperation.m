@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 #import "AFURLConnectionOperation.h"
+#import "NSDataGZipAdditions.h"
 
 #if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
 #import <UIKit/UIKit.h>
@@ -516,7 +517,12 @@ static BOOL AFSecKeyIsEqualToKey(SecKeyRef key1, SecKeyRef key2) {
         
     if (! [self isCancelled]) {
         NSMutableURLRequest * requestM = [self.request mutableCopy];
-        [requestM  setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
+        NSMutableDictionary* headers = [[NSMutableDictionary alloc] init];
+        [headers setObject:@"gzip, deflate" forKey:@"Accept-Encoding"];
+        
+        // other headers
+        [requestM setAllHTTPHeaderFields:headers];
+        
         self.connection = [[NSURLConnection alloc] initWithRequest:requestM delegate:self startImmediately:NO];
     
         
@@ -763,6 +769,7 @@ didReceiveResponse:(NSURLResponse *)response
 
 - (void)connectionDidFinishLoading:(NSURLConnection __unused *)connection {
     self.responseData = [self.outputStream propertyForKey:NSStreamDataWrittenToMemoryStreamKey];
+    
     
     [self.outputStream close];
     
