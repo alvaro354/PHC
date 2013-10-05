@@ -31,6 +31,7 @@
 @synthesize items, wrap, flOperation,flUploadEngine;
 
 -(IBAction)cambiarImagen:(id)sender{
+    // PRUEBA DE GIT
    
     imagePicker = [[UIImagePickerController alloc] init];
     imagePicker.delegate = self;
