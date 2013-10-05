@@ -515,7 +515,10 @@ static BOOL AFSecKeyIsEqualToKey(SecKeyRef key1, SecKeyRef key2) {
     if (data == nil) {
         
     if (! [self isCancelled]) {
-        self.connection = [[NSURLConnection alloc] initWithRequest:self.request delegate:self startImmediately:NO];
+        NSMutableURLRequest * requestM = [self.request mutableCopy];
+        [requestM  setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
+        self.connection = [[NSURLConnection alloc] initWithRequest:requestM delegate:self startImmediately:NO];
+    
         
         NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
         for (NSString *runLoopMode in self.runLoopModes) {
