@@ -31,12 +31,7 @@
 @synthesize items, wrap, flOperation,flUploadEngine;
 
 -(IBAction)cambiarImagen:(id)sender{
-    // PRUEBA DE GIT
- 
-    //Prueba 2
     
-    
-   // Prueba NUmero 4
     imagePicker = [[UIImagePickerController alloc] init];
     imagePicker.delegate = self;
     imagePicker.allowsEditing=YES;
@@ -82,7 +77,7 @@
     StringEncryption *crypto = [[StringEncryption alloc] init] ;
     
     NSString * usuarioID = [[NSUserDefaults standardUserDefaults] objectForKey:@"ID_usuario"];
-    NSData *imageData = UIImageJPEGRepresentation(image, 1);
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
     
     
 	CCOptions padding = kCCOptionECBMode;

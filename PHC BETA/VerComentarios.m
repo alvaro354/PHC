@@ -429,11 +429,17 @@
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
 {
     // NSLog(@"Celda mensajes");
+   
+    
 	static NSString* CellIdentifier = @"ComentariosCell";
     
 	ComentariosCell* cell =(ComentariosCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
-	
+    UISwipeGestureRecognizer* gestureR;
+    gestureR = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:nil];
+    gestureR.direction = UISwipeGestureRecognizerDirectionLeft;
+    [cell addGestureRecognizer:gestureR];
+    
     
     if (cell == nil){
 		cell = [[ComentariosCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] ;

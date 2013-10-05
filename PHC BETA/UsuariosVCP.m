@@ -618,7 +618,7 @@
     NSMutableArray *operationsArray = [NSMutableArray array];
     for (Usuario *us in arrayBuscar) {
         
-        
+     //   NSLog(@"URL: %@", us.URLimagen);
         
         NSURL * URL = [[NSURL alloc]initWithString:us.URLimagen];
         

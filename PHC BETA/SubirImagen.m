@@ -65,7 +65,7 @@
     
     
     NSString * usuarioID = [[NSUserDefaults standardUserDefaults] objectForKey:@"ID_usuario"];
-    NSData *imageData = UIImageJPEGRepresentation(imagen, 0.8);
+    NSData *imageData = UIImageJPEGRepresentation(imagen, 0.5);
     
     NSLog(@" Tamaño Imagen : %d",[imageData length]);
     

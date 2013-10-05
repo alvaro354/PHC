@@ -218,7 +218,7 @@ static UIImage * AFInflatedImageFromResponseWithDataAtScale(NSHTTPURLResponse *r
             
             // NSLog(@"%@",error);
             
-             NSLog(@"Response:  %@ ",responseString);
+            // NSLog(@"Response:  %@ ",responseString);
             // NSMutableArray *mmutable = [NSMutableArray array];
             for (NSDictionary *dict in returned){
                 
