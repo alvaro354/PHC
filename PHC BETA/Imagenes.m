@@ -63,6 +63,7 @@
     [self performSegueWithIdentifier:@"ComentariosS" sender:self];
 }
 
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
     if ([segue.identifier isEqualToString:@"ComentariosS"]) {
@@ -75,6 +76,164 @@
     
     
 }
+-(IBAction)editar:(id)sender{
+    NSString * usuarioID = [[NSUserDefaults standardUserDefaults] objectForKey:@"ID_usuario"];
+    //NSString * tokenID = [[NSUserDefaults standardUserDefaults] stringForKey:@"token"];
+    
+    if ([imagen2.IDusuario isEqualToString:usuarioID]) {
+   UIActionSheet* popupQuery = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel",@"") destructiveButtonTitle:nil otherButtonTitles:@"Editar Etiquetas",NSLocalizedString(@"Borrar Foto",@""),nil];
+        popupQuery.tag=1;
+	//popupQuery.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+    // popupQuery.backgroundColor = [UIColor colorWithRed:0.17 green:0.522 blue:0.725 alpha:1];
+	[popupQuery showInView:self.view];
+    }
+    else{
+           UIActionSheet* popupQuery = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel",@"") destructiveButtonTitle:nil otherButtonTitles:@"Editar Etiquetas",nil];
+        popupQuery.tag=2;
+        	[popupQuery showInView:self.view];
+    }
+    
+}
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+
+    if (buttonIndex == 0) {
+  
+        
+        
+	}
+    if (actionSheet.tag==1) {
+     
+        
+	if (buttonIndex == 1) {
+        NSString * usuarioID = [[NSUserDefaults standardUserDefaults] objectForKey:@"ID_usuario"];
+        //NSString * tokenID = [[NSUserDefaults standardUserDefaults] stringForKey:@"token"];
+        
+        if ([imagen2.IDusuario isEqualToString:usuarioID]) {
+            NSLog(@"Foto Propia");
+            UIAlertView * alert =[[UIAlertView alloc] initWithTitle:@"Delete" message:@"¿Estas seguro que desea borrar la foto?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Si", nil];
+            alert.tag=2;
+            alert.delegate=self;
+            [alert show];
+        }
+       else{
+           NSLog(@"No propietario de la foto");
+           UIAlertView * alert =[[UIAlertView alloc] initWithTitle:@"Delete" message:@"¿Estas seguro que desea borrar la foto?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Si", nil];
+           alert.tag=1;
+           alert.delegate=self;
+           [alert show];
+             }
+        
+        
+	}
+    if (buttonIndex == 2) {
+        
+        
+        
+	}
+    }
+}
+- (void) alertView:(UIAlertView*)alert3 didDismissWithButtonIndex:(NSInteger)buttonIndex
+
+{
+    
+	if (buttonIndex == 0 && alert3.tag==3)
+	{
+        [self volver:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ActualizarPerfil" object:nil];
+        
+    }
+	if (buttonIndex == 1 && alert3.tag==2)
+	{
+        NSLog(@"Borrar");
+        
+        NSString * usuarioID = [[NSUserDefaults standardUserDefaults] objectForKey:@"ID_usuario"];
+        NSString * tokenID = [[NSUserDefaults standardUserDefaults] stringForKey:@"token"];
+        NSLog(@"%@ UsuarioID",usuarioID);
+        NSLog(@"Obteniendo datos");
+        NSDate *myDate = [NSDate date];
+        NSDateFormatter *df = [NSDateFormatter new];
+        [df setDateFormat:@"dd"];
+
+        
+        NSString *post5=[NSString stringWithFormat:@"&token=%@",tokenID];
+        
+        NSString *post =[NSString stringWithFormat:@"id=%@",usuarioID];
+        NSString *post2=[NSString stringWithFormat:@"&date=%@",[df stringFromDate:myDate]];
+         NSString *post3 =[NSString stringWithFormat:@"&idOb=%@",imagen2.ID];
+         NSString *post4 =[NSString stringWithFormat:@"&funcion=1"];
+        
+        NSString *hostStr = @"http://lanchosoftware.es/phc/borrar.php?";
+        hostStr = [hostStr stringByAppendingString:post];
+        hostStr = [hostStr stringByAppendingString:post2];
+        hostStr = [hostStr stringByAppendingString:post5];
+           hostStr = [hostStr stringByAppendingString:post3];
+      hostStr = [hostStr stringByAppendingString:post4];
+    NSLog(@"%@ URL",hostStr);
+        
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+        [request setURL:[NSURL URLWithString:hostStr]];
+        
+        NSOperationQueue *cola = [NSOperationQueue new];
+        // now lets make the connection to the web
+        
+        [NSURLConnection sendAsynchronousRequest:request queue:cola completionHandler:^(NSURLResponse *response, NSData *datas, NSError *error)
+         {
+             [self borrarDeCache:url];
+                      }];
+    
+    }
+}
+
+-(void)borrarDeCache: (NSString *) fileName{
+   
+    
+    fileName = [fileName stringByReplacingOccurrencesOfString:@"/" withString:@"."];
+    fileName = [fileName stringByReplacingOccurrencesOfString:@"?" withString:@"&"];
+    
+    NSString *idF = [[NSString alloc]init];
+       NSString *vez = [[NSString alloc]init];
+       NSString *perfil = [[NSString alloc]init];
+    NSString *filePath= [[NSString alloc]init];
+    NSString *dataPath= [[NSString alloc]init];
+    
+    
+    NSArray *array = [fileName componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"&"]];
+    for (NSString * st in array) {
+        //   NSLog(@"%@",st);
+        if ([st rangeOfString:@"idF"].location != NSNotFound) {
+           idF= [NSString stringWithString:st];
+        }
+        if ([st rangeOfString:@"vez"].location != NSNotFound) {
+            vez= [NSString stringWithString:st];
+        }
+        if ([st rangeOfString:@"perfil"].location != NSNotFound) {
+            perfil= [NSString stringWithString:st];
+        }
+    }
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    
+    NSString *string =[[paths objectAtIndex:0] stringByAppendingPathComponent:@"URLCache"];
+ 
+        dataPath = [string stringByAppendingPathComponent:idF];
+    
+
+    //  NSLog(@" Nombre: %@.%@.%@",idf,vez,perfil);
+    fileName = [NSString stringWithFormat:@"%@.%@.%@",idF,vez,perfil];
+	filePath = [dataPath stringByAppendingPathComponent:fileName];
+
+
+   BOOL eliminar=  [[NSFileManager defaultManager] removeItemAtPath:filePath error:Nil];
+   
+    NSLog(@"Borrado: %hhd",eliminar);
+    UIAlertView * alert =[[UIAlertView alloc] initWithTitle:@"Delete" message:@"La foto ha sido borrada" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    alert.tag=3;
+    alert.delegate=self;
+    [alert show];
+
+}
+
+
 
 -(IBAction)etiquetas:(id)sender{
      NSLog(@"Etiquetas: %@",imagen2.Etiquetas);

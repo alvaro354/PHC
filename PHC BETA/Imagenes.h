@@ -13,7 +13,7 @@
 
 
 
-@interface Imagenes : UIViewController<UIScrollViewDelegate, UIGestureRecognizerDelegate>{
+@interface Imagenes : UIViewController<UIScrollViewDelegate, UIGestureRecognizerDelegate , UIAlertViewDelegate ,UIActionSheetDelegate>{
     BOOL toolbarHidden ;
     BOOL  iadHidden;
     UIImageView * viewI ;
@@ -23,10 +23,12 @@
     Imagen* imagen2;
     IBOutlet UILabel *  titulo;
     NSMutableArray * imagenesCargadas;
+    
 }
 -(IBAction)volver:(id)sender;
 -(IBAction)etiquetas:(id)sender;
 -(IBAction)comentarios:(id)sender;
+-(IBAction)editar:(id)sender;
 @property (weak, nonatomic) IBOutlet UIToolbar *barraSuperior;
 @property (nonatomic,strong) UIImage* imageFondo;
 @property (nonatomic,strong) NSString* url;

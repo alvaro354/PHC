@@ -359,7 +359,7 @@
     
 }
 -(void)refrescar:(id)sender{
-    vez=0;
+    /*vez=0;
       NSString * usuarioID = [[NSUserDefaults standardUserDefaults] stringForKey:@"ID_usuario"];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString* string = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"URLCache"];
@@ -385,6 +385,12 @@
     
       timer2= [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(act) userInfo:nil repeats: NO];
     [self viewDidLoad];
+     */
+    [imagenesCargadas removeAllObjects];
+    completado=NO;
+    vez=0;
+    [carousel reloadData];
+    [self imagenes];
 }
 -(void)act{
     
@@ -446,7 +452,7 @@
     if(act == NO){
         [self imagenPerfil];
     
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refrescar:) name:@"ActualizarPerfil" object:nil];
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(memoryWarning:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
     // self.view.backgroundColor=[UIColor grayColor];
     items=[[NSMutableArray alloc]init];
@@ -604,8 +610,8 @@
     imagenesCargadas = [[NSMutableArray alloc]init];
 
     
-    NSMutableArray *URLs = [NSMutableArray array];
-    UrlDatos=[NSMutableArray array];
+    NSMutableArray *URLs = [[NSMutableArray alloc]init];
+    UrlDatos=[[NSMutableArray alloc]init];
     [URLs removeAllObjects];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:hostStr]];
@@ -616,6 +622,7 @@
          dispatch_async(dispatch_get_main_queue(), ^{
          NSString *  serverOutput = [[NSString alloc] initWithData:datas encoding: NSASCIIStringEncoding];
          int fotos = serverOutput.intValue;
+             NSLog(@"Fotos Int : %d",fotos);
          while (vez<fotos) {
              
              NSString *vezS = [NSString stringWithFormat:@"%d", vez];
