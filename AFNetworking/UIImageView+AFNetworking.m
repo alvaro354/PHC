@@ -139,15 +139,26 @@ NSString * const kNewPropertyKeyv = @"kNewPropertyKeyv";
         NSLog(@"Cache");
          self.af_imageRequestOperation = nil;
         NSData* data = [[NSData alloc] initWithContentsOfFile:self.filePath];
+         NSLog(@"%lu Data length", (unsigned long)[data length]);
+        if ([data length] ==0) {
+            success(nil,nil,nil);
+            return;
+        }
+        NSLog(@"Pasa");
        UIImage * imagen= [self procesarDatos:data];
         if (imagen != nil) {
            
         success(nil,nil,imagen);
         }
         if ([self.perfil isEqualToString:@"perfil=0"]) {
-            [self crearMarco:imagen];
+            if(imagen != nil){
+          //  [self crearMarco:imagen];
+            }
         }
-        self.image=imagen;
+        if(imagen == nil){
+            self.image=nil;
+        }
+        
         [indicator stopAnimating];
         [indicator removeFromSuperview];
         return;

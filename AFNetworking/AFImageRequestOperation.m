@@ -191,6 +191,8 @@ static UIImage * AFInflatedImageFromResponseWithDataAtScale(NSHTTPURLResponse *r
                NSData * data = responseObject ;
            
               // __block  NSData * data = [datas gzippedData] ;
+           
+            
             
             NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
             
@@ -223,6 +225,7 @@ static UIImage * AFInflatedImageFromResponseWithDataAtScale(NSHTTPURLResponse *r
             for (NSDictionary *dict in returned){
                 
                 //   NSLog(@"Cache Processing");
+                image= [[UIImage alloc]init] ;
                 
                 Imagen* imagen2 = [[Imagen alloc] init];
                 //NSData*imagenD = [NSData dataWithBase64EncodedString:[dict objectForKey:@"imagen"]];
@@ -310,7 +313,13 @@ static UIImage * AFInflatedImageFromResponseWithDataAtScale(NSHTTPURLResponse *r
                         NSLog(@"No borde");
                     }
                     else{
+                        if(image != NULL){
                     image= [requestB addBorderToImage:image];
+                        }
+                        else{
+                            NSLog(@"Imagen cache error");
+                            image = nil;
+                        }
                     }
                 }
                 else{
@@ -329,7 +338,7 @@ static UIImage * AFInflatedImageFromResponseWithDataAtScale(NSHTTPURLResponse *r
             
             if (imageProcessingBlock) {
                 dispatch_async(image_request_operation_processing_queue(), ^(void) {
-                    UIImage *processedImage = imageProcessingBlock(image);
+              
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wgnu"
                     dispatch_async(operation.successCallbackQueue ?: dispatch_get_main_queue(), ^(void) {
