@@ -19,7 +19,7 @@
 @end
 
 @implementation VerComentarios
-@synthesize mensajes, table, scrollView,campoActivo, texto,scrollViewEnviar,us,Vez;
+@synthesize mensajes, table, scrollView,campoActivo, texto,scrollViewEnviar,us,Vez,barraNavegador;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,7 +34,9 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 -(IBAction)recargar:(id)sender{
-    
+    terminado2=NO;
+    [imagenesCargadas removeAllObjects];
+     NSLog(@"Recargar Pulsado");
     [self recargar];
     [table reloadData];
     
@@ -193,7 +195,12 @@
         [self recargar];
     }
 }
+-(void)RecargarImagenes{
+    //Mejorar y que solo borre las fotos de los usuarios que aparecen en los comentarios
+    NSLog(@"Aqui se debreia borrar fotos del usuario corrupto");
+}
 -(void)CargarImagenes{
+    __block BOOL Error =NO;
     NSLog(@"Cargando Imagenes");
     imagenesCargadas = [[NSMutableArray alloc]init];
     AFHTTPClient *httpClient  = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@""]];
@@ -210,8 +217,14 @@
                                                               //
                                                               // Save image
                                                               //
-                                                              
-                                                              [imagenesCargadas addObject:image];
+                                                              //
+                                                              if (image!=nil) {
+                                                                  [imagenesCargadas addObject:image];
+                                                              }else{
+                                                                  NSLog(@"Image request Cache error!");
+                                                                  Error=YES;
+                                                              }
+
                                                           }
                                                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                                                               if((error.domain == NSURLErrorDomain) && (error.code == NSURLErrorCancelled))
@@ -243,7 +256,11 @@
                                           //
                                           // Remove blocking dialog, do next tasks
                                           //+
-                                          
+                                          if (Error) {
+                                              [self RecargarImagenes];
+                                              
+                                          }
+                                          else{
                                           NSLog(@"Imagenes: %lu", (unsigned long)[imagenesCargadas count]);
                                           
                                           terminado2 = YES;
@@ -256,7 +273,7 @@
                                                [carousel reloadInputViews];
                                                [carousel reloadItemAtIndex:i animated:NO];
                                                }*/
-                                          });
+                                          });}
                                           
                                           
                                       }];
@@ -292,7 +309,8 @@
      
      [self reloadInputViews];
      */
-    titulo.text=us.Nombre;
+   // titulo.text=us.Nombre;
+    barraNavegador.title=us.Nombre;
     CGFloat scrollViewHeight = 0.0f;
     for (UIView* view in scrollView.subviews)
     {
@@ -448,10 +466,16 @@
     
     if ([mensajes count] != 0) {
           if (terminado2) {
-
+              
               Mensajes* messages = [mensajes objectAtIndex:indexPath.row];
-              [cell setMessage:messages image:[imagenesCargadas objectAtIndex:indexPath.row]];
-          }
+              if ([imagenesCargadas count]>0) {
+                  [cell setMessage:messages image:[imagenesCargadas objectAtIndex:indexPath.row]];
+
+              }
+              else{
+                  [cell setMessage:messages image:nil];
+              }
+                        }
           else{
         
         Mensajes* messages = [mensajes objectAtIndex:indexPath.row];

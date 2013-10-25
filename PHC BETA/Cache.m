@@ -198,7 +198,10 @@
     if ([self.perfil isEqualToString:@"perfil=1"]) {
         self.dataPath = [string stringByAppendingPathComponent:@"Perfil"];
     }else{
+        
         self.dataPath = [string stringByAppendingPathComponent:self.idf];
+        //NSLog(@"Ruta cache G: %@ ",self.dataPath);
+
     }
     
 	/* check for existence of cache directory */

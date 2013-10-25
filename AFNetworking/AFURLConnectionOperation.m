@@ -770,7 +770,7 @@ didReceiveResponse:(NSURLResponse *)response
 
 - (void)connectionDidFinishLoading:(NSURLConnection __unused *)connection {
     NSData * dataS = [self.outputStream propertyForKey:NSStreamDataWrittenToMemoryStreamKey];
-    NSLog(@"Data Length: %.4f",[dataS length]/1024.0f/1024.0f);
+    //NSLog(@"Data Length: %.4f",[dataS length]/1024.0f/1024.0f);
     self.responseData = [dataS gunzippedData];
     //   NSLog(@"Data  Response Length: %.4f",[self.responseData length]/1024.0f/1024.0f);
     

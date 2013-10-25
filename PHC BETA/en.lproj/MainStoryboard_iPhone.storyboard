@@ -1853,13 +1853,6 @@
                                     <constraint firstAttribute="bottom" secondItem="Kcx-fd-4CR" secondAttribute="bottom" id="e6x-9t-1HN"/>
                                 </constraints>
                             </scrollView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JTe-zG-3HR">
-                                <rect key="frame" x="89" y="28" width="143" height="27"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </label>
                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UAT-77-FXN">
                                 <rect key="frame" x="0.0" y="464" width="320" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1923,10 +1916,10 @@
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
                         <outlet property="barraInferior" destination="UAT-77-FXN" id="TuY-xU-eBB"/>
+                        <outlet property="barraNavegador" destination="F90-uq-hvb" id="bA6-4a-xKc"/>
                         <outlet property="scrollView" destination="Kcx-fd-4CR" id="TEN-rf-isU"/>
                         <outlet property="table" destination="Kcx-fd-4CR" id="hhv-1N-Tyz"/>
                         <outlet property="texto" destination="a9y-3O-Equ" id="rwx-9k-AKI"/>
-                        <outlet property="titulo" destination="JTe-zG-3HR" id="0rW-7t-zXk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PeF-8M-7Aa" userLabel="First Responder" sceneMemberID="firstResponder"/>

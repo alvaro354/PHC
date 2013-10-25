@@ -313,7 +313,8 @@ static UIImage * AFInflatedImageFromResponseWithDataAtScale(NSHTTPURLResponse *r
                         NSLog(@"No borde");
                     }
                     else{
-                        if(image != NULL){
+                        NSLog(@"Width: %f" , image.size.width);
+                        if(image.size.width >0){
                     image= [requestB addBorderToImage:image];
                         }
                         else{
@@ -347,7 +348,13 @@ static UIImage * AFInflatedImageFromResponseWithDataAtScale(NSHTTPURLResponse *r
 #pragma clang diagnostic pop
                 });
             } else {
+                //NSLog(@"Image Enviar");
+                if (image.size.width>0) {
                 success(operation.request, operation.response, image);
+                }
+                else{
+                      success(operation.request, operation.response, nil);
+                }
             }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

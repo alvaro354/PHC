@@ -28,6 +28,7 @@
 -(IBAction)volver:(id)sender;
 -(IBAction)enviar:(id)sender;
 - (void)Mensajes;
+@property (strong, nonatomic) IBOutlet UINavigationItem *barraNavegador;
 @property (retain, nonatomic) IBOutlet UITableView *table;
 @property (retain, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextField *texto;

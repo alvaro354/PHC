@@ -100,7 +100,7 @@
     return self;
 }
 -(void)refrescar:(id)sender{
-    vez=0;
+    
   
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString* string = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"URLCache"];
@@ -114,18 +114,21 @@
     [[NSFileManager defaultManager] removeItemAtPath:dataPath error:nil];
     [[NSFileManager defaultManager] removeItemAtPath:dataPath2 error:nil];
     
-    
+    /*
     for (int i =0; i<[imageURLs count]; i++) {
         [carousel removeItemAtIndex:i animated:NO];
     }
-    
+     */
+    vez=0;
     imageURLs = nil;
+   
     [UrlDatos removeAllObjects];
     Img.image= nil;
-    
+     completado=NO;
+    [imagenesCargadas removeAllObjects];
     [carousel reloadData];
     
-    timer2= [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(act) userInfo:nil repeats: NO];
+   // timer2= [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(act) userInfo:nil repeats: NO];
     [self viewDidLoad];
 }
 
@@ -438,6 +441,7 @@
     
 }
 -(void)CargarImagenes{
+    __block BOOL Error =NO;
     imagenesCargadas = [[NSMutableArray alloc]init];
     AFHTTPClient *httpClient  = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@""]];
     [httpClient.operationQueue setMaxConcurrentOperationCount:1] ;
@@ -455,8 +459,12 @@
                                                               //
                                                               // Save image
                                                               //
-                                                              
-                                                              [imagenesCargadas addObject:image];
+                                                              if (image!=nil) {
+                                                                  [imagenesCargadas addObject:image];
+                                                              }else{
+                                                                  NSLog(@"Image request Cache error!");
+                                                                  Error=YES;
+                                                              }
                                                           }
                                                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                                                               if((error.domain == NSURLErrorDomain) && (error.code == NSURLErrorCancelled))
@@ -488,7 +496,11 @@
                                           //
                                           // Remove blocking dialog, do next tasks
                                           //+
-                                          
+                                          if (Error) {
+                                              [self refrescar:nil];
+
+                                          }
+                                          else{
                                           NSLog(@"Imagenes: %lu", (unsigned long)[imagenesCargadas count]);
                                           
                                           
@@ -502,7 +514,7 @@
                                                [carousel reloadInputViews];
                                                [carousel reloadItemAtIndex:i animated:NO];
                                                }*/
-                                          });
+                                          });}
                                           
                                           
                                       }];
@@ -619,14 +631,19 @@
         //[button addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
     }
     
+    
     if (completado == YES) {
         NSLog(@"Cargando imagen : %lu",(unsigned long)index);
         //  UIImageView * Img = [[UIImageView alloc]initWithImage:[imagenesCargadas objectAtIndex:index]];
-        ((UIImageView *)view).image= [imagenesCargadas objectAtIndex:index];
+        if([imagenesCargadas objectAtIndex:index] != nil){
+            ((UIImageView *)view).image= [imagenesCargadas objectAtIndex:index];
+        }
         //  view.backgroundColor =[UIColor blueColor];
         //    view.layer.borderWidth= 2.0;
         // view.layer.borderColor= [UIColor blackColor].CGColor;
     }
+    
+
     
     
     //  UIImageView *imgv = (UIImageView *)view;

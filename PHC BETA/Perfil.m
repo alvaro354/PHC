@@ -386,6 +386,16 @@
       timer2= [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(act) userInfo:nil repeats: NO];
     [self viewDidLoad];
      */
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString* string = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"URLCache"];
+    NSString * usuarioID = [[NSUserDefaults standardUserDefaults] stringForKey:@"ID_usuario"];
+    NSString * tempS = [[NSString alloc]initWithFormat:@"idF=%@",usuarioID];
+    NSString* dataPath = [string stringByAppendingPathComponent:tempS];
+    
+ //   NSLog(@"Ruta cache: %@ ",dataPath);
+    [[NSFileManager defaultManager] removeItemAtPath:dataPath error:nil];
+
+    
     [imagenesCargadas removeAllObjects];
     completado=NO;
     vez=0;
@@ -763,7 +773,10 @@
                                           //+
                                           if (Error) {
                                               [self refrescar:nil];
-                                          }{
+                                              
+                                              
+                                          }
+                                          else{
                                           NSLog(@"Imagenes: %lu", (unsigned long)[imagenesCargadas count]);
                                     
                                           
