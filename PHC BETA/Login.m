@@ -744,8 +744,8 @@
         imageView.layer.borderColor=[UIColor whiteColor].CGColor;
         imageView.clipsToBounds=YES;
         imageView.layer.cornerRadius = 6.0;
-
-        imageView.image=image;
+        imageView.backgroundColor = [UIColor colorWithPatternImage:image];
+        
         imageView.alpha=0;
         [ImagesViewArray addObject:imageView];
         [vistaFotos addSubview:imageView];
@@ -776,7 +776,7 @@
     UIImage *imagen = [xz objectAtIndex:foto];
     UIImageView *view = [ImagesViewArray objectAtIndex:arc4random() %[ImagesViewArray count]];
         [self fadeView:view fadeOut:YES];
-        view.image=imagen;
+        view.backgroundColor = [UIColor colorWithPatternImage:imagen];
         view.clipsToBounds=YES;
         view.layer.cornerRadius = 8.0;
         [self fadeView:view fadeOut:NO];
