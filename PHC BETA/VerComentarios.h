@@ -23,6 +23,8 @@
     NSMutableArray * URLs;
         NSMutableArray * imagenesCargadas;
     BOOL terminado2;
+    NSString *usuarioPasar;
+        NSString *idUsuarioPasar;
 }
 -(IBAction)recargar:(id)sender;
 -(IBAction)volver:(id)sender;

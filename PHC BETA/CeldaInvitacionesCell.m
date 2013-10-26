@@ -9,7 +9,7 @@
 #import "CeldaInvitacionesCell.h"
 
 @implementation CeldaInvitacionesCell
-@synthesize name, image,datos;
+@synthesize name, image,datos,viewSuperior,vistaSuperiorOculta,bBorrar,bPerfil,sNombre,sUsuarioID,viewInferior;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

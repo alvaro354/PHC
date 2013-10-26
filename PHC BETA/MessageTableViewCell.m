@@ -21,6 +21,7 @@ static UIFont * font = nil;
 @end
 
 @implementation MessageTableViewCell
+@synthesize viewSuperior,vistaSuperiorOculta,bBorrar,bPerfil,sNombre,sUsuarioID,viewInferior;
 
 + (void)initialize
 {
@@ -83,6 +84,10 @@ static UIFont * font = nil;
 
 - (void)setMessage:( Mensajes*)message
 {
+    
+    sUsuarioID= message.IDusuario;
+    sNombre=message.sender;
+    bPerfil.tag=message.sender;
     
 	CGPoint point = CGPointZero;
  NSString * usuarioID = [[NSUserDefaults standardUserDefaults] stringForKey:@"ID_usuario"];

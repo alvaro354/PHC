@@ -177,16 +177,51 @@
     Img.clipsToBounds=YES;
     Img.layer.cornerRadius = 8.0;
     
-    
+    NSURL *urlT ;
     
     //set image URL. AsyncImageView class will then dynamically load the image
      
 
-    NSString *string = [[NSString alloc] initWithFormat:@"%@",UrlP];
+   // NSString *string = [[NSString alloc] initWithString:UrlP];
 
-    
-    NSURL *urlT = [[NSURL alloc]initWithString:string];
-    
+    if (UrlP == Nil || [UrlP isEqualToString:@""]) {
+        NSLog(@"URL vacia Generando...");
+        NSDate* myDate = [NSDate date];
+        NSDateFormatter *df = [NSDateFormatter new];
+        NSDateFormatter *dma = [NSDateFormatter new];
+        [df setDateFormat:@"dd"];
+        [dma setDateFormat:@"dd-mm-yyyy"];
+        
+        NSString* _key = @"alvarol2611995";
+        
+        
+        _key= [_key stringByAppendingString:[df stringFromDate:myDate]];
+        
+        NSString * tokenID = [[NSUserDefaults standardUserDefaults] stringForKey:@"token"];
+        NSString * usuarioID = [[NSUserDefaults standardUserDefaults] stringForKey:@"ID_usuario"];
+        
+        NSString *post2=[NSString stringWithFormat:@"&date=%@",[df stringFromDate:myDate]];
+        NSString *post3=[NSString stringWithFormat:@"&dia=%@",[dma stringFromDate:myDate]];
+        NSString *post4=[NSString stringWithFormat:@"&token=%@",tokenID];
+        NSString *post5 =[NSString stringWithFormat:@"&id=%@",usuarioID];
+        NSString *post6 =[NSString stringWithFormat:@"&perfil=1"];
+        NSString *post7 =[NSString stringWithFormat:@"&vez=0"];
+        
+        NSString *post =[NSString stringWithFormat:@"idF=%@",ID];
+        
+        NSString *hostStr = @"http://lanchosoftware.es/phc/downloadImage.php?";
+        hostStr = [hostStr stringByAppendingString:post];
+        hostStr = [hostStr stringByAppendingString:post2];
+        hostStr = [hostStr stringByAppendingString:post3];
+        hostStr = [hostStr stringByAppendingString:post4];
+        hostStr = [hostStr stringByAppendingString:post5];
+        hostStr = [hostStr stringByAppendingString:post6];
+        hostStr = [hostStr stringByAppendingString:post7];
+urlT = [[NSURL alloc]initWithString:hostStr];
+        
+    }else{
+  urlT = [[NSURL alloc]initWithString:UrlP];
+    }
  
     
     

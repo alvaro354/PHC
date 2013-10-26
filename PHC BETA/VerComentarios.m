@@ -13,7 +13,7 @@
 #import "AFHTTPClient.h"
 #import "AFImageRequestOperation.h"
 #import "ComentariosCell.h"
-
+#import "Amigos.h"
 @interface VerComentarios ()
 
 @end
@@ -445,17 +445,24 @@
     }
 }
 -(void)ArrastrarCelda:(UISwipeGestureRecognizer *)recognizer{
+    
    
     CGPoint swipeLocation = [recognizer locationInView:table];
     NSIndexPath *swipedIndexPath = [table indexPathForRowAtPoint:swipeLocation];
+   
     ComentariosCell *cell = (ComentariosCell*)[table cellForRowAtIndexPath:swipedIndexPath];
-     NSLog(@"Swipe Cell: %@",swipedIndexPath);
+    usuarioPasar= [[NSString alloc]initWithString:cell.sNombre];
+    idUsuarioPasar= [[NSString alloc]initWithString:cell.sUsuarioID];
+   
+    [cell.bPerfil addTarget:self action:@selector(MostrarPerfil:) forControlEvents:UIControlEventTouchUpInside];
+     NSLog(@"Swipe Cell: %@",cell.sNombre);
     if (cell.vistaSuperiorOculta==NO){
 	 NSLog(@"Descolocar");
         [UIView beginAnimations:nil context:(__bridge void *)(cell)];
         [UIView setAnimationDuration:1.0];
         [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
         [UIView setAnimationDelegate:self];
+         cell.viewInferior.hidden=NO;
         
         cell.viewSuperior.frame= CGRectMake(cell.viewSuperior.frame.origin.x-480, cell.viewSuperior.frame.origin.y, cell.viewSuperior.frame.size.width, cell.viewSuperior.frame.size.height);
         cell.viewSuperior.alpha=0.5;
@@ -473,7 +480,7 @@
             
             cell.viewSuperior.frame= CGRectMake(cell.viewSuperior.frame.origin.x+480, cell.viewSuperior.frame.origin.y, cell.viewSuperior.frame.size.width, cell.viewSuperior.frame.size.height);
             cell.viewSuperior.alpha=1;
-            cell.viewInferior.alpha=0.5;
+            cell.viewInferior.hidden=YES;
             [UIView commitAnimations];
 			
 		}
@@ -493,6 +500,30 @@
         
      }
 }
+-(void)MostrarPerfil:(id)sender{
+    [self performSegueWithIdentifier:@"amigosComentarios" sender:self];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"amigosComentarios"]) {
+        
+        UINavigationController *nav = [segue destinationViewController];
+        Amigos *myVC = (Amigos *)nav.topViewController;
+        
+        
+        //NSLog(@"Url: %@ ID: %@ Amigo: %@",URLPasar,Usupasar.ID,Usupasar.usuario);
+        
+        [myVC setAmigo:usuarioPasar];
+        //       [myVC setEstado:Usupasar.Estado];
+        [myVC setID:idUsuarioPasar];
+        [myVC setUrlP:Nil];
+        [myVC setEtiquetas:YES];
+        
+        
+        
+    }
+}
+
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
 {
@@ -511,6 +542,7 @@
     
     if (cell == nil){
 		cell = [[ComentariosCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] ;
+        
     }
     
     
@@ -533,8 +565,9 @@
        
           }}
 
-    
-    
+    cell.viewSuperior.alpha=1;
+    cell.viewInferior.hidden=YES;
+  
     
 	return cell;
     

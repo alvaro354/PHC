@@ -16,7 +16,7 @@
 #import "AsyncImageView.h"
 #import "VerMensajes.h"
 #import "UIImageView+AFNetworking.h"
-
+#import "Amigos.h"
 @interface MensajesViewController ()
 
 @end
@@ -163,6 +163,12 @@
     static NSString *CellIdentifier = @"CeldaInvitaciones";
     CeldaInvitacionesCell *cell = (CeldaInvitacionesCell *)[tableView dequeueReusableCellWithIdentifier:@"CeldaInvitaciones"];
     
+    UISwipeGestureRecognizer* gestureR;
+    gestureR = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(ArrastrarCelda:)];
+    gestureR.direction = UISwipeGestureRecognizerDirectionLeft;
+    [cell addGestureRecognizer:gestureR];
+    
+    
     if (cell == nil) {
         cell = [[CeldaInvitacionesCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -175,7 +181,8 @@
         cell.name.text = items.usuario;
         Mensajes *texto = [items.mensajes lastObject];
         cell.datos.text=texto.Texto;
-        
+        cell.sUsuarioID=items.ID;
+        cell.sNombre=items.usuario;
         NSDate* myDate = [NSDate date];
         NSDateFormatter *df = [NSDateFormatter new];
         NSDateFormatter *dma = [NSDateFormatter new];
@@ -250,6 +257,9 @@
          */
         
     }
+    
+    cell.viewSuperior.alpha=1;
+    cell.viewInferior.hidden=YES;
     return cell;
 
 }
@@ -305,8 +315,90 @@
      [segue.destinationViewController setMensajes:u.mensajes];
          }
      }
+    if ([segue.identifier isEqualToString:@"amigosMensajes"]) {
+        
+        UINavigationController *nav = [segue destinationViewController];
+        Amigos *myVC = (Amigos *)nav.topViewController;
+        
+        
+        //NSLog(@"Url: %@ ID: %@ Amigo: %@",URLPasar,Usupasar.ID,Usupasar.usuario);
+        
+        [myVC setAmigo:usuarioPasar];
+        //       [myVC setEstado:Usupasar.Estado];
+        [myVC setID:idUsuarioPasar];
+        [myVC setUrlP:Nil];
+        [myVC setEtiquetas:YES];
+        
+        
+        
+    }
   
 }
+/*
+-(void)ArrastrarCelda:(UISwipeGestureRecognizer *)recognizer{
+    
+    
+    CGPoint swipeLocation = [recognizer locationInView:self.tableView];
+    NSIndexPath *swipedIndexPath = [self.tableView indexPathForRowAtPoint:swipeLocation];
+    
+    MessageTableViewCell *cell = (MessageTableViewCell*)[self.tableView cellForRowAtIndexPath:swipedIndexPath];
+    
+    usuarioPasar= [[NSString alloc]initWithString:cell.sNombre];
+    idUsuarioPasar= [[NSString alloc]initWithString:cell.sUsuarioID];
+    
+    [cell.bPerfil addTarget:self action:@selector(MostrarPerfil:) forControlEvents:UIControlEventTouchUpInside];
+    NSLog(@"Swipe Cell: %@",cell.sNombre);
+    if (cell.vistaSuperiorOculta==NO){
+        NSLog(@"Descolocar");
+        [UIView beginAnimations:nil context:(__bridge void *)(cell)];
+        [UIView setAnimationDuration:1.0];
+        [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+        [UIView setAnimationDelegate:self];
+        cell.viewInferior.hidden=NO;
+        
+        cell.viewSuperior.frame= CGRectMake(cell.viewSuperior.frame.origin.x-480, cell.viewSuperior.frame.origin.y, cell.viewSuperior.frame.size.width, cell.viewSuperior.frame.size.height);
+        cell.viewSuperior.alpha=0.5;
+        cell.viewInferior.alpha=1;
+        [UIView commitAnimations];
+    }
+    
+    else
+    {
+        NSLog(@"Colocar");
+        [UIView beginAnimations:nil context:(__bridge void *)(cell)];
+        [UIView setAnimationDuration:1.0];
+        [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+        [UIView setAnimationDelegate:self];
+        
+        cell.viewSuperior.frame= CGRectMake(cell.viewSuperior.frame.origin.x+480, cell.viewSuperior.frame.origin.y, cell.viewSuperior.frame.size.width, cell.viewSuperior.frame.size.height);
+        cell.viewSuperior.alpha=1;
+        cell.viewInferior.hidden=YES;
+        [UIView commitAnimations];
+        
+    }
+    
+}
+ */
+- (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag context:(void *)context {
+    MessageTableViewCell *cell = (__bridge  MessageTableViewCell*)context;
+    if (cell.vistaSuperiorOculta==NO){
+        NSLog(@"Ocultar");
+        
+        cell.vistaSuperiorOculta=YES;
+    }
+    else{
+        NSLog(@"Mostrar");
+        
+        cell.vistaSuperiorOculta=NO;
+        
+    }
+}
+-(void)MostrarPerfil:(id)sender{
+    [self performSegueWithIdentifier:@"amigosMensajes" sender:self];
+}
+
+
+
 
 
 

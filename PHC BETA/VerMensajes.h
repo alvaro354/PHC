@@ -19,6 +19,7 @@
     __weak IBOutlet UIView *barraInferior;
     CGRect rect;
     __weak IBOutlet UIToolbar *barraSuperior;
+
 }
 -(IBAction)recargar:(id)sender;
 -(IBAction)volver:(id)sender;

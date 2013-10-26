@@ -18,6 +18,8 @@
       NSMutableArray * arrayMostrar;
     UIRefreshControl *refreshControl ;
     int indexTocado;
+    NSString *usuarioPasar;
+    NSString *idUsuarioPasar;
 }
 -(void)Mensajes;
 @end

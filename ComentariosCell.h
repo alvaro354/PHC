@@ -19,6 +19,12 @@
     
 }
 @property (nonatomic,retain)UIImageView * imagen;
+@property (nonatomic,retain) IBOutlet UILabel * nombre;
+@property (nonatomic,retain)  NSString* sNombre;
+@property (nonatomic,retain)  NSString* sUsuarioID;
+@property (nonatomic,retain) IBOutlet UIButton * bPerfil;
+@property (nonatomic,retain) IBOutlet UIButton * bBorrar;
+@property (nonatomic,retain)Mensajes * mensaje;
 @property (nonatomic)BOOL vistaSuperiorOculta;
 @property (nonatomic,retain)IBOutlet UIView * viewSuperior;
 @property (nonatomic,retain)IBOutlet UIView * viewInferior;

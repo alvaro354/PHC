@@ -11,7 +11,7 @@
 #import "MessageTableViewCell.h"
 #import "SpeechBubbleView.h"
 #import "MensajesParse.h"
-
+#import "Amigos.h"
 
 @interface VerMensajes ()
 
@@ -315,6 +315,11 @@
     
 	MessageTableViewCell* cell =(MessageTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	
+    UISwipeGestureRecognizer* gestureR;
+    gestureR = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(ArrastrarCelda:)];
+    gestureR.direction = UISwipeGestureRecognizerDirectionLeft;
+    [cell addGestureRecognizer:gestureR];
+    
        
     if (cell == nil){
 		cell = [[MessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] ;

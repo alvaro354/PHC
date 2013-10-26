@@ -36,7 +36,7 @@ const CGFloat WrapWidthC = 200;
 
 
 @implementation ComentariosCell
-@synthesize imagen,viewSuperior,vistaSuperiorOculta;
+@synthesize imagen,viewSuperior,vistaSuperiorOculta,nombre,bBorrar,bPerfil,sNombre,sUsuarioID,viewInferior;
 
 + (void)initialize
 {
@@ -73,6 +73,7 @@ const CGFloat WrapWidthC = 200;
         imagen.layer.cornerRadius = 8.0;
         imagen.layer.borderWidth=1.5;
         imagen.layer.borderColor=[UIColor blackColor].CGColor;
+
         [self.contentView addSubview:imagen];
         [self reloadInputViews];
     /*    label = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -152,8 +153,10 @@ const CGFloat WrapWidthC = 200;
 	// We display messages that are sent by the user on the right-hand side of
 	// the screen. Incoming messages are displayed on the left-hand side.
 	
-
+    sUsuarioID= message.IDusuario;
 		nombre.text = message.sender;
+    sNombre=message.sender;
+    bPerfil.tag=message.sender;
 		fecha.textAlignment = NSTextAlignmentRight;
 
 
