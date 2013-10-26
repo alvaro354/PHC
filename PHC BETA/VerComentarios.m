@@ -444,6 +444,56 @@
         return 0;
     }
 }
+-(void)ArrastrarCelda:(UISwipeGestureRecognizer *)recognizer{
+   
+    CGPoint swipeLocation = [recognizer locationInView:table];
+    NSIndexPath *swipedIndexPath = [table indexPathForRowAtPoint:swipeLocation];
+    ComentariosCell *cell = (ComentariosCell*)[table cellForRowAtIndexPath:swipedIndexPath];
+     NSLog(@"Swipe Cell: %@",swipedIndexPath);
+    if (cell.vistaSuperiorOculta==NO){
+	 NSLog(@"Descolocar");
+        [UIView beginAnimations:nil context:(__bridge void *)(cell)];
+        [UIView setAnimationDuration:1.0];
+        [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+        [UIView setAnimationDelegate:self];
+        
+        cell.viewSuperior.frame= CGRectMake(cell.viewSuperior.frame.origin.x-480, cell.viewSuperior.frame.origin.y, cell.viewSuperior.frame.size.width, cell.viewSuperior.frame.size.height);
+        cell.viewSuperior.alpha=0.5;
+        cell.viewInferior.alpha=1;
+        [UIView commitAnimations];
+    }
+		
+		else
+		{
+            NSLog(@"Colocar");
+            [UIView beginAnimations:nil context:(__bridge void *)(cell)];
+            [UIView setAnimationDuration:1.0];
+            [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+            [UIView setAnimationDelegate:self];
+            
+            cell.viewSuperior.frame= CGRectMake(cell.viewSuperior.frame.origin.x+480, cell.viewSuperior.frame.origin.y, cell.viewSuperior.frame.size.width, cell.viewSuperior.frame.size.height);
+            cell.viewSuperior.alpha=1;
+            cell.viewInferior.alpha=0.5;
+            [UIView commitAnimations];
+			
+		}
+  
+}
+- (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag context:(void *)context {
+    ComentariosCell *cell = (__bridge ComentariosCell*)context;
+     if (cell.vistaSuperiorOculta==NO){
+          NSLog(@"Ocultar");
+   
+         cell.vistaSuperiorOculta=YES;
+     }
+     else{
+          NSLog(@"Mostrar");
+   
+         cell.vistaSuperiorOculta=NO;
+        
+     }
+}
+
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
 {
     // NSLog(@"Celda mensajes");
@@ -454,7 +504,7 @@
 	ComentariosCell* cell =(ComentariosCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
     UISwipeGestureRecognizer* gestureR;
-    gestureR = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:nil];
+    gestureR = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(ArrastrarCelda:)];
     gestureR.direction = UISwipeGestureRecognizerDirectionLeft;
     [cell addGestureRecognizer:gestureR];
     

@@ -36,7 +36,7 @@ const CGFloat WrapWidthC = 200;
 
 
 @implementation ComentariosCell
-@synthesize imagen;
+@synthesize imagen,viewSuperior,vistaSuperiorOculta;
 
 + (void)initialize
 {

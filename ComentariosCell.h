@@ -19,6 +19,9 @@
     
 }
 @property (nonatomic,retain)UIImageView * imagen;
+@property (nonatomic)BOOL vistaSuperiorOculta;
+@property (nonatomic,retain)IBOutlet UIView * viewSuperior;
+@property (nonatomic,retain)IBOutlet UIView * viewInferior;
 + (CGSize)sizeForText:(NSString*)text;
 - (void)setMessage:(Mensajes*)message image:(UIImage*)image;
 - (void)setFoto:(UIImage*)image;
