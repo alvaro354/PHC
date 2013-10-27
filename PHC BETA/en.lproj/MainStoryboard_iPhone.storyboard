@@ -591,18 +591,18 @@
                         <viewControllerLayoutGuide type="bottom" id="k8K-Ub-GsA"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="k14-PE-I0b">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ATy-i2-BkD">
-                                <rect key="frame" x="20" y="21" width="120" height="120"/>
+                                <rect key="frame" x="20" y="18" width="120" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="6G7-os-NPC"/>
                                     <constraint firstAttribute="width" constant="120" id="QLi-Ui-lNL"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VX3-3K-RkJ">
-                                <rect key="frame" x="148" y="27" width="109" height="34"/>
+                                <rect key="frame" x="148" y="24" width="109" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="bIg-zd-a9H"/>
                                     <constraint firstAttribute="width" constant="109" id="xDI-y4-IAF"/>
@@ -619,7 +619,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ObB-rc-QP7" customClass="iCarousel">
-                                <rect key="frame" x="-5" y="156" width="330" height="287"/>
+                                <rect key="frame" x="-5" y="121" width="330" height="238"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="mbn-V2-cwR" id="EE5-BE-0jj"/>
@@ -627,7 +627,7 @@
                                 </connections>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ine-UZ-JeV">
-                                <rect key="frame" x="238" y="103" width="62" height="44"/>
+                                <rect key="frame" x="238" y="92" width="62" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal">
@@ -2023,8 +2023,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="ql0-co-PNP"/>
         <segue reference="JcZ-x2-OEq"/>
-        <segue reference="IeD-Sg-Pes"/>
+        <segue reference="c52-t3-zUx"/>
+        <segue reference="ql0-co-PNP"/>
     </inferredMetricsTieBreakers>
 </document>

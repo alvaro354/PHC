@@ -37,8 +37,8 @@
     //[self.navigationController.navigationBar setBackgroundColor:[UIColor colorWithRed:0.17 green:0.522 blue:0.725 alpha:1]];
     
     self.viewControllers = [NSArray arrayWithObjects:
-                            [self viewControllerWithTabTitle:@"Amigos" image:[UIImage imageNamed:@"112-group.png"]],
-                            [self viewControllerWithTabTitle:@"News" image:[UIImage imageNamed:@"news.png"]],
+                            [self viewControllerWithTabTitle:@"Amigos" image:[[UIImage imageNamed:@"112-group.png"]imageWithRenderingMode:UIImageRenderingModeAutomatic]],
+                            [self viewControllerWithTabTitle:@"News" image:[[UIImage imageNamed:@"news.png"]imageWithRenderingMode:UIImageRenderingModeAutomatic]],
                             [self viewControllerWithTabTitle:@"Collage" image:nil],
                             [self viewControllerWithTabTitle:@"Popular" image:[UIImage imageNamed:@"28-star.png"]],
                             [self viewControllerWithTabTitle:@"User" image:[UIImage imageNamed:@"123-id-card.png"]],

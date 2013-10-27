@@ -106,10 +106,19 @@
     
      self.tabBar.barTintColor =[UIColor colorWithRed:0.35 green:0.67 blue:0.985 alpha:1];
     
+    
      self.tabBar.tintColor = [UIColor whiteColor];
    //  self.tabBar.backgroundColor = [UIColor whiteColor];
     
-     self.tabBar.selectedImageTintColor =[UIColor redColor];
+     self.tabBar.translucent = false;
+  
+    [[UITabBarItem appearance] setTitleTextAttributes:@{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Bold" size:10.0f],
+                                                        NSForegroundColorAttributeName : [UIColor colorWithRed:.5 green:.5 blue:.5 alpha:1]
+                                                        } forState:UIControlStateNormal];
+    
+    [[UITabBarItem appearance] setTitleTextAttributes:@{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Bold" size:10.0f],
+                                                        NSForegroundColorAttributeName : [UIColor whiteColor]
+                                                        } forState:UIControlStateSelected];
     
     
     UIViewController* secondViewController;
