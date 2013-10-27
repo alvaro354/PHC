@@ -480,7 +480,7 @@
             
             cell.viewSuperior.frame= CGRectMake(cell.viewSuperior.frame.origin.x+480, cell.viewSuperior.frame.origin.y, cell.viewSuperior.frame.size.width, cell.viewSuperior.frame.size.height);
             cell.viewSuperior.alpha=1;
-            cell.viewInferior.hidden=YES;
+            cell.viewInferior.alpha=0.1;
             [UIView commitAnimations];
 			
 		}
@@ -495,7 +495,7 @@
      }
      else{
           NSLog(@"Mostrar");
-   
+    cell.viewInferior.hidden=YES;
          cell.vistaSuperiorOculta=NO;
         
      }

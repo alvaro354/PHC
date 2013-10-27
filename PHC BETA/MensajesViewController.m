@@ -334,14 +334,14 @@
     }
   
 }
-/*
+
 -(void)ArrastrarCelda:(UISwipeGestureRecognizer *)recognizer{
     
     
     CGPoint swipeLocation = [recognizer locationInView:self.tableView];
     NSIndexPath *swipedIndexPath = [self.tableView indexPathForRowAtPoint:swipeLocation];
     
-    MessageTableViewCell *cell = (MessageTableViewCell*)[self.tableView cellForRowAtIndexPath:swipedIndexPath];
+   CeldaInvitacionesCell *cell = (CeldaInvitacionesCell*)[self.tableView cellForRowAtIndexPath:swipedIndexPath];
     
     usuarioPasar= [[NSString alloc]initWithString:cell.sNombre];
     idUsuarioPasar= [[NSString alloc]initWithString:cell.sUsuarioID];
@@ -372,15 +372,15 @@
         
         cell.viewSuperior.frame= CGRectMake(cell.viewSuperior.frame.origin.x+480, cell.viewSuperior.frame.origin.y, cell.viewSuperior.frame.size.width, cell.viewSuperior.frame.size.height);
         cell.viewSuperior.alpha=1;
-        cell.viewInferior.hidden=YES;
+        cell.viewInferior.alpha=0.1;
         [UIView commitAnimations];
         
     }
     
 }
- */
+
 - (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag context:(void *)context {
-    MessageTableViewCell *cell = (__bridge  MessageTableViewCell*)context;
+   CeldaInvitacionesCell *cell = (__bridge  CeldaInvitacionesCell*)context;
     if (cell.vistaSuperiorOculta==NO){
         NSLog(@"Ocultar");
         
@@ -388,7 +388,7 @@
     }
     else{
         NSLog(@"Mostrar");
-        
+        cell.viewInferior.hidden=YES;
         cell.vistaSuperiorOculta=NO;
         
     }
