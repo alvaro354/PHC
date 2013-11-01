@@ -7,6 +7,7 @@
 //
 
 #import "PhcAppDelegate.h"
+#include <math.h>
 
 @implementation PhcAppDelegate
 @synthesize window;
@@ -14,6 +15,30 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+   /* NSMutableArray * array= [[NSMutableArray alloc]init];
+    NSData *datos = [[NSUserDefaults standardUserDefaults] objectForKey:@"Localizaciones"];
+    if (datos!= NULL) {
+        array = [NSKeyedUnarchiver unarchiveObjectWithData:datos];
+    }
+   
+    
+    for (Localizacion * lz in array) {
+        NSLog(@"Localizacion: %@ %@ Lugar : %@ Hora: %@" ,lz.longitude,lz.latitude,lz.Lugar,lz.hora);
+      
+        
+    }*/
+    
+    
+    
+    
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    locationManager.distanceFilter = kCLDistanceFilterNone;
+    locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+     [locationManager startMonitoringSignificantLocationChanges];
+     [locationManager stopMonitoringSignificantLocationChanges];
+  
+    
     [Flurry startSession:@"N55J4NXHT6NYDMNF2B3W"];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
@@ -45,6 +70,8 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     application.applicationIconBadgeNumber = 0;
+    
+    [locationManager stopMonitoringSignificantLocationChanges];
 }
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
@@ -111,6 +138,10 @@
     }
     });
 }
+
+    
+
+    
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -121,7 +152,8 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-}
+     [locationManager startMonitoringSignificantLocationChanges];
+   }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
@@ -133,6 +165,86 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+-(void) locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    BOOL isInBackground = NO;
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground)
+    {
+        isInBackground = YES;
+    }
+    
+    NSMutableArray * array= [[NSMutableArray alloc]init];
+    NSData *datos = [[NSUserDefaults standardUserDefaults] objectForKey:@"Localizaciones"];
+    if (datos!= NULL) {
+    array = [NSKeyedUnarchiver unarchiveObjectWithData:datos];
+    }
+    NSMutableArray * array2= [[NSMutableArray alloc]init];
+    NSData *datos2 = [[NSUserDefaults standardUserDefaults] objectForKey:@"Frecuentes"];
+    if (datos2!= NULL) {
+        array2 = [NSKeyedUnarchiver unarchiveObjectWithData:datos2];
+    }
+  CLGeocoder*  geocoder = [[CLGeocoder alloc] init];
+    
+
+    
+    Localizacion*l =[[Localizacion alloc]init];
+    l.latitude=newLocation.coordinate.latitude;
+    l.longitude=newLocation.coordinate.longitude;
+    [geocoder reverseGeocodeLocation:newLocation completionHandler:
+     ^(NSArray* placemarks, NSError* error){
+         if ([placemarks count] > 0)
+         {
+             l.Lugar = [placemarks objectAtIndex:0];
+             
+         }
+     }];
+    
+    NSDate *now = [NSDate date];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *comps = [calendar components:NSHourCalendarUnit + NSMinuteCalendarUnit fromDate:now];
+    
+    l.hora= comps;
+    CLLocation *location1 = [[CLLocation alloc] initWithLatitude:oldLocation.coordinate.latitude longitude:oldLocation.coordinate.longitude];
+    for (int i =0 ; i < [array count] ; i ++) {
+      //  NSLog(@"Localizacion: %@ %@ Lugar : %@ Hora: %@" ,lz.longitude,lz.latitude,lz.Lugar,lz.hora);
+ 
+        Localizacion * lz = [array objectAtIndex:i];
+        CLLocation *location2 = [[CLLocation alloc] initWithLatitude:lz.latitude longitude:lz.longitude ];
+        CLLocationDistance distance = [location1 distanceFromLocation:location2];
+    
+        if (distance < 100) {
+            NSLog(@"Lugar Repetido");
+            Localizacion*l =[[Localizacion alloc]init];
+            l.latitude=lz.latitude;
+            l.longitude=lz.longitude;
+            l.Lugar=lz.Lugar;
+            l.hora=comps;
+            float tiempo = abs(l.hora.hour-comps.hour)+ (abs(l.hora.minute-comps.minute)%60)+ 0.01*abs(l.hora.minute-comps.minute);
+            l.tiempo=tiempo;
+            
+            [array replaceObjectAtIndex:i withObject:l];
+            [array2 addObject:l];
+        }
+        
+    }
+
+
+
+    
+    
+    NSData *datos3 = [NSKeyedArchiver archivedDataWithRootObject:array];
+    [[NSUserDefaults standardUserDefaults] setObject:datos3 forKey:@"Localizaciones"];
+    NSData *datos4 = [NSKeyedArchiver archivedDataWithRootObject:array];
+    [[NSUserDefaults standardUserDefaults] setObject:datos4 forKey:@"Frecuentes"];
+    
+    // Handle location updates as normal, code omitted for brevity.
+    // The omitted code should determine whether to reject the location update for being too
+    // old, too close to the previous one, too inaccurate and so forth according to your own
+    // application design.
+   
+    
 }
 
 @end

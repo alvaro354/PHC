@@ -206,6 +206,8 @@
 		B1A004901707605300BEBC80 /* cameraTabBarItemCopia@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B1A0048E1707605300BEBC80 /* cameraTabBarItemCopia@2x.png */; };
 		B1A00493170871EA00BEBC80 /* Perfil.m in Sources */ = {isa = PBXBuildFile; fileRef = B1A00492170871E700BEBC80 /* Perfil.m */; };
 		B1A00494170871EA00BEBC80 /* Perfil.m in Sources */ = {isa = PBXBuildFile; fileRef = B1A00492170871E700BEBC80 /* Perfil.m */; };
+		B1AD7EEE182285030019C17F /* Localizacion.m in Sources */ = {isa = PBXBuildFile; fileRef = B1AD7EED182285030019C17F /* Localizacion.m */; };
+		B1AD7EF0182289C40019C17F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1AD7EEF182289C40019C17F /* CoreLocation.framework */; };
 		B1AEA2351771F8DA009AE6E1 /* SprinFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B1AEA2341771F8DA009AE6E1 /* SprinFlowLayout.m */; };
 		B1B0A27116E75B1D00B2AD7E /* 123-id-card.png in Resources */ = {isa = PBXBuildFile; fileRef = B1B0A27016E75B1D00B2AD7E /* 123-id-card.png */; };
 		B1B0A27316E75B2800B2AD7E /* 112-group.png in Resources */ = {isa = PBXBuildFile; fileRef = B1B0A27216E75B2800B2AD7E /* 112-group.png */; };
@@ -510,6 +512,9 @@
 		B1A0048E1707605300BEBC80 /* cameraTabBarItemCopia@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cameraTabBarItemCopia@2x.png"; sourceTree = "<group>"; };
 		B1A00491170871E500BEBC80 /* Perfil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Perfil.h; sourceTree = "<group>"; };
 		B1A00492170871E700BEBC80 /* Perfil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Perfil.m; sourceTree = "<group>"; };
+		B1AD7EEC182285030019C17F /* Localizacion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Localizacion.h; sourceTree = "<group>"; };
+		B1AD7EED182285030019C17F /* Localizacion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Localizacion.m; sourceTree = "<group>"; };
+		B1AD7EEF182289C40019C17F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		B1AEA2331771F8DA009AE6E1 /* SprinFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SprinFlowLayout.h; sourceTree = "<group>"; };
 		B1AEA2341771F8DA009AE6E1 /* SprinFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SprinFlowLayout.m; sourceTree = "<group>"; };
 		B1B0A27016E75B1D00B2AD7E /* 123-id-card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "123-id-card.png"; sourceTree = "<group>"; };
@@ -590,6 +595,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1AD7EF0182289C40019C17F /* CoreLocation.framework in Frameworks */,
 				B1A004451702127A00BEBC80 /* SystemConfiguration.framework in Frameworks */,
 				B1D2B7E8173EB6E0007CE785 /* ImageIO.framework in Frameworks */,
 				B1FEAB6D16C7F873003BABBB /* libz.dylib in Frameworks */,
@@ -713,6 +719,7 @@
 		B15CBF9D1696F350000AAED0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B1AD7EEF182289C40019C17F /* CoreLocation.framework */,
 				B15CC0B816974055000AAED0 /* QuartzCore.framework */,
 				B15CC0B61697403F000AAED0 /* libsqlite3.0.dylib */,
 				B15CC0B416974036000AAED0 /* MobileCoreServices.framework */,
@@ -806,6 +813,8 @@
 				B1026894177F016700A346BD /* VerComentarios.m */,
 				B12D917B177DAE2200774613 /* ComentariosPase.h */,
 				B12D917C177DAE2200774613 /* ComentariosPase.m */,
+				B1AD7EEC182285030019C17F /* Localizacion.h */,
+				B1AD7EED182285030019C17F /* Localizacion.m */,
 				B15CBFA51696F350000AAED0 /* Supporting Files */,
 			);
 			path = "PHC BETA";
@@ -1184,7 +1193,7 @@
 						DevelopmentTeam = H8JAPR3HSV;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
-								enabled = 0;
+								enabled = 1;
 							};
 							com.apple.Keychain = {
 								enabled = 0;
@@ -1409,6 +1418,7 @@
 				B1764F8C17CD104E00845AF8 /* AFJSONRequestOperation.m in Sources */,
 				B1B5CC4F1697485F000F4F69 /* UsuariosVCP.m in Sources */,
 				B1B5CC5216974984000F4F69 /* Usuario.m in Sources */,
+				B1AD7EEE182285030019C17F /* Localizacion.m in Sources */,
 				B1764F9017CD104E00845AF8 /* AFXMLRequestOperation.m in Sources */,
 				B1FEAB5A16C673F4003BABBB /* Amigos.m in Sources */,
 				B1FEAB5D16C67BF3003BABBB /* Login.m in Sources */,

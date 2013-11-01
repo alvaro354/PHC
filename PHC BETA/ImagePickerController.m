@@ -494,6 +494,11 @@ static BOOL iadHidden = NO;
     [self reloadInputViews];
 }
 
+-(void)toqueMantenido:(UILongPressGestureRecognizer*)reconocedor{
+    NSLog(@"Prueba de toque");
+}
+
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
      [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:NO];
@@ -501,7 +506,11 @@ static BOOL iadHidden = NO;
             [imageView setImage:[UIImage imageNamed:@"IphoneRetina@2X.png"]];
     
             [self.view insertSubview:imageView atIndex:0];
-            
+    
+    UILongPressGestureRecognizer *GEST=[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(toqueMantenido:)];
+    GEST.minimumPressDuration=0.5;
+     
+    [self.view addGestureRecognizer:GEST];
 
 
     Imagenes =[[NSMutableArray alloc]init];

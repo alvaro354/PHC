@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "Flurry.h"
 #import "Reachability.h"
+#import <CoreLocation/CoreLocation.h>
+#import "Localizacion.h"
 
 
-@interface PhcAppDelegate : NSObject <UIApplicationDelegate, UINavigationControllerDelegate>
+@interface PhcAppDelegate : NSObject <UIApplicationDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate>
 {
     UIWindow *window;
     UINavigationController *navigationController;
@@ -19,6 +21,7 @@
     NSTimer *timer;
     NSTimer *timer2;
     UIAlertView *alert;
+    CLLocationManager* locationManager ;
 }
 -(void)internet;
 -(void)alert;
