@@ -131,7 +131,7 @@
 
     }
     if(tag==1){
-        secondViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"login2"];
+        secondViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Populares"];
         secondViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:title image:image tag:tag];
         
     }

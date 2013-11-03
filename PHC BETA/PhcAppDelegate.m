@@ -15,16 +15,43 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-   /* NSMutableArray * array= [[NSMutableArray alloc]init];
+   /*
+       CLLocation *location1 = [[CLLocation alloc] initWithLatitude:120.001 longitude:40.0];
+    CLLocation *location2 = [[CLLocation alloc] initWithLatitude:120.0 longitude:40.0 ];
+    CLLocationDistance distance = [location1 distanceFromLocation:location2];
+    
+   
+        NSLog(@"Distancia: %f",distance);
+    
+    */
+    
+    NSMutableArray * array= [[NSMutableArray alloc]init];
     NSData *datos = [[NSUserDefaults standardUserDefaults] objectForKey:@"Localizaciones"];
     if (datos!= NULL) {
         array = [NSKeyedUnarchiver unarchiveObjectWithData:datos];
     }
-   
     
+   /* NSMutableArray * array2= [[NSMutableArray alloc]init];
+    NSData *datos2 = [[NSUserDefaults standardUserDefaults] objectForKey:@"Frecuentes"];
+    if (datos2!= NULL) {
+        array2 = [NSKeyedUnarchiver unarchiveObjectWithData:datos2];
+    }
+    */
+  // NSLog(@"Numero Datos: %d" ,[datos length]);
+     NSLog(@"Numero Localizaciones: %d" ,[array count]);
+    //NSLog(@"Numero Frecuentes: %d" ,[array2 count]);
+      NSLog(@"Localizaciones" );
     for (Localizacion * lz in array) {
-        NSLog(@"Localizacion: %@ %@ Lugar : %@ Hora: %@" ,lz.longitude,lz.latitude,lz.Lugar,lz.hora);
-      
+        
+        NSLog(@"Localizacion: %f %f Lugar : %@ " ,lz.longitude,lz.latitude,lz.Lugar);
+   
+        
+    }
+    /* NSLog(@"Localizacion Frecuentes" );
+    for (Localizacion * lz in array2) {
+       
+        NSLog(@"Localizacion: %f %f Lugar : %@ Tiemp: %f" ,lz.longitude,lz.latitude,lz.Lugar,lz.tiempo);
+        
         
     }*/
     
@@ -175,11 +202,16 @@
         isInBackground = YES;
     }
     
+    anadir =YES;
     NSMutableArray * array= [[NSMutableArray alloc]init];
     NSData *datos = [[NSUserDefaults standardUserDefaults] objectForKey:@"Localizaciones"];
     if (datos!= NULL) {
     array = [NSKeyedUnarchiver unarchiveObjectWithData:datos];
     }
+    
+ //   NSLog(@"Numero Datos: %d" ,[datos length]);
+    NSLog(@"Numero Localizaciones: %d" ,[array count]);
+    
     NSMutableArray * array2= [[NSMutableArray alloc]init];
     NSData *datos2 = [[NSUserDefaults standardUserDefaults] objectForKey:@"Frecuentes"];
     if (datos2!= NULL) {
@@ -189,14 +221,16 @@
     
 
     
-    Localizacion*l =[[Localizacion alloc]init];
-    l.latitude=newLocation.coordinate.latitude;
-    l.longitude=newLocation.coordinate.longitude;
+    Localizacion*l2 =[[Localizacion alloc]init];
+    l2.latitude=newLocation.coordinate.latitude;
+    l2.longitude=newLocation.coordinate.longitude;
+    
     [geocoder reverseGeocodeLocation:newLocation completionHandler:
      ^(NSArray* placemarks, NSError* error){
          if ([placemarks count] > 0)
          {
-             l.Lugar = [placemarks objectAtIndex:0];
+             CLPlacemark *placemark = [placemarks objectAtIndex:0];
+             l2.Lugar =placemark.name;
              
          }
      }];
@@ -205,7 +239,9 @@
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *comps = [calendar components:NSHourCalendarUnit + NSMinuteCalendarUnit fromDate:now];
     
-    l.hora= comps;
+    l2.hora= comps;
+    
+    
     CLLocation *location1 = [[CLLocation alloc] initWithLatitude:oldLocation.coordinate.latitude longitude:oldLocation.coordinate.longitude];
     for (int i =0 ; i < [array count] ; i ++) {
       //  NSLog(@"Localizacion: %@ %@ Lugar : %@ Hora: %@" ,lz.longitude,lz.latitude,lz.Lugar,lz.hora);
@@ -213,32 +249,60 @@
         Localizacion * lz = [array objectAtIndex:i];
         CLLocation *location2 = [[CLLocation alloc] initWithLatitude:lz.latitude longitude:lz.longitude ];
         CLLocationDistance distance = [location1 distanceFromLocation:location2];
-    
-        if (distance < 100) {
+        
+        if ((0< distance && distance < 300.0) || (lz.latitude ==l2.latitude && lz.longitude==l2.longitude)) {
+             anadir=NO;
+             NSLog(@"Distancia: %f",distance);
+             NSLog(@"Tiempo: %f",lz.tiempo);
             NSLog(@"Lugar Repetido");
-            Localizacion*l =[[Localizacion alloc]init];
-            l.latitude=lz.latitude;
-            l.longitude=lz.longitude;
-            l.Lugar=lz.Lugar;
-            l.hora=comps;
-            float tiempo = abs(l.hora.hour-comps.hour)+ (abs(l.hora.minute-comps.minute)%60)+ 0.01*abs(l.hora.minute-comps.minute);
-            l.tiempo=tiempo;
+            Localizacion*l3 =[[Localizacion alloc]init];
+            l3.latitude=lz.latitude;
+            l3.longitude=lz.longitude;
+            l3.Lugar=lz.Lugar;
+            l3.hora=comps;
+            float tiempo = abs(l3.hora.hour-lz.hora.hour)+ (abs(l3.hora.minute-lz.hora.minute)/60)+ 0.01*abs(l3.hora.minute-lz.hora.minute);
+            l3.tiempo=tiempo;
             
-            [array replaceObjectAtIndex:i withObject:l];
-            [array2 addObject:l];
+            [array replaceObjectAtIndex:i withObject:l3];
+            break;
+           /* if ([array2 containsObject:lz]) {
+           NSLog(@"Lo Contiene");
+            [array2 replaceObjectAtIndex:[array2 indexOfObjectIdenticalTo:lz] withObject:l2];
+            }
+            else{
+                
+                NSLog(@"Nuevo Ubicacion Frecuente");
+                [array2 addObject:lz];
+            }*/
+            
+            
+            
         }
+        if (i== [array count]-1 && anadir== YES) {
+            NSLog(@"Nueva Localizacion");
+            [array addObject:l2];
+            break;
+        
+        }
+      
         
     }
-
-
-
     
+    if ([array count]==0) {
+        NSLog(@"Nueva Localizacion 0");
+        [array addObject:l2];
+    }
     
+ 
+
+
+
     NSData *datos3 = [NSKeyedArchiver archivedDataWithRootObject:array];
     [[NSUserDefaults standardUserDefaults] setObject:datos3 forKey:@"Localizaciones"];
-    NSData *datos4 = [NSKeyedArchiver archivedDataWithRootObject:array];
+    NSData *datos4 = [NSKeyedArchiver archivedDataWithRootObject:array2];
     [[NSUserDefaults standardUserDefaults] setObject:datos4 forKey:@"Frecuentes"];
     
+    [[NSUserDefaults standardUserDefaults]synchronize];
     // Handle location updates as normal, code omitted for brevity.
     // The omitted code should determine whether to reject the location update for being too
     // old, too close to the previous one, too inaccurate and so forth according to your own

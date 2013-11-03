@@ -76,7 +76,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kIl-L1-dVX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-838" y="-1254"/>
+            <point key="canvasLocation" x="-630" y="-1249"/>
         </scene>
         <!--Navigation Controller - login2-->
         <scene sceneID="d0U-PD-gGm">
@@ -344,7 +344,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KpP-Zx-DSa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1498" y="-251"/>
+            <point key="canvasLocation" x="2024" y="-251"/>
         </scene>
         <!--Login - Principal-->
         <scene sceneID="nxH-qD-Co1">
@@ -468,6 +468,66 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IWi-F0-qPM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-969" y="-836"/>
+        </scene>
+        <!--Populares View Controller-->
+        <scene sceneID="VHx-Bd-0Ar">
+            <objects>
+                <viewController storyboardIdentifier="PopularesVC" id="dWu-hA-VfS" customClass="PopularesViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="MGx-nO-RdM"/>
+                        <viewControllerLayoutGuide type="bottom" id="v8z-Un-R92"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="IBS-y4-rvc">
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WM3-n8-z5r">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ccd-WK-ZZS" customClass="PopularesView">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tAB-ek-KUt" customClass="ImagenView">
+                                                <rect key="frame" x="7" y="6" width="150" height="220"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SNp-Gl-aLg" customClass="ImagenView">
+                                                <rect key="frame" x="162" y="6" width="150" height="220"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tOh-3X-UfA" customClass="ImagenView">
+                                                <rect key="frame" x="162" y="230" width="150" height="220"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5p9-Wg-wCW" customClass="ImagenView">
+                                                <rect key="frame" x="7" y="230" width="150" height="220"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="F1" destination="tAB-ek-KUt" id="CkH-xi-ICv"/>
+                                            <outlet property="F2" destination="SNp-Gl-aLg" id="ipy-iK-DzM"/>
+                                            <outlet property="F3" destination="5p9-Wg-wCW" id="eXc-0U-9A9"/>
+                                            <outlet property="F4" destination="tOh-3X-UfA" id="Ygj-cB-IdL"/>
+                                        </connections>
+                                    </view>
+                                </subviews>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="9qq-q6-QXd"/>
+                    <connections>
+                        <outlet property="ScrollView" destination="WM3-n8-z5r" id="ze9-x1-n7s"/>
+                        <outlet property="ViewFotos" destination="ccd-WK-ZZS" id="O1r-9c-iAp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e3J-23-Dbx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="182" y="-240"/>
         </scene>
         <!--Navigation Controller - Item-->
         <scene sceneID="hY7-rd-Ivc">
@@ -1436,6 +1496,7 @@
                         <segue destination="V2L-XN-56v" kind="relationship" relationship="viewControllers" id="wXV-qT-bha"/>
                         <segue destination="1Es-gE-fxq" kind="relationship" relationship="viewControllers" id="DKt-R4-3u8"/>
                         <segue destination="FVr-gR-YdO" kind="push" id="DAS-wN-mcg"/>
+                        <segue destination="jDf-L2-F87" kind="relationship" relationship="viewControllers" id="8jl-rh-srq"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EcX-yU-6H8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1531,7 +1592,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bnz-zc-s6F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="972" y="-251"/>
+            <point key="canvasLocation" x="1498" y="-251"/>
         </scene>
         <!--Privados View Controller-->
         <scene sceneID="pXU-BL-Y02">
@@ -2004,6 +2065,27 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y2h-oA-pmx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2459" y="-2501"/>
+        </scene>
+        <!--Navigation Controller - Populares-->
+        <scene sceneID="8Zr-XR-m8f">
+            <objects>
+                <navigationController storyboardIdentifier="Populares" title="Populares" automaticallyAdjustsScrollViewInsets="NO" id="jDf-L2-F87" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="6Cd-gT-Jkv"/>
+                    <toolbarItems/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="RXl-lU-MAg">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="dWu-hA-VfS" kind="relationship" relationship="rootViewController" id="9cQ-P6-mGN"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qql-Hc-oXa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-376" y="-251"/>
         </scene>
     </scenes>
     <resources>

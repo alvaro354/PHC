@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		B100B41417429DCC0098DCF1 /* SubirImagen.m in Sources */ = {isa = PBXBuildFile; fileRef = B100B41317429DCC0098DCF1 /* SubirImagen.m */; };
 		B1026895177F016700A346BD /* VerComentarios.m in Sources */ = {isa = PBXBuildFile; fileRef = B1026894177F016700A346BD /* VerComentarios.m */; };
+		B109B8651826AC31000B4272 /* ImagenView.m in Sources */ = {isa = PBXBuildFile; fileRef = B109B8641826AC31000B4272 /* ImagenView.m */; };
+		B109B8681826AC87000B4272 /* PopularesView.m in Sources */ = {isa = PBXBuildFile; fileRef = B109B8671826AC87000B4272 /* PopularesView.m */; };
+		B109B86B1826AE91000B4272 /* PopularesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B109B86A1826AE91000B4272 /* PopularesViewController.m */; };
 		B10EABC317F9ADB4007E7ADE /* NSDataGZipAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B10EABC217F9ADB4007E7ADE /* NSDataGZipAdditions.m */; };
 		B115493F17778004006E0A24 /* EtiquetasViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B115493E17778004006E0A24 /* EtiquetasViewController.m */; };
 		B1157069177E4EA400C43827 /* libFlurry_4.2.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1157068177E4EA400C43827 /* libFlurry_4.2.2.a */; };
@@ -263,6 +266,12 @@
 		B100B41317429DCC0098DCF1 /* SubirImagen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubirImagen.m; sourceTree = "<group>"; };
 		B1026893177F016700A346BD /* VerComentarios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerComentarios.h; sourceTree = "<group>"; };
 		B1026894177F016700A346BD /* VerComentarios.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerComentarios.m; sourceTree = "<group>"; };
+		B109B8631826AC31000B4272 /* ImagenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagenView.h; sourceTree = "<group>"; };
+		B109B8641826AC31000B4272 /* ImagenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagenView.m; sourceTree = "<group>"; };
+		B109B8661826AC87000B4272 /* PopularesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularesView.h; sourceTree = "<group>"; };
+		B109B8671826AC87000B4272 /* PopularesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularesView.m; sourceTree = "<group>"; };
+		B109B8691826AE91000B4272 /* PopularesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularesViewController.h; sourceTree = "<group>"; };
+		B109B86A1826AE91000B4272 /* PopularesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularesViewController.m; sourceTree = "<group>"; };
 		B10EABC117F9ADB4007E7ADE /* NSDataGZipAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDataGZipAdditions.h; sourceTree = "<group>"; };
 		B10EABC217F9ADB4007E7ADE /* NSDataGZipAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDataGZipAdditions.m; sourceTree = "<group>"; };
 		B115493D17778004006E0A24 /* EtiquetasViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EtiquetasViewController.h; sourceTree = "<group>"; };
@@ -628,6 +637,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B109B8621826ABE5000B4272 /* Novedades */ = {
+			isa = PBXGroup;
+			children = (
+				B109B8631826AC31000B4272 /* ImagenView.h */,
+				B109B8641826AC31000B4272 /* ImagenView.m */,
+				B109B8661826AC87000B4272 /* PopularesView.h */,
+				B109B8671826AC87000B4272 /* PopularesView.m */,
+				B109B8691826AE91000B4272 /* PopularesViewController.h */,
+				B109B86A1826AE91000B4272 /* PopularesViewController.m */,
+			);
+			name = Novedades;
+			sourceTree = "<group>";
+		};
 		B1157066177E4EA400C43827 /* Flurry */ = {
 			isa = PBXGroup;
 			children = (
@@ -815,6 +837,7 @@
 				B12D917C177DAE2200774613 /* ComentariosPase.m */,
 				B1AD7EEC182285030019C17F /* Localizacion.h */,
 				B1AD7EED182285030019C17F /* Localizacion.m */,
+				B109B8621826ABE5000B4272 /* Novedades */,
 				B15CBFA51696F350000AAED0 /* Supporting Files */,
 			);
 			path = "PHC BETA";
@@ -1407,6 +1430,8 @@
 				B1B5CC4116974804000F4F69 /* SBJsonStreamParserAdapter.m in Sources */,
 				B1764F8A17CD104E00845AF8 /* AFHTTPRequestOperation.m in Sources */,
 				B11D92FA17D1311F006AD5B4 /* Cache.m in Sources */,
+				B109B8651826AC31000B4272 /* ImagenView.m in Sources */,
+				B109B86B1826AE91000B4272 /* PopularesViewController.m in Sources */,
 				B1B5CC4216974804000F4F69 /* SBJsonStreamParserState.m in Sources */,
 				B1B5CC4316974804000F4F69 /* SBJsonStreamWriter.m in Sources */,
 				B1B5CC4416974804000F4F69 /* SBJsonStreamWriterAccumulator.m in Sources */,
@@ -1444,6 +1469,7 @@
 				B1A00463170212BB00BEBC80 /* UIAlertView+MKNetworkKitAdditions.m in Sources */,
 				B1A00464170212BB00BEBC80 /* UIImageView+MKNetworkKitAdditions.m in Sources */,
 				B1A00465170212BB00BEBC80 /* MKNetworkEngine.m in Sources */,
+				B109B8681826AC87000B4272 /* PopularesView.m in Sources */,
 				B1A00466170212BB00BEBC80 /* MKNetworkOperation.m in Sources */,
 				B1764F8F17CD104E00845AF8 /* AFURLConnectionOperation.m in Sources */,
 				B1764F8917CD104E00845AF8 /* AFHTTPClient.m in Sources */,

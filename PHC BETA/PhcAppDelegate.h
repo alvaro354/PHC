@@ -22,6 +22,7 @@
     NSTimer *timer2;
     UIAlertView *alert;
     CLLocationManager* locationManager ;
+    BOOL anadir;
 }
 -(void)internet;
 -(void)alert;
