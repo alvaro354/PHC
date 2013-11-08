@@ -8,6 +8,7 @@
 
 #import "PhcAppDelegate.h"
 #include <math.h>
+#import "Dia.h"
 
 @implementation PhcAppDelegate
 @synthesize window;
@@ -27,10 +28,60 @@
     
     NSMutableArray * array= [[NSMutableArray alloc]init];
     NSData *datos = [[NSUserDefaults standardUserDefaults] objectForKey:@"Localizaciones"];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSDate *now = [NSDate date];
+    dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"] ;
+    [dateFormatter setDateFormat:@"EEEE"];
+    NSLog(@"Day Name : %@", [dateFormatter stringFromDate:now]);
+ 
+    if (datos== NULL) {
+        Dia * day = [[Dia alloc]init];
+        day.Lugares= [[NSMutableArray alloc]init];
+        day.DiaSemana=@"Monday";
+        [array addObject:day];
+        Dia * day2 = [[Dia alloc]init];
+        day2.Lugares= [[NSMutableArray alloc]init];
+        day2.DiaSemana=@"Tuesday";
+        [array addObject:day2];
+        Dia * day3 = [[Dia alloc]init];
+        day3.Lugares= [[NSMutableArray alloc]init];
+        day3.DiaSemana=@"Wednesday";
+        [array addObject:day3];
+        Dia * day4 = [[Dia alloc]init];
+        day4.Lugares= [[NSMutableArray alloc]init];
+        day4.DiaSemana=@"Thursday";
+        [array addObject:day4];
+        Dia * day5 = [[Dia alloc]init];
+        day5.Lugares= [[NSMutableArray alloc]init];
+        day5.DiaSemana=@"Friday";
+        [array addObject:day5];
+        Dia * day6 = [[Dia alloc]init];
+        day6.Lugares= [[NSMutableArray alloc]init];
+        day6.DiaSemana=@"Saturday";
+        [array addObject:day6];
+        Dia * day7 = [[Dia alloc]init];
+        day7.Lugares= [[NSMutableArray alloc]init];
+        day7.DiaSemana=@"Sunday";
+        [array addObject:day7];
+        NSData *datos3 = [NSKeyedArchiver archivedDataWithRootObject:array];
+        [[NSUserDefaults standardUserDefaults] setObject:datos3 forKey:@"Localizaciones"];
+        
+        
+    }
+
     if (datos!= NULL) {
         array = [NSKeyedUnarchiver unarchiveObjectWithData:datos];
     }
     
+    
+    for (int i =0; i <[array count];i++) {
+        Dia * day = [array objectAtIndex:i];
+      
+        for (Localizacion *lz in day.Lugares ) {
+             NSLog(@"Dia: %@ Localizacion: %f %f Lugar : %@  Hora: %ld Tiempo: %f" ,day.DiaSemana,lz.latitude,lz.longitude,lz.Lugar,(long)lz.hora.hour,lz.tiempo);
+        }
+        
+    }
    /* NSMutableArray * array2= [[NSMutableArray alloc]init];
     NSData *datos2 = [[NSUserDefaults standardUserDefaults] objectForKey:@"Frecuentes"];
     if (datos2!= NULL) {
@@ -38,16 +89,16 @@
     }
     */
   // NSLog(@"Numero Datos: %d" ,[datos length]);
-     NSLog(@"Numero Localizaciones: %d" ,[array count]);
+   /*  NSLog(@"Numero Localizaciones: %d" ,[array count]);
     //NSLog(@"Numero Frecuentes: %d" ,[array2 count]);
       NSLog(@"Localizaciones" );
     for (Localizacion * lz in array) {
         
-        NSLog(@"Localizacion: %f %f Lugar : %@ " ,lz.longitude,lz.latitude,lz.Lugar);
+        NSLog(@"Localizacion: %f %f Lugar : %@  Hora: %ld Tiempo: %f" ,lz.latitude,lz.longitude,lz.Lugar,(long)lz.hora.hour,lz.tiempo);
    
         
     }
-    /* NSLog(@"Localizacion Frecuentes" );
+     NSLog(@"Localizacion Frecuentes" );
     for (Localizacion * lz in array2) {
        
         NSLog(@"Localizacion: %f %f Lugar : %@ Tiemp: %f" ,lz.longitude,lz.latitude,lz.Lugar,lz.tiempo);
@@ -55,7 +106,7 @@
         
     }*/
     
-    
+
     
     
     locationManager = [[CLLocationManager alloc] init];
@@ -196,6 +247,14 @@
 
 -(void) locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
+    NSLog(@"Nueva Ubicacion");
+   
+    CLLocationDistance distance = [newLocation distanceFromLocation:oldLocation];
+      NSLog(@"Distancia de Separacion: %f",distance );
+    //Comprobar que la distancia es superior a 200
+    if (distance > 200) {
+
+    
     BOOL isInBackground = NO;
     if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground)
     {
@@ -203,112 +262,107 @@
     }
     
     anadir =YES;
-    NSMutableArray * array= [[NSMutableArray alloc]init];
-    NSData *datos = [[NSUserDefaults standardUserDefaults] objectForKey:@"Localizaciones"];
-    if (datos!= NULL) {
-    array = [NSKeyedUnarchiver unarchiveObjectWithData:datos];
-    }
     
- //   NSLog(@"Numero Datos: %d" ,[datos length]);
-    NSLog(@"Numero Localizaciones: %d" ,[array count]);
     
-    NSMutableArray * array2= [[NSMutableArray alloc]init];
-    NSData *datos2 = [[NSUserDefaults standardUserDefaults] objectForKey:@"Frecuentes"];
-    if (datos2!= NULL) {
-        array2 = [NSKeyedUnarchiver unarchiveObjectWithData:datos2];
-    }
-  CLGeocoder*  geocoder = [[CLGeocoder alloc] init];
-    
-
-    
-    Localizacion*l2 =[[Localizacion alloc]init];
-    l2.latitude=newLocation.coordinate.latitude;
-    l2.longitude=newLocation.coordinate.longitude;
-    
-    [geocoder reverseGeocodeLocation:newLocation completionHandler:
-     ^(NSArray* placemarks, NSError* error){
-         if ([placemarks count] > 0)
-         {
-             CLPlacemark *placemark = [placemarks objectAtIndex:0];
-             l2.Lugar =placemark.name;
-             
-         }
-     }];
-    
+    CLGeocoder*  geocoder = [[CLGeocoder alloc] init];
+    NSMutableArray * arrayDias= [[NSMutableArray alloc]init];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"] ;
     NSDate *now = [NSDate date];
+    [dateFormatter setDateFormat:@"EEEE"];
+    [dateFormatter stringFromDate:now];
+    
+ 
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *comps = [calendar components:NSHourCalendarUnit + NSMinuteCalendarUnit fromDate:now];
     
-    l2.hora= comps;
-    
-    
-    CLLocation *location1 = [[CLLocation alloc] initWithLatitude:oldLocation.coordinate.latitude longitude:oldLocation.coordinate.longitude];
-    for (int i =0 ; i < [array count] ; i ++) {
-      //  NSLog(@"Localizacion: %@ %@ Lugar : %@ Hora: %@" ,lz.longitude,lz.latitude,lz.Lugar,lz.hora);
- 
-        Localizacion * lz = [array objectAtIndex:i];
-        CLLocation *location2 = [[CLLocation alloc] initWithLatitude:lz.latitude longitude:lz.longitude ];
-        CLLocationDistance distance = [location1 distanceFromLocation:location2];
+    NSData *datos = [[NSUserDefaults standardUserDefaults] objectForKey:@"Localizaciones"];
         
-        if ((0< distance && distance < 300.0) || (lz.latitude ==l2.latitude && lz.longitude==l2.longitude)) {
-             anadir=NO;
-             NSLog(@"Distancia: %f",distance);
-             NSLog(@"Tiempo: %f",lz.tiempo);
-            NSLog(@"Lugar Repetido");
-            Localizacion*l3 =[[Localizacion alloc]init];
-            l3.latitude=lz.latitude;
-            l3.longitude=lz.longitude;
-            l3.Lugar=lz.Lugar;
-            l3.hora=comps;
-            float tiempo = abs(l3.hora.hour-lz.hora.hour)+ (abs(l3.hora.minute-lz.hora.minute)/60)+ 0.01*abs(l3.hora.minute-lz.hora.minute);
-            l3.tiempo=tiempo;
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSData * dataTemp = [userDefaults objectForKey:@"Temporal"];
+        
+        arrayDias = [NSKeyedUnarchiver unarchiveObjectWithData:datos];
+   //NSLog(@"Data Temp Length: %d" ,[dataTemp length]);
+	//[userDefaults setObject:myObject forKey:@"Temporal"];
+    
+    if (datos!= NULL) {
+    
+        if (dataTemp == NULL) {
+             NSLog(@"Generado Temporal 1º");
+            Localizacion * lTemporalGuardar=[[Localizacion alloc]init];
+            lTemporalGuardar.latitude=newLocation.coordinate.latitude;
+            lTemporalGuardar.longitude=newLocation.coordinate.longitude;
+            lTemporalGuardar.hora=comps;
             
-            [array replaceObjectAtIndex:i withObject:l3];
-            break;
-           /* if ([array2 containsObject:lz]) {
-           NSLog(@"Lo Contiene");
-            [array2 replaceObjectAtIndex:[array2 indexOfObjectIdenticalTo:lz] withObject:l2];
-            }
-            else{
+            [geocoder reverseGeocodeLocation:newLocation completionHandler:
+             ^(NSArray* placemarks, NSError* error){
+                 if ([placemarks count] > 0)
+                 {
+                     CLPlacemark *placemark = [placemarks objectAtIndex:0];
+                     lTemporalGuardar.Lugar =placemark.name;
+                     
+                 }
+             }];
+            NSData *dataT = [NSKeyedArchiver archivedDataWithRootObject:lTemporalGuardar];
+            
+           [userDefaults setObject:dataT forKey:@"Temporal"];
+        }
+        else{
+ 
+    Localizacion * lTemporal =  [NSKeyedUnarchiver unarchiveObjectWithData:dataTemp];
+            float tiempo= abs(comps.hour-lTemporal.hora.hour)+ (abs(comps.minute-lTemporal.hora.minute)/60)+ 0.01*abs(comps.minute-lTemporal.hora.minute);
+             NSLog(@"Tiempo: %.2f Horas.Minutos" ,tiempo);
+            if (tiempo>0.10) {
                 
-                NSLog(@"Nuevo Ubicacion Frecuente");
-                [array2 addObject:lz];
-            }*/
-            
-            
-            
-        }
-        if (i== [array count]-1 && anadir== YES) {
-            NSLog(@"Nueva Localizacion");
-            [array addObject:l2];
-            break;
+                //Falta Añadir A el Dia
+                [dateFormatter setDateFormat:@"EEEE"];
+               
+                for (int i =0; i <[arrayDias count];i++) {
+                    Dia * day = [arrayDias objectAtIndex:i];
+                 //   NSLog(@"Dia %@ %@",day.DiaSemana,[dateFormatter stringFromDate:now]);
+                    if ([day.DiaSemana isEqualToString: [dateFormatter stringFromDate:now]]) {
+                        NSLog(@"Añadido Al Dia");
+                        [day.Lugares addObject:lTemporal];
+                        [arrayDias replaceObjectAtIndex:i withObject:day];
+                        break;
+                        
+                    }
+                }
+
+                
+                
+                Localizacion * lTemporalGuardar=[[Localizacion alloc]init];
+                lTemporalGuardar.latitude=newLocation.coordinate.latitude;
+                lTemporalGuardar.longitude=newLocation.coordinate.longitude;
+                lTemporalGuardar.hora=comps;
+                
+                [geocoder reverseGeocodeLocation:newLocation completionHandler:
+                 ^(NSArray* placemarks, NSError* error){
+                     if ([placemarks count] > 0)
+                     {
+                         CLPlacemark *placemark = [placemarks objectAtIndex:0];
+                         lTemporalGuardar.Lugar =placemark.name;
+                         
+                     }
+                 }];
+                
+                NSData *dataT = [NSKeyedArchiver archivedDataWithRootObject:lTemporalGuardar];
+                
+                [userDefaults setObject:dataT forKey:@"Temporal"];
+                NSData *datos3 = [NSKeyedArchiver archivedDataWithRootObject:arrayDias];
+                [[NSUserDefaults standardUserDefaults] setObject:datos3 forKey:@"Localizaciones"];
+             NSLog(@"Temporal Cambiado");
+                
+            }
         
-        }
-      
-        
-    }
-    
-    if ([array count]==0) {
-        NSLog(@"Nueva Localizacion 0");
-        [array addObject:l2];
-    }
-    
- 
 
-
-
-    NSData *datos3 = [NSKeyedArchiver archivedDataWithRootObject:array];
-    [[NSUserDefaults standardUserDefaults] setObject:datos3 forKey:@"Localizaciones"];
-    NSData *datos4 = [NSKeyedArchiver archivedDataWithRootObject:array2];
-    [[NSUserDefaults standardUserDefaults] setObject:datos4 forKey:@"Frecuentes"];
-    
     [[NSUserDefaults standardUserDefaults]synchronize];
     // Handle location updates as normal, code omitted for brevity.
     // The omitted code should determine whether to reject the location update for being too
     // old, too close to the previous one, too inaccurate and so forth according to your own
     // application design.
    
-    
+        }   }}
 }
 
 @end

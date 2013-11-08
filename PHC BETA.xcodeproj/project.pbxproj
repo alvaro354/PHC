@@ -232,6 +232,7 @@
 		B1B5CC4C16974827000F4F69 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = B1B5CC4B16974826000F4F69 /* Cell.m */; };
 		B1B5CC4F1697485F000F4F69 /* UsuariosVCP.m in Sources */ = {isa = PBXBuildFile; fileRef = B1B5CC4E1697485F000F4F69 /* UsuariosVCP.m */; };
 		B1B5CC5216974984000F4F69 /* Usuario.m in Sources */ = {isa = PBXBuildFile; fileRef = B1B5CC5116974983000F4F69 /* Usuario.m */; };
+		B1B6D332182C04AD002C7444 /* Dia.m in Sources */ = {isa = PBXBuildFile; fileRef = B1B6D331182C04AD002C7444 /* Dia.m */; };
 		B1C3F7E716DEA8C7000B8D15 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = B1C3F7E416DEA8C7000B8D15 /* NSData+Base64.m */; };
 		B1C3F7E816DEA8C7000B8D15 /* StringEncryption.m in Sources */ = {isa = PBXBuildFile; fileRef = B1C3F7E516DEA8C7000B8D15 /* StringEncryption.m */; };
 		B1D2B7E8173EB6E0007CE785 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1D2B7E7173EB6E0007CE785 /* ImageIO.framework */; };
@@ -566,6 +567,8 @@
 		B1B5CC4E1697485F000F4F69 /* UsuariosVCP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsuariosVCP.m; sourceTree = "<group>"; };
 		B1B5CC5016974983000F4F69 /* Usuario.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Usuario.h; sourceTree = "<group>"; };
 		B1B5CC5116974983000F4F69 /* Usuario.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Usuario.m; sourceTree = "<group>"; };
+		B1B6D330182C04AD002C7444 /* Dia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dia.h; sourceTree = "<group>"; };
+		B1B6D331182C04AD002C7444 /* Dia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dia.m; sourceTree = "<group>"; };
 		B1C3F7E316DEA8C7000B8D15 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		B1C3F7E416DEA8C7000B8D15 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		B1C3F7E516DEA8C7000B8D15 /* StringEncryption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringEncryption.m; sourceTree = "<group>"; };
@@ -837,6 +840,8 @@
 				B12D917C177DAE2200774613 /* ComentariosPase.m */,
 				B1AD7EEC182285030019C17F /* Localizacion.h */,
 				B1AD7EED182285030019C17F /* Localizacion.m */,
+				B1B6D330182C04AD002C7444 /* Dia.h */,
+				B1B6D331182C04AD002C7444 /* Dia.m */,
 				B109B8621826ABE5000B4272 /* Novedades */,
 				B15CBFA51696F350000AAED0 /* Supporting Files */,
 			);
@@ -1475,6 +1480,7 @@
 				B1764F8917CD104E00845AF8 /* AFHTTPClient.m in Sources */,
 				B1A00467170212BB00BEBC80 /* Reachability.m in Sources */,
 				B1A0046A1702135A00BEBC80 /* fileUploadEngine.m in Sources */,
+				B1B6D332182C04AD002C7444 /* Dia.m in Sources */,
 				B1A0046D1702420A00BEBC80 /* ViewCargando.m in Sources */,
 				B1A004801703758000BEBC80 /* LoadEngine.m in Sources */,
 				B1A004841705F8D000BEBC80 /* AnadirViewController.m in Sources */,
