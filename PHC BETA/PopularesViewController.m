@@ -25,6 +25,7 @@
     return self;
 }
 
+
 - (void)viewDidLoad
 {
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
@@ -35,8 +36,15 @@
     
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
     
-    [self imagenes];
+ 
+    viewFotosA= [[NSMutableArray alloc]init];
+    [viewFotosA addObject:ViewFotos];
+    ScrollView.scrollEnabled=YES;
     
+    [self Anadir];
+    
+    
+       [self imagenes];
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
@@ -196,7 +204,7 @@
                  NSString *post5 =[NSString stringWithFormat:@"&id=%@",usuarioID];
                  NSString *post6 =[NSString stringWithFormat:@"&perfil=0"];
                  NSString *post7 =[NSString stringWithFormat:@"&vez=%@",vezS];
-                 NSString *post8 =[NSString stringWithFormat:@"&borde=1"];
+                 NSString *post8 =[NSString stringWithFormat:@"&borde=0"];
                  
                  NSString *post =[NSString stringWithFormat:@"&idF=%@",usuarioID];
                  
@@ -209,7 +217,7 @@
                  hostStr = [hostStr stringByAppendingString:post];
                  hostStr = [hostStr stringByAppendingString:post7];
                  hostStr = [hostStr stringByAppendingString:post6];
-                 
+                 hostStr = [hostStr stringByAppendingString:post8];
                  
                  
                  //  hostStr = [hostStr stringByAppendingString:post6];
@@ -224,9 +232,12 @@
 
                  dispatch_async(dispatch_get_main_queue(), ^{
                      
-                     ViewFotos= [[PopularesView alloc] init];
+                    // ViewFotos= [[PopularesView alloc] init];
+                     for (PopularesView * pV in viewFotosA) {
+                         [pV ImagenesDe:URLs];
+                     }
                      [ViewFotos ImagenesDe:URLs];
-                     [self.view addSubview:ViewFotos];
+                    
                      
                      
                  });
@@ -240,6 +251,19 @@
              
              
          }); }];
+    
+    
+}
+-(void)Anadir{
+    PopularesView * popularesTemp = [ViewFotos mutableCopy];
+    PopularesView * ViewFotosT= [viewFotosA lastObject];
+    
+    popularesTemp.frame=CGRectMake(ViewFotosT.frame.origin.x, ViewFotosT.frame.origin.y+ViewFotosT.frame.size.height, ViewFotosT.frame.size.width, ViewFotosT.frame.size.height);
+    [viewFotosA addObject:popularesTemp];
+    ScrollView.contentSize = CGSizeMake(self.view.frame.size.width,  ViewFotosT.frame.size.height * [viewFotosA count]);
+    NSLog(@"Scroll : %f %f",ScrollView.contentSize.width,ScrollView.contentSize.height);
+    [ScrollView  setNeedsDisplay];
+    [ScrollView addSubview:popularesTemp];
     
     
 }

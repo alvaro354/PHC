@@ -12,7 +12,7 @@
 #import "ImagenView.h"
 
 @implementation PopularesView
-@synthesize F1,F2,F3,F4;
+@synthesize F1,F2,F3,F4,Marcos;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -32,13 +32,22 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
+    /*
+     F1=[[ImagenView alloc]init];
+     F2=[[ImagenView alloc]init];
+     F3=[[ImagenView alloc]init];
+     F4=[[ImagenView alloc]init];
+     */
+    
     Marcos= [[NSMutableArray alloc]initWithObjects:F1,F2,F3,F4,nil];
+    NSLog(@"Iniciando");
+
     for (ImagenView * IV in Marcos) {
+       
         IV.backgroundColor= [UIColor grayColor];
-        IV.layer.borderWidth=1;
-        IV.layer.borderColor=[UIColor blackColor].CGColor;
-        
-        [self reloadInputViews];
+        IV.layer.borderWidth=0.2;
+        IV.layer.borderColor=[UIColor blueColor].CGColor;
+        [IV setNeedsDisplay];
 }
 }
 
@@ -133,12 +142,30 @@
 
 -(void)colocarImagenes{
     NSLog(@"Colocando");
-    for (int i=0 ; i < [Imagenes count]; i++) {
+
+    for (int i=0 ; i < 4; i++) {
+            NSLog(@"Colocando: %d",i);
         ImagenView * IV = [Marcos objectAtIndex:i];
-        IV.image= [Imagenes objectAtIndex:i];
-        //[self addSubview:IV];
+        [IV setImage:[Imagenes objectAtIndex:i]];
+      //  IV.backgroundColor=[UIColor whiteColor];
+        [IV setNeedsDisplay];
+        [self setNeedsDisplay];
+        [super setNeedsDisplay];
+
     }
-    [self reloadInputViews];
+ 
+}
+-(id)mutableCopyWithZone:(NSZone *)zone
+{
+    // We'll ignore the zone for now
+    PopularesView *another = [[PopularesView alloc] init];
+    another.F1 = F1;
+    another.F2 = F2;
+    another.F3 = F3;
+    another.F4 = F4;
+    another.backgroundColor= [UIColor redColor];
+    
+    return another;
 }
 
 @end

@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "PopularesView.h"
 
-@interface PopularesViewController : UIViewController
+@interface PopularesViewController : UIViewController{
+    NSMutableArray * viewFotosA;
+    
+}
 
 
 @property (strong, nonatomic) IBOutlet UIScrollView *ScrollView;

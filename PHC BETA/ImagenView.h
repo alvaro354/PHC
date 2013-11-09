@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ImagenView : UIImageView
+@interface ImagenView : UIImageView <NSCopying>
 
 @property(nonatomic,retain) NSString * url;
 

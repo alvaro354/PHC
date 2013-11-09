@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PopularesView : UIView{
+@interface PopularesView : UIView <NSCopying>{
     
-    NSMutableArray * Marcos;
+
     NSMutableArray * Imagenes;
 }
 
@@ -21,6 +21,7 @@
 @property(nonatomic,retain) IBOutlet UIImageView * F2;
 @property(nonatomic,retain) IBOutlet UIImageView * F3;
 @property(nonatomic,retain) IBOutlet UIImageView * F4;
+@property(nonatomic,retain) NSMutableArray * Marcos;
 
 
 @end

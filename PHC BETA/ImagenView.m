@@ -16,8 +16,18 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        
     }
     return self;
+}
+-(id)copyWithZone:(NSZone *)zone
+{
+    // We'll ignore the zone for now
+   ImagenView *another = [[ImagenView alloc] init];
+ 
+    
+    
+    return another;
 }
 
 /*
