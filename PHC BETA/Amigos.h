@@ -53,7 +53,7 @@
 @property (nonatomic, retain) __block NSTimer *timer;
 @property (nonatomic, retain) NSTimer *timer2;
 @property(nonatomic,strong) NSString * Amigo;
-@property(nonatomic,strong) NSString *UrlP;
+@property(nonatomic,strong) NSString *UrlPasada;
 @property(nonatomic,strong) NSString * ID;
 @property(nonatomic) BOOL Etiquetas;
 @property(nonatomic,strong)IBOutlet UILabel *Estado;

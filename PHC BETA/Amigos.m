@@ -23,7 +23,7 @@
 @end
 
 @implementation Amigos
-@synthesize Amigo,Name,Estado,Imagen,Img,timer,timer2,imageURLs,ID,UrlP;
+@synthesize Amigo,Name,Estado,Imagen,Img,timer,timer2,imageURLs,ID,UrlPasada;
 @synthesize carousel;
 @synthesize items, wrap, flOperation,flUploadEngine,Etiquetas;
 
@@ -177,14 +177,18 @@
     Img.clipsToBounds=YES;
     Img.layer.cornerRadius = 8.0;
     
-    NSURL *urlT ;
+  
     
     //set image URL. AsyncImageView class will then dynamically load the image
      
+    NSLog(@">>>>>>>>>>>>>>");
+    NSString *string = [[NSString alloc] initWithString:(NSString*)UrlPasada];
+   
+    NSURL *urlT =[[NSURL alloc]initWithString:string];
+   
 
-   // NSString *string = [[NSString alloc] initWithString:UrlP];
-
-    if (UrlP == Nil || [UrlP isEqualToString:@""]) {
+    if (string == Nil || [string isEqualToString:@""]) {
+       
         NSLog(@"URL vacia Generando...");
         NSDate* myDate = [NSDate date];
         NSDateFormatter *df = [NSDateFormatter new];
@@ -219,17 +223,13 @@
         hostStr = [hostStr stringByAppendingString:post7];
 urlT = [[NSURL alloc]initWithString:hostStr];
         
-    }else{
-  urlT = [[NSURL alloc]initWithString:UrlP];
     }
- 
     
-    
+
    
     // now lets make the connection to the web
     
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setURL:urlT];
+   
     
     __block Amigos * SelfB = self;
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:urlT];

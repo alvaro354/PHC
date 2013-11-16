@@ -811,7 +811,7 @@
      [segue.destinationViewController setAmigo:amigo ];
          [segue.destinationViewController setEstado:Estado];
             [segue.destinationViewController setID:IDa];
-         [segue.destinationViewController setUrlP:UrlA];
+         [segue.destinationViewController setUrlPasada:UrlA];
 
      }
      
@@ -821,7 +821,8 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
    
-    UrlA= [imageURLs objectAtIndex:indexPath.item];
+    UrlA=[[NSString alloc]initWithFormat:@"%@",[imageURLs objectAtIndex:indexPath.item]];
+   
      NSLog(@"%@ URL PASAR", UrlA);
     item = [arrayBuscar objectAtIndex:indexPath.item];
     amigo = item.usuario;

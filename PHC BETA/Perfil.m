@@ -716,6 +716,8 @@
     
 }
 -(void)CargarImagenes{
+         NSLog(@"Obteniendo");
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
       __block BOOL Error=NO;
     imagenesCargadas = [[NSMutableArray alloc]init];
     AFHTTPClient *httpClient  = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@""]];
@@ -794,6 +796,8 @@
                                           
                                           
                                       }];
+        
+    });
 }
 
 

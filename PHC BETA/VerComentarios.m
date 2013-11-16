@@ -516,7 +516,7 @@
         [myVC setAmigo:usuarioPasar];
         //       [myVC setEstado:Usupasar.Estado];
         [myVC setID:idUsuarioPasar];
-        [myVC setUrlP:Nil];
+        [myVC setUrlPasada:Nil];
         [myVC setEtiquetas:YES];
         
         

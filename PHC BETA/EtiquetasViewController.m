@@ -210,7 +210,7 @@
        [myVC setAmigo:Usupasar.usuario];
  //       [myVC setEstado:Usupasar.Estado];
         [myVC setID:Usupasar.ID];
-        [myVC setUrlP:URLPasar];
+        [myVC setUrlPasada:URLPasar];
         [myVC setEtiquetas:YES];
         
       

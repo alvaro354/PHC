@@ -20,14 +20,33 @@
     }
     return self;
 }
--(id)copyWithZone:(NSZone *)zone
-{
-    // We'll ignore the zone for now
-   ImagenView *another = [[ImagenView alloc] init];
- 
+-(void) iniciarConUrl:(NSURL*)url{
+    NSString *fileName = [url absoluteString];
+    fileName = [fileName stringByReplacingOccurrencesOfString:@"/" withString:@"."];
+    fileName = [fileName stringByReplacingOccurrencesOfString:@"?" withString:@"&"];
     
     
-    return another;
+    /*
+    
+    NSArray *array = [fileName componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"&"]];
+    for (NSString * st in array) {
+        //   NSLog(@"%@",st);
+        if ([st rangeOfString:@"idF"].location != NSNotFound) {
+            self.idf= [NSString stringWithString:st];
+        }
+        if ([st rangeOfString:@"vez"].location != NSNotFound) {
+            self.vez= [NSString stringWithString:st];
+        }
+        if ([st rangeOfString:@"perfil"].location != NSNotFound) {
+            self.perfil= [NSString stringWithString:st];
+        }
+    }
+    
+    
+*/
+    
+    
+    
 }
 
 /*

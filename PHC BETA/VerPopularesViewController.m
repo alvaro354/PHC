@@ -7,6 +7,7 @@
 //
 
 #import "VerPopularesViewController.h"
+#import"UIImageView+AFNetworking.h"
 
 @interface VerPopularesViewController ()
 
@@ -294,14 +295,13 @@
     
 	PopularesView* cell =(PopularesView*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    
+    __block PopularesView* cellB=cell;
     NSLog(@"Celda");
     
     if (cell == nil){
 		cell = [[PopularesView alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] ;
         cell.Imagen=[[ImagenView alloc]init];
-       
-    
+        
         
     }
     
@@ -309,8 +309,18 @@
         NSLog(@"Terminado");
         
        //   [cell ImagenesDe:[URLs objectAtIndex:indexPath.row]];
+       
+        //ASIGNAR MEDIANTE LA URL LOS DATOS  A LA IMAGEN
         
-        [cell performSelectorInBackground:@selector(ImagenesDe:) withObject:[URLs objectAtIndex:indexPath.row]];
+        [cell.Imagen iniciarConUrl:[URLs objectAtIndex:indexPath.row]];
+        [cell.Imagen setImageWithURLRequest:[NSURLRequest requestWithURL:[URLs objectAtIndex:indexPath.row]]
+                           placeholderImage:nil
+                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                        cellB.Imagen.image = image;
+                                    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                        NSLog(@"Failed to download image: %@", error);
+                                    }];
+
         
         
     }
