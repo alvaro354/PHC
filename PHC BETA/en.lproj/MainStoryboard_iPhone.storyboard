@@ -370,62 +370,6 @@
             </objects>
             <point key="canvasLocation" x="-969" y="-836"/>
         </scene>
-        <!--Populares View Controller-->
-        <scene sceneID="VHx-Bd-0Ar">
-            <objects>
-                <viewController storyboardIdentifier="PopularesVC" id="dWu-hA-VfS" customClass="PopularesViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="IBS-y4-rvc">
-                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="WM3-n8-z5r">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" id="ccd-WK-ZZS" customClass="PopularesView">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="tAB-ek-KUt" customClass="ImagenView">
-                                                <rect key="frame" x="7" y="6" width="150" height="220"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            </imageView>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="SNp-Gl-aLg" customClass="ImagenView">
-                                                <rect key="frame" x="162" y="6" width="150" height="220"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            </imageView>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="tOh-3X-UfA" customClass="ImagenView">
-                                                <rect key="frame" x="162" y="230" width="150" height="220"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            </imageView>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="5p9-Wg-wCW" customClass="ImagenView">
-                                                <rect key="frame" x="7" y="230" width="150" height="220"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            </imageView>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <outlet property="F1" destination="tAB-ek-KUt" id="CkH-xi-ICv"/>
-                                            <outlet property="F2" destination="SNp-Gl-aLg" id="ipy-iK-DzM"/>
-                                            <outlet property="F3" destination="5p9-Wg-wCW" id="eXc-0U-9A9"/>
-                                            <outlet property="F4" destination="tOh-3X-UfA" id="Ygj-cB-IdL"/>
-                                        </connections>
-                                    </view>
-                                </subviews>
-                            </scrollView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="9qq-q6-QXd"/>
-                    <connections>
-                        <outlet property="ScrollView" destination="WM3-n8-z5r" id="ze9-x1-n7s"/>
-                        <outlet property="ViewFotos" destination="ccd-WK-ZZS" id="O1r-9c-iAp"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="e3J-23-Dbx" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="182" y="-240"/>
-        </scene>
         <!--Navigation Controller - Item-->
         <scene sceneID="hY7-rd-Ivc">
             <objects>
@@ -1670,12 +1614,50 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="dWu-hA-VfS" kind="relationship" relationship="rootViewController" id="9cQ-P6-mGN"/>
+                        <segue destination="2ue-NH-FKj" kind="relationship" relationship="rootViewController" id="4iA-Ss-XUp"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qql-Hc-oXa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-376" y="-251"/>
+        </scene>
+        <!--Ver Populares View Controller-->
+        <scene sceneID="Qxz-yh-GrW">
+            <objects>
+                <tableViewController id="2ue-NH-FKj" customClass="VerPopularesViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="433" sectionHeaderHeight="22" sectionFooterHeight="22" id="cYW-dG-9OL">
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PopularesView" rowHeight="433" id="SfJ-u4-wDo" customClass="PopularesView">
+                                <rect key="frame" x="0.0" y="22" width="320" height="433"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SfJ-u4-wDo" id="VSg-ZV-RsI">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="432"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="RDn-qP-rKA" customClass="ImagenView">
+                                            <rect key="frame" x="20" y="13" width="280" height="406"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        </imageView>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="Imagen" destination="RDn-qP-rKA" id="tgA-fX-us4"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="2ue-NH-FKj" id="hHe-UY-H1E"/>
+                            <outlet property="delegate" destination="2ue-NH-FKj" id="Ii5-ps-RqK"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="lBN-Mq-7RB"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mm6-2k-ZFE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="244" y="-238"/>
         </scene>
     </scenes>
     <resources>

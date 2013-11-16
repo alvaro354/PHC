@@ -7,20 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ImagenView.h"
 
-@interface PopularesView : UIView <NSCopying>{
+@interface PopularesView : UITableViewCell{
     
 
     NSMutableArray * Imagenes;
+  
 }
+-(void)ImagenesDe:(NSURL*)URLS;
 
--(void)ImagenesDe:(NSMutableArray*)URLS;
 
-
-@property(nonatomic,retain) IBOutlet UIImageView * F1;
-@property(nonatomic,retain) IBOutlet UIImageView * F2;
-@property(nonatomic,retain) IBOutlet UIImageView * F3;
-@property(nonatomic,retain) IBOutlet UIImageView * F4;
+@property(nonatomic,retain) IBOutlet ImagenView* Imagen;
+@property(nonatomic)  BOOL descargado;
 @property(nonatomic,retain) NSMutableArray * Marcos;
 
 

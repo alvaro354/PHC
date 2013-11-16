@@ -12,20 +12,18 @@
 #import "ImagenView.h"
 
 @implementation PopularesView
-@synthesize F1,F2,F3,F4,Marcos;
+@synthesize Imagen,descargado;
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-    self = [super initWithFrame:frame];
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
-     
-        
+
+
         
     }
     return self;
 }
-
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -39,40 +37,37 @@
      F4=[[ImagenView alloc]init];
      */
     
-    Marcos= [[NSMutableArray alloc]initWithObjects:F1,F2,F3,F4,nil];
-    NSLog(@"Iniciando");
+  
+    
+        Imagen.backgroundColor= [UIColor grayColor];
+         Imagen.layer.borderWidth=0.2;
+         Imagen.layer.borderColor=[UIColor blueColor].CGColor;
+        [ Imagen setNeedsDisplay];
 
-    for (ImagenView * IV in Marcos) {
-       
-        IV.backgroundColor= [UIColor grayColor];
-        IV.layer.borderWidth=0.2;
-        IV.layer.borderColor=[UIColor blueColor].CGColor;
-        [IV setNeedsDisplay];
-}
 }
 
--(void)ImagenesDe:(NSMutableArray*)URLS{
-   
+-(void)ImagenesDe:(NSURL*)URLS{
+ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     __block BOOL Error= NO;
     Imagenes=[[NSMutableArray alloc]init];
     AFHTTPClient *httpClient  = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@""]];
     [httpClient.operationQueue setMaxConcurrentOperationCount:1] ;
     NSMutableArray *operationsArray = [NSMutableArray array];
-    for (NSURL *us in URLS) {
-        
+    
         //   NSLog(@"URL: %@", us.URLimagen);
         
        
         
         AFImageRequestOperation *getImageOperation =
-        [AFImageRequestOperation imageRequestOperationWithRequest:[NSURLRequest requestWithURL:us]
+        [AFImageRequestOperation imageRequestOperationWithRequest:[NSURLRequest requestWithURL:URLS]
                                              imageProcessingBlock:nil
                                                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                                               //
                                                               // Save image
                                                               //
                                                               if(image != nil){
-                                                                  [Imagenes addObject:image];
+                                                                  Imagen.image=image;
+                                                                  descargado=YES;
                                                               }
                                                               else{
                                                                   Error=YES;
@@ -96,7 +91,7 @@
         
         
         
-    }
+    
     
     [httpClient enqueueBatchOfHTTPRequestOperations:operationsArray
                                       progressBlock:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
@@ -121,7 +116,7 @@
                                               
                                              
                                               dispatch_async(dispatch_get_main_queue(), ^{
-                                                  [self colocarImagenes];
+                                               
                                                   
                                                   /* for (int i =0; i< [imagenesCargadas count]; i++) {
                                                    //  UIImageView *Img = [[UIImageView alloc]initWithImage:[imagenesCargadas objectAtIndex:i]];
@@ -135,37 +130,11 @@
                                           
                                       }];
 
-    
+ });
     
     
 }
 
--(void)colocarImagenes{
-    NSLog(@"Colocando");
 
-    for (int i=0 ; i < 4; i++) {
-            NSLog(@"Colocando: %d",i);
-        ImagenView * IV = [Marcos objectAtIndex:i];
-        [IV setImage:[Imagenes objectAtIndex:i]];
-      //  IV.backgroundColor=[UIColor whiteColor];
-        [IV setNeedsDisplay];
-        [self setNeedsDisplay];
-        [super setNeedsDisplay];
-
-    }
- 
-}
--(id)mutableCopyWithZone:(NSZone *)zone
-{
-    // We'll ignore the zone for now
-    PopularesView *another = [[PopularesView alloc] init];
-    another.F1 = F1;
-    another.F2 = F2;
-    another.F3 = F3;
-    another.F4 = F4;
-    another.backgroundColor= [UIColor redColor];
-    
-    return another;
-}
 
 @end
