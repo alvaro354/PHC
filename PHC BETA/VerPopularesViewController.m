@@ -286,21 +286,24 @@
 {
 
     // Return the number of rows in the section.
-    return [URLs count];
+    return ([URLs count]*2)-1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.row %2 ==0) {
+        
    	static NSString* CellIdentifier = @"PopularesView";
     
 	PopularesView* cell =(PopularesView*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     __block PopularesView* cellB=cell;
     NSLog(@"Celda");
-    
+        cell.tag=1;
     if (cell == nil){
 		cell = [[PopularesView alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] ;
         cell.Imagen=[[ImagenView alloc]init];
+        cell.backgroundColor=[UIColor colorWithRed:219/255.0 green:226/255.0 blue:237/255.0 alpha:1.0];
         
         
     }
@@ -312,8 +315,8 @@
        
         //ASIGNAR MEDIANTE LA URL LOS DATOS  A LA IMAGEN
         
-        [cell.Imagen iniciarConUrl:[URLs objectAtIndex:indexPath.row]];
-        [cell.Imagen setImageWithURLRequest:[NSURLRequest requestWithURL:[URLs objectAtIndex:indexPath.row]]
+        [cell.Imagen iniciarConUrl:[URLs objectAtIndex:(indexPath.row/2)]];
+        [cell.Imagen setImageWithURLRequest:[NSURLRequest requestWithURL:[URLs objectAtIndex:(indexPath.row/2)]]
                            placeholderImage:nil
                                     success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                         cellB.Imagen.image = image;
@@ -328,8 +331,44 @@
     
     
 	return cell;
+    }
+    else{
+        
+        
+        static NSString* CellIdentifier = @"Separador";
+        
+        UITableViewCell* cell =[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        cell.tag=2;
+        NSLog(@"Celda");
+        
+        if (cell == nil){
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] ;
+          
+            
+            
+        }
+        return cell;
+    }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat cellHeight=433;
+    
+
+    if ([URLs count]!=0) {
+   
+    
+    if (indexPath.row%2== 0) {
+      cellHeight = 433;
+    }
+    else {
+       cellHeight = 50;
+    }
+
+    }
+    return cellHeight;
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
