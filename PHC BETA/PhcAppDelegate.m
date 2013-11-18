@@ -36,31 +36,30 @@
  
     if (datos== NULL) {
         Dia * day = [[Dia alloc]init];
-        day.Lugares= [[NSMutableArray alloc]init];
         day.DiaSemana=@"Monday";
         [array addObject:day];
         Dia * day2 = [[Dia alloc]init];
-        day2.Lugares= [[NSMutableArray alloc]init];
+      
         day2.DiaSemana=@"Tuesday";
         [array addObject:day2];
         Dia * day3 = [[Dia alloc]init];
-        day3.Lugares= [[NSMutableArray alloc]init];
+    
         day3.DiaSemana=@"Wednesday";
         [array addObject:day3];
         Dia * day4 = [[Dia alloc]init];
-        day4.Lugares= [[NSMutableArray alloc]init];
+       
         day4.DiaSemana=@"Thursday";
         [array addObject:day4];
         Dia * day5 = [[Dia alloc]init];
-        day5.Lugares= [[NSMutableArray alloc]init];
+      
         day5.DiaSemana=@"Friday";
         [array addObject:day5];
         Dia * day6 = [[Dia alloc]init];
-        day6.Lugares= [[NSMutableArray alloc]init];
+        
         day6.DiaSemana=@"Saturday";
         [array addObject:day6];
         Dia * day7 = [[Dia alloc]init];
-        day7.Lugares= [[NSMutableArray alloc]init];
+      
         day7.DiaSemana=@"Sunday";
         [array addObject:day7];
         NSData *datos3 = [NSKeyedArchiver archivedDataWithRootObject:array];
@@ -76,9 +75,11 @@
     
     for (int i =0; i <[array count];i++) {
         Dia * day = [array objectAtIndex:i];
-      
-        for (Localizacion *lz in day.Lugares ) {
-             NSLog(@"Dia: %@ Localizacion: %f %f Lugar : %@  Hora: %ld Tiempo: %f" ,day.DiaSemana,lz.latitude,lz.longitude,lz.Lugar,(long)lz.hora.hour,lz.tiempo);
+        for (int d =0; d<24;d++) {
+            NSMutableArray * hora =[day.Horas objectAtIndex:d];
+            for (Localizacion *lz in hora ) {
+             NSLog(@"Dia: %@ Localizacion: %f %f Lugar : %@  Hora: %d Tiempo: %f" ,day.DiaSemana,lz.latitude,lz.longitude,lz.Lugar,d,lz.tiempo);
+        }
         }
         
     }
@@ -322,7 +323,11 @@
                  //   NSLog(@"Dia %@ %@",day.DiaSemana,[dateFormatter stringFromDate:now]);
                     if ([day.DiaSemana isEqualToString: [dateFormatter stringFromDate:now]]) {
                         NSLog(@"Añadido Al Dia");
-                        [day.Lugares addObject:lTemporal];
+                        for (int d =lTemporal.hora.hour; d< comps.hour ; d++) {
+                            NSMutableArray *array=[day.Horas objectAtIndex:d];
+                            [array addObject:lTemporal];
+                            [day.Horas replaceObjectAtIndex:d withObject:array];
+                        }
                         [arrayDias replaceObjectAtIndex:i withObject:day];
                         break;
                         

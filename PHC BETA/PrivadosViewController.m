@@ -153,7 +153,11 @@
 }
 
 
-
+-(void)Mensajes{
+    UIAlertView *alertsuccess = [[UIAlertView alloc] initWithTitle:@"OK" message:@"Mensaje Enviado"
+                                                          delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alertsuccess show];
+}
 
 
 
@@ -173,7 +177,7 @@
 
 -(IBAction)enviar:(id)sender{
     
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(Mensajes) name:@"Mensajes" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(Mensajes) name:@"Mensajes" object:nil];
 
     BOOL * msj = [[MensajesParse alloc] EnviarMensajeIDM:usuario.ID usuario:usuario.usuario privado:@"1" texto:mensaje.text];
 

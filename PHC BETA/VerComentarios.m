@@ -453,8 +453,9 @@
     ComentariosCell *cell = (ComentariosCell*)[table cellForRowAtIndexPath:swipedIndexPath];
     usuarioPasar= [[NSString alloc]initWithString:cell.sNombre];
     idUsuarioPasar= [[NSString alloc]initWithString:cell.sUsuarioID];
-   
+    cell.bPerfil.tag=[table indexPathForCell:cell];
     [cell.bPerfil addTarget:self action:@selector(MostrarPerfil:) forControlEvents:UIControlEventTouchUpInside];
+   
      NSLog(@"Swipe Cell: %@",cell.sNombre);
     if (cell.vistaSuperiorOculta==NO){
 	 NSLog(@"Descolocar");
@@ -500,7 +501,19 @@
         
      }
 }
--(void)MostrarPerfil:(id)sender{
+-(void)MostrarPerfil:(UIButton*)sender{
+    CGPoint origenBoton= [sender convertPoint:CGPointZero toView:table];
+    NSIndexPath *indexPath = [table indexPathForRowAtPoint:origenBoton];
+    ComentariosCell * cell = (ComentariosCell*)[table cellForRowAtIndexPath:indexPath];
+    [UIView beginAnimations:nil context:(__bridge void *)cell];
+    [UIView setAnimationDuration:1.0];
+    [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+    [UIView setAnimationDelegate:self];
+    
+    cell.viewSuperior.frame= CGRectMake(cell.viewSuperior.frame.origin.x+480, cell.viewSuperior.frame.origin.y, cell.viewSuperior.frame.size.width, cell.viewSuperior.frame.size.height);
+    cell.viewSuperior.alpha=1;
+    cell.viewInferior.alpha=0.1;
+    [UIView commitAnimations];
     [self performSegueWithIdentifier:@"amigosComentarios" sender:self];
 }
 

@@ -16,7 +16,7 @@
 #import "Usuario.h"
 
 
-@interface MensajesParse : NSObject   <NSURLConnectionDelegate, NSURLConnectionDataDelegate, NSURLConnectionDownloadDelegate>
+@interface MensajesParse : NSObject   <NSURLConnectionDelegate, NSURLConnectionDataDelegate, NSURLConnectionDownloadDelegate,UIAlertViewDelegate>
  {
     
         NSString *_key;

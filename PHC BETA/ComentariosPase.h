@@ -16,7 +16,7 @@
 #import "Imagen.h"
 
 
-@interface ComentariosPase : NSObject   <NSURLConnectionDelegate, NSURLConnectionDataDelegate, NSURLConnectionDownloadDelegate>
+@interface ComentariosPase : NSObject   <NSURLConnectionDelegate, NSURLConnectionDataDelegate, NSURLConnectionDownloadDelegate,UIAlertViewDelegate>
 {
     
     NSString *_key;

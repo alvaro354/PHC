@@ -394,6 +394,18 @@
     }
 }
 -(void)MostrarPerfil:(id)sender{
+    CGPoint origenBoton= [sender convertPoint:CGPointZero toView:self.tableView ];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:origenBoton];
+    CeldaInvitacionesCell * cell = (CeldaInvitacionesCell*)[self.tableView  cellForRowAtIndexPath:indexPath];
+    [UIView beginAnimations:nil context:(__bridge void *)cell];
+    [UIView setAnimationDuration:1.0];
+    [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+    [UIView setAnimationDelegate:self];
+    
+    cell.viewSuperior.frame= CGRectMake(cell.viewSuperior.frame.origin.x+480, cell.viewSuperior.frame.origin.y, cell.viewSuperior.frame.size.width, cell.viewSuperior.frame.size.height);
+    cell.viewSuperior.alpha=1;
+    cell.viewInferior.alpha=0.1;
+    [UIView commitAnimations];
     [self performSegueWithIdentifier:@"amigosMensajes" sender:self];
 }
 

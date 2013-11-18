@@ -10,19 +10,30 @@
 
 @implementation Dia
 
-@synthesize DiaSemana,Lugares;
+@synthesize DiaSemana,Horas;
+
+-(id)init{
+    NSLog(@"INICIADO");
+    Horas=[[NSMutableArray alloc]init];
+    for (int i =0; i<24; i++) {
+        NSMutableArray* array= [[NSMutableArray alloc]init];
+        [Horas addObject:array];
+    }
+    
+    return self;
+}
 
 -(void)encodeWithCoder:(NSCoder *)encoder
 {
     [encoder encodeObject:DiaSemana forKey:@"DiaSemana"];
-    [encoder encodeObject:Lugares forKey:@"Lugares"];
+    [encoder encodeObject:Horas forKey:@"Horas"];
 
 }
 
 -(id)initWithCoder:(NSCoder *)decoder
 {
     DiaSemana = [decoder decodeObjectForKey:@"DiaSemana"];
-    Lugares = [decoder decodeObjectForKey:@"Lugares"];
+    Horas = [decoder decodeObjectForKey:@"Horas"];
 
     
     

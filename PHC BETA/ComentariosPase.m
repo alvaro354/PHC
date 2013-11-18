@@ -454,10 +454,12 @@
              NSString *returnString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
              if ( [returnString isEqualToString:@"Yes"]) {
                  
-                 
+               /*
+                CONTROLAR EL OK YA QUE DABA ERROR 
                  UIAlertView *alertsuccess = [[UIAlertView alloc] initWithTitle:@"OK" message:@"Comentario Subido"
                                                                        delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                  [alertsuccess show];
+                */
              }
              else{
                  //[MBProgressHUD hideHUDForView:self.view animated:YES];

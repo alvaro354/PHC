@@ -177,17 +177,19 @@
     Img.clipsToBounds=YES;
     Img.layer.cornerRadius = 8.0;
     
-  
+    NSURL *urlT;
     
     //set image URL. AsyncImageView class will then dynamically load the image
      
-    NSLog(@">>>>>>>>>>>>>>");
+    if (UrlPasada!=Nil) {
+    
     NSString *string = [[NSString alloc] initWithString:(NSString*)UrlPasada];
    
-    NSURL *urlT =[[NSURL alloc]initWithString:string];
-   
-
-    if (string == Nil || [string isEqualToString:@""]) {
+    urlT =[[NSURL alloc]initWithString:string];
+        
+        
+    }
+   else {
        
         NSLog(@"URL vacia Generando...");
         NSDate* myDate = [NSDate date];

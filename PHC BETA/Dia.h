@@ -12,6 +12,6 @@
 
 
 @property(nonatomic, retain) NSString *DiaSemana;
-@property(nonatomic, retain) NSMutableArray *Lugares;
+@property(nonatomic, retain) NSMutableArray *Horas;
 
 @end

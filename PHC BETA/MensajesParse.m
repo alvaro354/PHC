@@ -457,9 +457,7 @@ NSData *newData = [string dataUsingEncoding:NSUTF8StringEncoding];
            
               [[NSNotificationCenter defaultCenter] postNotificationName:@"Mensajes" object:self userInfo:nil];
              
-             UIAlertView *alertsuccess = [[UIAlertView alloc] initWithTitle:@"OK" message:@"Foto Subida"
-                                                                   delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-             [alertsuccess show];
+         
          }
          else{
              //[MBProgressHUD hideHUDForView:self.view animated:YES];
