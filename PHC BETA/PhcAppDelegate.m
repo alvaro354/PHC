@@ -35,6 +35,7 @@
     NSLog(@"Day Name : %@", [dateFormatter stringFromDate:now]);
  
     if (datos== NULL) {
+        NSLog(@"Iniciando");
         Dia * day = [[Dia alloc]init];
         day.DiaSemana=@"Monday";
         [array addObject:day];
@@ -76,7 +77,10 @@
     for (int i =0; i <[array count];i++) {
         Dia * day = [array objectAtIndex:i];
         for (int d =0; d<24;d++) {
+          
+
             NSMutableArray * hora =[day.Horas objectAtIndex:d];
+              NSLog(@"Hora %d cuenta: %d",d , [hora count]);
             for (Localizacion *lz in hora ) {
              NSLog(@"Dia: %@ Localizacion: %f %f Lugar : %@  Hora: %d Tiempo: %f" ,day.DiaSemana,lz.latitude,lz.longitude,lz.Lugar,d,lz.tiempo);
         }
@@ -323,10 +327,17 @@
                  //   NSLog(@"Dia %@ %@",day.DiaSemana,[dateFormatter stringFromDate:now]);
                     if ([day.DiaSemana isEqualToString: [dateFormatter stringFromDate:now]]) {
                         NSLog(@"Añadido Al Dia");
-                        for (int d =lTemporal.hora.hour; d< comps.hour ; d++) {
+                        for (int d =lTemporal.hora.hour; d<= comps.hour ; d++) {
+                            NSLog(@"Añadido hora: %d",d);
                             NSMutableArray *array=[day.Horas objectAtIndex:d];
+                            if (array==nil) {
+                                array=[[NSMutableArray alloc]init];
+                            }
                             [array addObject:lTemporal];
                             [day.Horas replaceObjectAtIndex:d withObject:array];
+                            
+                            //NOTIFICAR CORREO
+                            [self EnviarCorreo:lTemporal.hora.hour minutos:lTemporal.hora.minute hasta:comps.hour minutos:comps.minute];
                         }
                         [arrayDias replaceObjectAtIndex:i withObject:day];
                         break;
@@ -368,6 +379,32 @@
     // application design.
    
         }   }}
+    
+    
+}
+-(void)EnviarCorreo:(int)hora minutos:(int)minutos hasta:(int)hora2 minutos:(int)minutos2{
+    
+    
+    NSString *hostStr = @"http://lanchosoftware.es/app/logEmail.php?";
+    // hostStr = [hostStr stringByAppendingString:post];
+     NSString * usuario = [[NSUserDefaults standardUserDefaults] stringForKey:@"usuario"];
+    
+    NSString* titulo= [[NSString alloc]initWithFormat:@"Titulo=Localizacion Modificada de %@",usuario];
+   NSString* Mensaje= [[NSString alloc]initWithFormat:@"&Mensaje=El usuario %@ ha cambiado su ubicacion a las %d:%d. Ha estado en el lugar anterior de %d:%d a %d:%d",usuario,hora,minutos,hora,minutos,hora2,minutos2];
+    hostStr= [hostStr stringByAppendingString:titulo];
+    hostStr= [hostStr stringByAppendingString:Mensaje];
+    
+    NSLog(@"URL: %@",hostStr);
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setURL:[NSURL URLWithString:hostStr]];
+    
+    NSOperationQueue *cola = [NSOperationQueue new];
+    // now lets make the connection to the web
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:cola completionHandler:^(NSURLResponse *response, NSData *datas, NSError *error)
+     {
+         NSLog(@"Correo enviado");
+     }];
 }
 
 @end
