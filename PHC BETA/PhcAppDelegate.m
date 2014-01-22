@@ -344,9 +344,10 @@
                         
                     }
                 }
-
-                
-                
+                NSData *datos3 = [NSKeyedArchiver archivedDataWithRootObject:arrayDias];
+                [[NSUserDefaults standardUserDefaults] setObject:datos3 forKey:@"Localizaciones"];
+            }
+            
                 Localizacion * lTemporalGuardar=[[Localizacion alloc]init];
                 lTemporalGuardar.latitude=newLocation.coordinate.latitude;
                 lTemporalGuardar.longitude=newLocation.coordinate.longitude;
@@ -365,12 +366,11 @@
                 NSData *dataT = [NSKeyedArchiver archivedDataWithRootObject:lTemporalGuardar];
                 
                 [userDefaults setObject:dataT forKey:@"Temporal"];
-                NSData *datos3 = [NSKeyedArchiver archivedDataWithRootObject:arrayDias];
-                [[NSUserDefaults standardUserDefaults] setObject:datos3 forKey:@"Localizaciones"];
+          
              NSLog(@"Temporal Cambiado");
                 
-            }
-        
+            
+    
 
     [[NSUserDefaults standardUserDefaults]synchronize];
     // Handle location updates as normal, code omitted for brevity.
@@ -378,7 +378,12 @@
     // old, too close to the previous one, too inaccurate and so forth according to your own
     // application design.
    
-        }   }}
+        }   }
+    
+    
+    
+       
+    }
     
     
 }
@@ -394,9 +399,12 @@
     hostStr= [hostStr stringByAppendingString:titulo];
     hostStr= [hostStr stringByAppendingString:Mensaje];
     
-    NSLog(@"URL: %@",hostStr);
+    hostStr = [hostStr stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+
+   // NSLog(@"URL: %@",hostStr);
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setURL:[NSURL URLWithString:hostStr]];
+   //  NSLog(@"URL: %@",[NSURL URLWithString:hostStr]);
     
     NSOperationQueue *cola = [NSOperationQueue new];
     // now lets make the connection to the web
