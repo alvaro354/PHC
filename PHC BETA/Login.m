@@ -275,7 +275,7 @@
     
     //NSString *post =[NSString stringWithFormat:@"username=%@&password=%@",userText.text, ContraText.text];
     
-    NSString *hostStr = @"http://lanchosoftware.es/app/api2.php";
+    NSString *hostStr = @"http://lanchosoftware.com:8080/login.php";
     // hostStr = [hostStr stringByAppendingString:post];
     
     NSLog(@"%@",hostStr);

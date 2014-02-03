@@ -310,7 +310,7 @@
     NSString *post =[NSString stringWithFormat:@"id=%@",usuarioID];
     NSString *post2=[NSString stringWithFormat:@"&date=%@",[df stringFromDate:myDate]];
     
-    NSString *hostStr = @"http://lanchosoftware.es/app/amigos.php?";
+    NSString *hostStr = @"http://lanchosoftware.com:8080/amigos.php?";
     hostStr = [hostStr stringByAppendingString:post];
     hostStr = [hostStr stringByAppendingString:post2];
     hostStr = [hostStr stringByAppendingString:post5];
@@ -319,6 +319,7 @@
     
     NSString *_key = @"alvarol2611995";
     
+    NSLog(@"URL: %@",hostStr);
     
     _key= [_key stringByAppendingString:[df stringFromDate:myDate]];
     
