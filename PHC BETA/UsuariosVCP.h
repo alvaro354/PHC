@@ -12,6 +12,7 @@
 #import "LoadEngine.h"
 #import "fileUploadEngine.h"
 #import "Imagen.h"
+#import "Descargar.h"
 
 
 @class DescargaImagenes;

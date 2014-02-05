@@ -47,6 +47,7 @@
 		B11E9AEA16DBEB7E008A1193 /* 30 in Resources */ = {isa = PBXBuildFile; fileRef = B11E9ACC16DBEB7E008A1193 /* 30 */; };
 		B1293FB6175275EC002F5587 /* SpeechBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = B1293FB5175275EC002F5587 /* SpeechBubbleView.m */; };
 		B1293FB9175276A4002F5587 /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B1293FB8175276A4002F5587 /* MessageTableViewCell.m */; };
+		B1294AF618A27828008447A8 /* Descargar.m in Sources */ = {isa = PBXBuildFile; fileRef = B1294AF518A27828008447A8 /* Descargar.m */; };
 		B12D917D177DAE2200774613 /* ComentariosPase.m in Sources */ = {isa = PBXBuildFile; fileRef = B12D917C177DAE2200774613 /* ComentariosPase.m */; };
 		B14E9E5217956B4B00272766 /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B14E9E5117956B4B00272766 /* UICKeyChainStore.m */; };
 		B159E9251754DBF2001BD23B /* BubbleLefthand.png in Resources */ = {isa = PBXBuildFile; fileRef = B159E9231754DBF2001BD23B /* BubbleLefthand.png */; };
@@ -313,6 +314,8 @@
 		B1293FB5175275EC002F5587 /* SpeechBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SpeechBubbleView.m; path = "PHC BETA/SpeechBubbleView.m"; sourceTree = "<group>"; };
 		B1293FB7175276A4002F5587 /* MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageTableViewCell.h; path = "PHC BETA/MessageTableViewCell.h"; sourceTree = "<group>"; };
 		B1293FB8175276A4002F5587 /* MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageTableViewCell.m; path = "PHC BETA/MessageTableViewCell.m"; sourceTree = "<group>"; };
+		B1294AF418A27828008447A8 /* Descargar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Descargar.h; sourceTree = "<group>"; };
+		B1294AF518A27828008447A8 /* Descargar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Descargar.m; sourceTree = "<group>"; };
 		B12D917B177DAE2200774613 /* ComentariosPase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComentariosPase.h; sourceTree = "<group>"; };
 		B12D917C177DAE2200774613 /* ComentariosPase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComentariosPase.m; sourceTree = "<group>"; };
 		B14E9E5017956B4B00272766 /* UICKeyChainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UICKeyChainStore.h; path = "PHC BETA/UICKeyChainStore.h"; sourceTree = "<group>"; };
@@ -715,6 +718,15 @@
 			name = "Imagenes login";
 			sourceTree = "<group>";
 		};
+		B1294AF318A2781B008447A8 /* Descargas */ = {
+			isa = PBXGroup;
+			children = (
+				B1294AF418A27828008447A8 /* Descargar.h */,
+				B1294AF518A27828008447A8 /* Descargar.m */,
+			);
+			name = Descargas;
+			sourceTree = "<group>";
+		};
 		B15CBF8F1696F34F000AAED0 = {
 			isa = PBXGroup;
 			children = (
@@ -763,6 +775,7 @@
 		B15CBFA41696F350000AAED0 /* PHC BETA */ = {
 			isa = PBXGroup;
 			children = (
+				B1294AF318A2781B008447A8 /* Descargas */,
 				B161A1E917C7AECE00A80E70 /* PHC BETA.entitlements */,
 				B18E296A16E6674A0002B903 /* Plantillas */,
 				B1A004861705FAE700BEBC80 /* CeldaInvitacionesCell.h */,
@@ -1500,6 +1513,7 @@
 				B19F988D174AB54600BB05CE /* Mensajes.m in Sources */,
 				B19F9890174AB61700BB05CE /* MensajesParse.m in Sources */,
 				B1293FB6175275EC002F5587 /* SpeechBubbleView.m in Sources */,
+				B1294AF618A27828008447A8 /* Descargar.m in Sources */,
 				B1293FB9175276A4002F5587 /* MessageTableViewCell.m in Sources */,
 				B1026895177F016700A346BD /* VerComentarios.m in Sources */,
 				B1FBEFF0176374BE00B98C45 /* ImagenAsync.m in Sources */,

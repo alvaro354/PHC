@@ -206,9 +206,49 @@
     [self getData];
     [self.view reloadInputViews];
     timer2= [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(act) userInfo:nil repeats: NO];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(obtenerImagenes:)
+                                                 name:@"ImagenesCargadas"
+                                               object:nil];
+
+   
+ 
+    
+    
     [super viewDidLoad];
     
 }
+- (void)obtenerImagenes:(NSNotification *)notification
+{
+    NSDictionary *dict = [notification userInfo];
+    
+    imagenesCargadas=[dict objectForKey:@"Imagenes"];
+    
+    for (int i =0; i<[arrayBuscar count]; i++) {
+        Usuario *usuario = [arrayBuscar objectAtIndex:i];
+        usuario.imagen=[[UIImage alloc]init];
+        usuario.imagen=[imagenesCargadas objectAtIndex:i];
+        NSLog(@"Imagen heigth: %f", usuario.imagen.size.height);
+    }
+    
+    //NSLog(@"Diccionario %@",dict);
+    /*
+    if ([[dict objectForKey:@"grupo"] isEqualToString:@"Comida"]) {
+        imagenesComida= [[NSMutableArray alloc]initWithArray:[dict objectForKey:@"Imagenes"]];
+    }
+    if ([[dict objectForKey:@"grupo"] isEqualToString:@"Tecnologia"]) {
+        imagenesTecnologia= [[NSMutableArray alloc]initWithArray:[dict objectForKey:@"Imagenes"]];
+    }
+    if ([[dict objectForKey:@"grupo"] isEqualToString:@"Ropa"]) {
+        imagenesRopa= [[NSMutableArray alloc]initWithArray:[dict objectForKey:@"Imagenes"]];
+    }
+    */
+   // [self reloadData];
+    
+}
+
 -(void)act{
     NSLog(@"Act");
     [collection reloadInputViews];
@@ -391,11 +431,21 @@
          [array removeAllObjects];
          
          terminado =YES;
-         [self descargar:nil];
+     //    [self descargar:nil];
          
          // Each element in statuses is a single status
          // represented as a NSDictionary
          
+             dispatch_queue_t myQueue = dispatch_queue_create("My Queue",NULL);
+             dispatch_async(myQueue, ^{
+                 
+                 
+                 NSLog(@"Empezando a Descargar: ");
+                 [[Descargar alloc] descargarImagenes:arrayBuscar grupo:@"Imagenes"];
+                 
+             });
+             
+             
              dispatch_async(dispatch_get_main_queue(), ^{
                  [collection reloadData];
              });
@@ -779,6 +829,8 @@
                                                    NSLog(@"Failed to download image: %@", error);
                                                }];
      */
+           if ([imagenesCargadas count] !=0) {
+           
            if([imagenesCargadas objectAtIndex:indexPath.item] != nil){
             
                UIImageView*imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, cell.image.frame.size.width,  cell.image.frame.size.height)];
@@ -791,7 +843,7 @@
            }
            [cell reloadInputViews];
            
-           
+           }
    
     }
     
