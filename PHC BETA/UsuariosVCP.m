@@ -231,8 +231,11 @@
         usuario.imagen=[[UIImage alloc]init];
         usuario.imagen=[imagenesCargadas objectAtIndex:i];
         NSLog(@"Imagen heigth: %f", usuario.imagen.size.height);
+        [arrayBuscar replaceObjectAtIndex:i withObject:usuario];
     }
-    
+    NSData *datos = [NSKeyedArchiver archivedDataWithRootObject:arrayBuscar];
+    [[NSUserDefaults standardUserDefaults] setObject:datos forKey:@"DatosGuardados"];
+   
     //NSLog(@"Diccionario %@",dict);
     /*
     if ([[dict objectForKey:@"grupo"] isEqualToString:@"Comida"]) {
@@ -245,7 +248,9 @@
         imagenesRopa= [[NSMutableArray alloc]initWithArray:[dict objectForKey:@"Imagenes"]];
     }
     */
-   // [self reloadData];
+    terminado=YES;
+    terminado2=YES;
+   [collection reloadData];
     
 }
 
@@ -770,9 +775,9 @@
         items = [arrayBuscar objectAtIndex:indexPath.item];
         //if (guardado == YES) {
            // NSLog(@"Guardado");
-            NSData *datos = [NSKeyedArchiver archivedDataWithRootObject:arrayMostrar];
-            [[NSUserDefaults standardUserDefaults] setObject:datos forKey:@"DatosGuardados"];
-            guardado=NO;
+         //   NSData *datos = [NSKeyedArchiver archivedDataWithRootObject:arrayMostrar];
+         //   [[NSUserDefaults standardUserDefaults] setObject:datos forKey:@"DatosGuardados"];
+          //  guardado=NO;
        // }
     }
     else{
