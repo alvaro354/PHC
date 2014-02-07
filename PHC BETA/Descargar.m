@@ -10,8 +10,118 @@
 
 @implementation Descargar
 
+-(void) descargarDeAmigos:(NSString*)ID{
+    
+     __block NSMutableArray * amigos = [[NSMutableArray alloc]init];
+
+   __block Usuario * usuario;
+   
+    StringEncryption *crypto = [[StringEncryption alloc] init] ;
+    
+    NSLog(@"%@ UsuarioID",ID);
+    NSLog(@"Obteniendo datos");
+    NSDate *myDate = [NSDate date];
+    NSDateFormatter *df = [NSDateFormatter new];
+    [df setDateFormat:@"dd"];
+    NSString * tokenID = [[NSUserDefaults standardUserDefaults] stringForKey:@"token"];
+    NSLog(@"%@ tokenID",tokenID);
+    NSString *post5=[NSString stringWithFormat:@"&token=%@",tokenID];
+    
+    NSString *post =[NSString stringWithFormat:@"id=%@",ID];
+    NSString *post2=[NSString stringWithFormat:@"&date=%@",[df stringFromDate:myDate]];
+    
+    NSString *hostStr = @"http://lanchosoftware.com:8080/amigos.php?";
+    hostStr = [hostStr stringByAppendingString:post];
+    hostStr = [hostStr stringByAppendingString:post2];
+    hostStr = [hostStr stringByAppendingString:post5];
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    
+    NSString *_key = @"alvarol2611995";
+    
+    NSLog(@"URL: %@",hostStr);
+    
+    _key= [_key stringByAppendingString:[df stringFromDate:myDate]];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setURL:[NSURL URLWithString:hostStr]];
+    
+    NSOperationQueue *cola = [NSOperationQueue new];
+    // now lets make the connection to the web
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:cola completionHandler:^(NSURLResponse *response, NSData *datas, NSError *error)
+     {
+         dispatch_queue_t myQueue = dispatch_queue_create("My Queue",NULL);
+         dispatch_async(myQueue, ^{
+             CCOptions padding = kCCOptionECBMode;
+             NSString *string = [[NSString alloc] initWithData:datas encoding:NSASCIIStringEncoding];
+             NSData *_secretData = [NSData dataWithBase64EncodedString:string];
+             
+             NSData *encryptedData = [crypto decrypt:_secretData  key:[_key dataUsingEncoding:NSUTF8StringEncoding] padding:&padding];
+             NSString* newStr = [[NSString alloc]initWithData:encryptedData encoding:NSASCIIStringEncoding];
+             const char *convert = [newStr UTF8String];
+             NSString *responseString = [NSString stringWithUTF8String:convert];
+             
+             
+             NSArray *returned = [parser objectWithString:responseString error:nil];
+             NSMutableArray *array = [[NSMutableArray alloc]init];
+             
+             NSLog(@"%@",error);
+             NSMutableArray *mmutable = [NSMutableArray array];
+             for (NSDictionary *dict in returned){
+                 
+                 NSLog(@"loo %@ %@", [dict objectForKey:@"usuario"], dict);
+                 usuario = [[Usuario alloc] init];
+                 [usuario setUsuario:[dict objectForKey:@"usuario"]];
+                 [usuario setID:[dict objectForKey:@"id_Usuario"]];
+                 
+                 [mmutable addObject:usuario];
+             }
+             
+          
+             array = mmutable;
+             NSMutableArray * nombres = [[NSMutableArray alloc]init];
+             
+             
+             for (Usuario *usuario in array) {
+                 [nombres addObject:usuario.usuario];
+             }
+             
+             NSSortDescriptor *orden = [[NSSortDescriptor alloc] initWithKey:nil ascending:YES];
+             NSArray *arrayOrdenado = [nombres sortedArrayUsingDescriptors:[NSArray arrayWithObject:orden]];
+             
+             for (NSString *nombre in arrayOrdenado) {
+                 for (Usuario* usuario in array) {
+                     if ([usuario.usuario isEqualToString:nombre]) {
+                         [amigos addObject:usuario];
+                     }
+                 }
+                 
+             }
+             
+             NSArray* arrayObjects= [[NSArray alloc]initWithObjects:amigos, nil];
+             NSArray* arrayClaves= [[NSArray alloc]initWithObjects:@"Amigos", nil];
+             
+             NSDictionary *diccionarioPasarDatos =[[NSDictionary alloc]initWithObjects:arrayObjects forKeys:arrayClaves];
+             
+             [[NSNotificationCenter defaultCenter] postNotificationName:@"AmigosCargados"
+                                                                 object:nil
+                                                               userInfo:diccionarioPasarDatos];
+             [array removeAllObjects];
+        
+             
+         });  }];
+    
+
+ 
+
+   
+    
+}
+
 -(void) descargarImagenes:(NSMutableArray*)array grupo:(NSString*)grupo{
     
+ 
     
    imagenesCargadas = [[NSMutableArray alloc]init];
     AFHTTPClient *httpClient  = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@""]];
@@ -25,23 +135,9 @@
     
     for (Usuario *userA in array) {
         
-        //   NSLog(@"URL: %@", us.URLimagen);
-        
         
         NSString *hostStr = @"http://lanchosoftware.com:8080/PHC/descargarImagenes.php";
-        // hostStr = [hostStr stringByAppendingString:post];
-        
       
-        
-        /*NSData *decryptedData = [crypto decrypt:encryptedData key:[_key dataUsingEncoding:NSUTF8StringEncoding] padding:&padding];
-         
-         NSLog(@"decrypted data in dex: %@", decryptedData);
-         NSString *str = [[NSString alloc] initWithData:decryptedData encoding:NSUTF8StringEncoding];
-         
-         NSLog(@"decrypted data string for export: %@",str);
-         */
-        
-        //  NSLog(@"encrypted data string for export: %@",[encryptedDataCon base64EncodingWithLineLength:0]);
         
         NSString * user = [[NSUserDefaults standardUserDefaults]objectForKey:@"ID_usuario"];
         NSString * tokenS = [[NSUserDefaults standardUserDefaults]objectForKey:@"token"];
@@ -108,15 +204,9 @@
     
     [httpClient enqueueBatchOfHTTPRequestOperations:operationsArray
                                       progressBlock:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
-                                          //
-                                          // Handle process indicator
-                                          //
-                                          //   NSLog(@"Imagenes: %@", imagenesCargadas);
-                                          //  NSLog(@"Completado");
+                                         
                                       } completionBlock:^(NSArray *operations) {
-                                          //
-                                          // Remove blocking dialog, do next tasks
-                                          //+
+                                         
                                           if(Error){
                                               //[self changeSorting];
                                           }
@@ -128,17 +218,22 @@
                                               
                                               NSDictionary *diccionarioPasarDatos =[[NSDictionary alloc]initWithObjects:arrayObjects forKeys:arrayClaves];
                                               
+                                              if ([grupo isEqualToString:@"Perfil"]) {
+                                                  [[NSNotificationCenter defaultCenter] postNotificationName:@"Perfil"
+                                                                                                      object:nil
+                                                                                                    userInfo:diccionarioPasarDatos];
+                                              }
+                                              else if ([grupo isEqualToString:@"Amigos"]){
                                               [[NSNotificationCenter defaultCenter] postNotificationName:@"ImagenesCargadas"
                                                                                 object:nil
                                                                               userInfo:diccionarioPasarDatos];
+                                              }
                                           
                                           }
                                           
                                        //     dispatch_group_leave(group);
                                       }];
-    
-    
-    //dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+   
     
 
 }

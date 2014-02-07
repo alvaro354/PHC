@@ -25,8 +25,7 @@
 }
 
 
-
--(NSMutableArray*) descargarDeGrupo:(NSString*)grupo;
+-(void) descargarDeAmigos:(NSString*)ID;
 -(void) descargarImagenes:(NSMutableArray*)arrayP grupo:(NSString*)grupoP;
 -(NSMutableArray*)ObtenerArray;
 -(void) guardarDatos:(NSMutableArray*)arrayP grupo:(NSString*)grupoP;

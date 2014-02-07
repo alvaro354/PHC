@@ -20,6 +20,7 @@
 #import "iCarousel.h"
 #import "UICKeyChainStore.h"
 #import "fileUploadEngine.h"
+#import "Descargar.h"
 
 
 @interface Perfil: UIViewController <NSURLConnectionDelegate, NSURLConnectionDataDelegate,iCarouselDataSource,iCarouselDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate>{
@@ -57,6 +58,7 @@
 -(IBAction)cambiarImagen:(id)sender;
 -(IBAction)refrescar:(id)sender;
 - (void)imagenes;
+- (void)obtenerImagenPerfil:(NSNotification *)notification;
 - (void)terminado;
 @property (nonatomic, retain) __block NSTimer *timer;
 @property (nonatomic, retain) NSTimer *timer2;

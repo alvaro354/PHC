@@ -158,6 +158,8 @@
     Img.clipsToBounds=YES;
     
    
+    
+   
 /*
     self.view.clipsToBounds=YES;
     self.view.layer.cornerRadius=15.0;
@@ -180,8 +182,10 @@
     NSURL *urlT;
     
     //set image URL. AsyncImageView class will then dynamically load the image
-     
+    /*
     if (UrlPasada!=Nil) {
+        
+        NSLog(@"URL Pasada");
     
     NSString *string = [[NSString alloc] initWithString:(NSString*)UrlPasada];
    
@@ -215,7 +219,7 @@
         
         NSString *post =[NSString stringWithFormat:@"idF=%@",ID];
         
-        NSString *hostStr = @"http://lanchosoftware.es/phc/downloadImage.php?";
+        NSString *hostStr = @"http://lanchosoftware.com:8080/PHC/downloadImage.php?";
         hostStr = [hostStr stringByAppendingString:post];
         hostStr = [hostStr stringByAppendingString:post2];
         hostStr = [hostStr stringByAppendingString:post3];
@@ -244,12 +248,12 @@ urlT = [[NSURL alloc]initWithString:hostStr];
                                  NSLog(@"Failed to download image: %@", error);
                              }];
 
-    
+    */
     
     
 
     self.title=Amigo;
- 
+    Img.image=Imagen;
 
     
     [self.view addSubview:Img];

@@ -38,17 +38,17 @@
      NSString *IDa;
      NSString *UrlA;
     UIImage *img;
-    NSTimer *autoTimer;
+  
     BOOL timer;
     __block BOOL terminado;
-     __block BOOL terminado2;
+     __block BOOL terminadoImagenes;
     __block BOOL recargando;
     UISearchBar *barraBuscar;
     UINavigationController *navigationController;
     UIRefreshControl *refreshControl ;
     BOOL guardado;
     BOOL Barra;
-    NSTimer * timer2;
+  
     NSMutableArray *  imagenesCargadas;
     
 }
@@ -62,7 +62,6 @@
 -(IBAction)update:(id)sender;
 -(IBAction)anadir:(id)sender;
 -(void) uploadImage: (UIImage *)image;
--(IBAction)descargar:(id)sender;
 -(IBAction)AparecerBarra:(id)sender;
 -(void)Cargar;
 -(void)terminar;

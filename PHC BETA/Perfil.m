@@ -285,78 +285,20 @@
 -(void)imagenPerfil{
     
 
-    NSDate* myDate = [NSDate date];
-    NSDateFormatter *df = [NSDateFormatter new];
-    NSDateFormatter *dma = [NSDateFormatter new];
-    [df setDateFormat:@"dd"];
-    [dma setDateFormat:@"dd-mm-yyyy"];
+    usuario= [[Usuario alloc]init];
+    usuario.ID = [[NSUserDefaults standardUserDefaults] stringForKey:@"ID_usuario"];
+    NSMutableArray * usuarioA = [[NSMutableArray alloc]init];
+    [usuarioA addObject:usuario];
     
-    NSString* _key = @"alvarol2611995";
-    
-    
-    _key= [_key stringByAppendingString:[df stringFromDate:myDate]];
-    
-    NSString * tokenID = [[NSUserDefaults standardUserDefaults] stringForKey:@"token"];
-    NSString * usuarioID = [[NSUserDefaults standardUserDefaults] stringForKey:@"ID_usuario"];
-    
-    NSString *post2=[NSString stringWithFormat:@"date=%@",[df stringFromDate:myDate]];
-    NSString *post3=[NSString stringWithFormat:@"&dia=%@",[dma stringFromDate:myDate]];
-    NSString *post4=[NSString stringWithFormat:@"&token=%@",tokenID];
-    NSString *post5 =[NSString stringWithFormat:@"&id=%@",usuarioID];
-    NSString *post6 =[NSString stringWithFormat:@"&perfil=1"];
-    NSString *post7 =[NSString stringWithFormat:@"&vez=0"];
-    
-    NSString *post =[NSString stringWithFormat:@"&idF=%@",usuarioID];
-    
-    NSString *hostStr = @"http://lanchosoftware.es/phc/downloadImage.php?";
-    hostStr = [hostStr stringByAppendingString:post2];
-    hostStr = [hostStr stringByAppendingString:post3];
-    hostStr = [hostStr stringByAppendingString:post4];
-    hostStr = [hostStr stringByAppendingString:post5];
-    hostStr = [hostStr stringByAppendingString:post];
-    hostStr = [hostStr stringByAppendingString:post7];
-    hostStr = [hostStr stringByAppendingString:post6];
-
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(obtenerImagenPerfil:)
+                                                 name:@"Perfil"
+                                               object:nil];
     
     
+    [[Descargar alloc] descargarImagenes:usuarioA grupo:@"Perfil"];
     
-    //set image URL. AsyncImageView class will then dynamically load the image
-    
-    
-    NSString *string = [[NSString alloc] initWithFormat:@"%@",hostStr];
-    
-    
-    NSURL *urlT = [[NSURL alloc]initWithString:string];
-     NSLog(@"%@ URl Pasada",urlT);
-
-        NSLog(@"Reload Imagen Perfil");
-    
-        Img.layer.borderWidth=1.5;
-        Img.layer.borderColor=[UIColor blackColor].CGColor;
-  
-        
-       Img.clipsToBounds=YES;
-        Img.layer.cornerRadius = 8.0;
-        
-    
-      
-        // now lets make the connection to the web
-
-
-    __block Perfil * SelfB = self;
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:urlT];
-    
-    [self.Img setImageWithURLRequest:urlRequest
-                      placeholderImage:nil
-                               success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                   SelfB.Img.image = image;
-                               } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                   NSLog(@"Failed to download image: %@", error);
-                               }];
-    
-    
- 
-    
+    [usuarioA removeAllObjects];
 }
 -(void)refrescar:(id)sender{
     /*vez=0;
@@ -417,7 +359,7 @@
 - (void)viewDidLoad
 {
     
-     [NSTimer scheduledTimerWithTimeInterval:4 target:carousel selector:@selector(reloadData) userInfo:nil repeats: NO];
+    NSLog(@"Perfil");
     
     self.navigationController.navigationBar.barTintColor =[UIColor colorWithRed:0.35 green:0.67 blue:0.985 alpha:1];
     self.navigationController.navigationBar.tintColor=[UIColor whiteColor];
@@ -460,7 +402,12 @@
  
         //self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     if(act == NO){
+      
+        //Cargar imagen perfil
+        
         [self imagenPerfil];
+        
+        
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refrescar:) name:@"ActualizarPerfil" object:nil];
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(memoryWarning:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
@@ -501,6 +448,29 @@
     }
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+}
+
+- (void)obtenerImagenPerfil:(NSNotification *)notification
+{
+    NSDictionary *dict = [notification userInfo];
+    
+    NSMutableArray * imagenesA=[dict objectForKey:@"Imagenes"];
+    for (UIImage * imagen in imagenesA) {
+        usuario.imagen=imagen;
+    }
+    
+    Img.layer.borderWidth=1.5;
+    Img.layer.borderColor=[UIColor blackColor].CGColor;
+    
+    
+    Img.clipsToBounds=YES;
+    Img.layer.cornerRadius = 8.0;
+    Img.image=usuario.imagen;
+    
+        NSData *datos = [NSKeyedArchiver archivedDataWithRootObject:usuario];
+    [[NSUserDefaults standardUserDefaults] setObject:datos forKey:@"Usuario"];
+ 
+    
 }
 
 - (void)imagenes{

@@ -142,12 +142,7 @@
 
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
 
-  
 
- 
-    
-    
-    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(recargar) userInfo:nil repeats:NO];
    
     // self.parentViewController.view.clipsToBounds=YES;
     // self.parentViewController.view.layer.cornerRadius = 8.0;
@@ -205,7 +200,6 @@
     [collection registerClass:[Cell class] forCellWithReuseIdentifier:@"CELL_ID"];
     [self getData];
     [self.view reloadInputViews];
-    timer2= [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(act) userInfo:nil repeats: NO];
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -236,20 +230,9 @@
     NSData *datos = [NSKeyedArchiver archivedDataWithRootObject:arrayBuscar];
     [[NSUserDefaults standardUserDefaults] setObject:datos forKey:@"DatosGuardados"];
    
-    //NSLog(@"Diccionario %@",dict);
-    /*
-    if ([[dict objectForKey:@"grupo"] isEqualToString:@"Comida"]) {
-        imagenesComida= [[NSMutableArray alloc]initWithArray:[dict objectForKey:@"Imagenes"]];
-    }
-    if ([[dict objectForKey:@"grupo"] isEqualToString:@"Tecnologia"]) {
-        imagenesTecnologia= [[NSMutableArray alloc]initWithArray:[dict objectForKey:@"Imagenes"]];
-    }
-    if ([[dict objectForKey:@"grupo"] isEqualToString:@"Ropa"]) {
-        imagenesRopa= [[NSMutableArray alloc]initWithArray:[dict objectForKey:@"Imagenes"]];
-    }
-    */
+ 
     terminado=YES;
-    terminado2=YES;
+    terminadoImagenes=YES;
    [collection reloadData];
     
 }
@@ -274,7 +257,7 @@
     [[NSFileManager defaultManager] removeItemAtPath:dataPath error:nil];
     
     terminado=NO;
-    terminado2=NO;
+    terminadoImagenes=NO;
  //   [flUploadEngine emptyCache];
     ascending = !ascending;
     [array removeAllObjects];
@@ -314,7 +297,7 @@
         if (timer==NO) {
             timer=YES;
             NSLog(@"NSTimer");
-            autoTimer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(Cargar) userInfo:nil repeats:YES];
+            
         }
     }
 }
@@ -340,126 +323,45 @@
          [NSTimer scheduledTimerWithTimeInterval:8 target:self selector:@selector(eliminarHub) userInfo:nil repeats:NO];
     }
     
-    NSString * usuarioID = [[NSUserDefaults standardUserDefaults] stringForKey:@"ID_usuario"];
-    StringEncryption *crypto = [[StringEncryption alloc] init] ;
+        NSString * usuarioID = [[NSUserDefaults standardUserDefaults] stringForKey:@"ID_usuario"];
     
-    NSLog(@"%@ UsuarioID",usuarioID);
-    NSLog(@"Obteniendo datos");
-    NSDate *myDate = [NSDate date];
-    NSDateFormatter *df = [NSDateFormatter new];
-    [df setDateFormat:@"dd"];
-    NSString * tokenID = [[NSUserDefaults standardUserDefaults] stringForKey:@"token"];
-    NSLog(@"%@ tokenID",tokenID);
-    NSString *post5=[NSString stringWithFormat:@"&token=%@",tokenID];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(obtenerAmigos:)
+                                                 name:@"AmigosCargados"
+                                               object:nil];
     
-    NSString *post =[NSString stringWithFormat:@"id=%@",usuarioID];
-    NSString *post2=[NSString stringWithFormat:@"&date=%@",[df stringFromDate:myDate]];
     
-    NSString *hostStr = @"http://lanchosoftware.com:8080/amigos.php?";
-    hostStr = [hostStr stringByAppendingString:post];
-    hostStr = [hostStr stringByAppendingString:post2];
-    hostStr = [hostStr stringByAppendingString:post5];
-    
-    SBJsonParser *parser = [[SBJsonParser alloc] init];
-    
-    NSString *_key = @"alvarol2611995";
-    
-    NSLog(@"URL: %@",hostStr);
-    
-    _key= [_key stringByAppendingString:[df stringFromDate:myDate]];
-    
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setURL:[NSURL URLWithString:hostStr]];
-    
-    NSOperationQueue *cola = [NSOperationQueue new];
-    // now lets make the connection to the web
-    
-    [NSURLConnection sendAsynchronousRequest:request queue:cola completionHandler:^(NSURLResponse *response, NSData *datas, NSError *error)
-     {
-         dispatch_queue_t myQueue = dispatch_queue_create("My Queue",NULL);
-         dispatch_async(myQueue, ^{
-         CCOptions padding = kCCOptionECBMode;
-         NSString *string = [[NSString alloc] initWithData:datas encoding:NSASCIIStringEncoding];
-         NSData *_secretData = [NSData dataWithBase64EncodedString:string];
-         
-         NSData *encryptedData = [crypto decrypt:_secretData  key:[_key dataUsingEncoding:NSUTF8StringEncoding] padding:&padding];
-         NSString* newStr = [[NSString alloc]initWithData:encryptedData encoding:NSASCIIStringEncoding];
-         const char *convert = [newStr UTF8String];
-         NSString *responseString = [NSString stringWithUTF8String:convert];
-         
-         
-         NSArray *returned = [parser objectWithString:responseString error:nil];
-         
-         NSLog(@"%@",error);
-         NSMutableArray *mmutable = [NSMutableArray array];
-         for (NSDictionary *dict in returned){
-             
-             NSLog(@"loo %@ %@", [dict objectForKey:@"usuario"], dict);
-             item = [[Usuario alloc] init];
-             [item setUsuario:[dict objectForKey:@"usuario"]];
-             [item setID:[dict objectForKey:@"id_Usuario"]];
-             
-             [mmutable addObject:item];
-         }
-         
-         // parsing the first level
-         
-         
-         
-         NSLog(@"%@",returned );
-         NSLog( @"%d",[returned count] );
-         array = mmutable;
-         NSMutableArray * nombres = [[NSMutableArray alloc]init];
-         arrayMostrar = [[NSMutableArray alloc] init];
-         arrayBuscar = [[NSMutableArray alloc]init];
-         
-         for (Usuario *usuario in array) {
-             [nombres addObject:usuario.usuario];
-         }
-         
-         NSSortDescriptor *orden = [[NSSortDescriptor alloc] initWithKey:nil ascending:YES];
-         NSArray *arrayOrdenado = [nombres sortedArrayUsingDescriptors:[NSArray arrayWithObject:orden]];
-         
-         for (NSString *nombre in arrayOrdenado) {
-             for (Usuario* usuario in array) {
-                 if ([usuario.usuario isEqualToString:nombre]) {
-                     [arrayMostrar addObject:usuario];
-                 }
-             }
-             
-         }
-         arrayBuscar=[[NSMutableArray alloc]initWithArray:arrayMostrar];
-         
-         NSLog(@"%lu Numero Array Mostrar",(unsigned long)[ arrayMostrar count]);
-         
-         
-         [array removeAllObjects];
-         
-         terminado =YES;
-     //    [self descargar:nil];
-         
-         // Each element in statuses is a single status
-         // represented as a NSDictionary
-         
-             dispatch_queue_t myQueue = dispatch_queue_create("My Queue",NULL);
-             dispatch_async(myQueue, ^{
-                 
-                 
-                 NSLog(@"Empezando a Descargar: ");
-                 [[Descargar alloc] descargarImagenes:arrayBuscar grupo:@"Imagenes"];
-                 
-             });
-             
-             
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 [collection reloadData];
-             });
-         
-         
-         });  }];
-    
+        [[Descargar alloc]descargarDeAmigos:usuarioID];
     
 }
+
+- (void)obtenerAmigos:(NSNotification *)notification
+{
+    NSDictionary *dict = [notification userInfo];
+    
+    arrayBuscar=[dict objectForKey:@"Amigos"];
+    
+    terminado =YES;
+   
+    
+    dispatch_queue_t myQueue = dispatch_queue_create("My Queue",NULL);
+    dispatch_async(myQueue, ^{
+        
+        
+        NSLog(@"Empezando a Descargar: ");
+        [[Descargar alloc] descargarImagenes:arrayBuscar grupo:@"Amigos"];
+        
+    });
+    
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [collection reloadData];
+    });
+
+
+    
+}
+
 
 
 -(IBAction)anadir:(id)sender{
@@ -478,279 +380,6 @@
     
 }
 
--(IBAction)descargar:(id)sender{
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fin) name:@"Fin" object:nil];
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-    NSLog(@"Descargando" );
-    
-    __block NSString* IDFinal;
-    descargar =[[DescargaImagenes alloc]init];
-     NSMutableArray *URLs = [NSMutableArray array];
-    [URLs removeAllObjects];
-    
-    if (terminado) {
-        Usuario * u = [arrayBuscar lastObject];
-        IDFinal = u.ID;
-        
-        
-        for(Usuario *Usuarios in arrayBuscar){
-            
-            NSDate* myDate = [NSDate date];
-            NSDateFormatter *df = [NSDateFormatter new];
-            NSDateFormatter *dma = [NSDateFormatter new];
-            [df setDateFormat:@"dd"];
-            [dma setDateFormat:@"dd-mm-yyyy"];
-            
-           NSString* _key = @"alvarol2611995";
-            
-            
-            _key= [_key stringByAppendingString:[df stringFromDate:myDate]];
-            
-            NSString * tokenID = [[NSUserDefaults standardUserDefaults] stringForKey:@"token"];
-            NSString * usuarioID = [[NSUserDefaults standardUserDefaults] stringForKey:@"ID_usuario"];
-            
-            NSString *post2=[NSString stringWithFormat:@"date=%@",[df stringFromDate:myDate]];
-            NSString *post3=[NSString stringWithFormat:@"&dia=%@",[dma stringFromDate:myDate]];
-            NSString *post4=[NSString stringWithFormat:@"&token=%@",tokenID];
-            NSString *post5 =[NSString stringWithFormat:@"&id=%@",usuarioID];
-            NSString *post6 =[NSString stringWithFormat:@"&perfil=1"];
-            NSString *post7 =[NSString stringWithFormat:@"&vez=0"];
-            
-            NSString *post =[NSString stringWithFormat:@"&idF=%@",Usuarios.ID];
-            
-            NSString *hostStr = @"http://lanchosoftware.es/phc/downloadImage.php?";
-            hostStr = [hostStr stringByAppendingString:post2];
-            hostStr = [hostStr stringByAppendingString:post3];
-            hostStr = [hostStr stringByAppendingString:post4];
-            hostStr = [hostStr stringByAppendingString:post5];
-            hostStr = [hostStr stringByAppendingString:post6];
-            hostStr = [hostStr stringByAppendingString:post7];
-               hostStr = [hostStr stringByAppendingString:post];
-        
-            
-           
-            [URLs addObject:[NSURL URLWithString:hostStr]];
-            if ([IDFinal isEqualToString:Usuarios.ID]) {
-         
-                    [MBProgressHUD hideHUDForView:self.view animated:YES];
-                    recargando=NO;
-                
-                 self.imageURLs = URLs;
-               // terminado =YES;
-                guardado=YES;
-                
-                
-                
-                for (int w =0; w<[arrayBuscar count];w++) {
-                    
-                    
-                    Usuario * us = [arrayBuscar objectAtIndex:w];
-                    
-                    NSURL *url = [URLs objectAtIndex:w];
-                    // NSLog(@"%@ %@", us.ID,imagen2.IDusuario);
-               
-                        
-                        Usuario * TempUser =[[Usuario alloc]init];
-                        TempUser=us;
-                        
-                    TempUser.URLimagen= [url absoluteString];
-                    
-                    
-                        //  NSLog(@"Imagen Perfil Cache");
-                        [arrayBuscar replaceObjectAtIndex:w withObject:TempUser];
-                    
-                        
-                    
-                }
-                
-                
-                /*
-                dispatch_async(dispatch_get_main_queue(), ^{
-                   // [collection reloadData];
-                });
-                 */
-                [self CargarImagenes];
-            }
-                       
-
-            
-        }
-    }
-    else{
-        Usuario * u = [arrayGuardado lastObject];
-        IDFinal = u.ID;
-        
-        
-        for(Usuario *Usuarios in arrayGuardado){
-            
-            
-            NSDate* myDate = [NSDate date];
-            NSDateFormatter *df = [NSDateFormatter new];
-            NSDateFormatter *dma = [NSDateFormatter new];
-            [df setDateFormat:@"dd"];
-            [dma setDateFormat:@"dd-mm-yyyy"];
-            
-            NSString* _key = @"alvarol2611995";
-            
-            
-            _key= [_key stringByAppendingString:[df stringFromDate:myDate]];
-            
-            NSString * tokenID = [[NSUserDefaults standardUserDefaults] stringForKey:@"token"];
-            NSString * usuarioID = [[NSUserDefaults standardUserDefaults] stringForKey:@"ID_usuario"];
-            
-            NSString *post2=[NSString stringWithFormat:@"&date=%@",[df stringFromDate:myDate]];
-            NSString *post3=[NSString stringWithFormat:@"&dia=%@",[dma stringFromDate:myDate]];
-            NSString *post4=[NSString stringWithFormat:@"&token=%@",tokenID];
-            NSString *post5 =[NSString stringWithFormat:@"&id=%@",usuarioID];
-            NSString *post6 =[NSString stringWithFormat:@"&perfil=1"];
-            NSString *post7 =[NSString stringWithFormat:@"&vez=0"];
-            
-            NSString *post =[NSString stringWithFormat:@"idF=%@",Usuarios.ID];
-            
-            NSString *hostStr = @"http://lanchosoftware.es/phc/downloadImage.php?";
-            hostStr = [hostStr stringByAppendingString:post];
-            hostStr = [hostStr stringByAppendingString:post2];
-            hostStr = [hostStr stringByAppendingString:post3];
-            hostStr = [hostStr stringByAppendingString:post4];
-            hostStr = [hostStr stringByAppendingString:post5];
-            hostStr = [hostStr stringByAppendingString:post6];
-            hostStr = [hostStr stringByAppendingString:post7];
-            
-            
-         
-            [URLs addObject:[NSURL URLWithString:hostStr]];
-            if ([IDFinal isEqualToString:Usuarios.ID]) {
-
-                    [MBProgressHUD hideHUDForView:self.view animated:YES];
-                    recargando=NO;
-                
-                self.imageURLs = URLs;
-                
-                
-                
-                for (int w =0; w<[arrayGuardado count];w++) {
-                    
-                    
-                    Usuario * us = [arrayGuardado objectAtIndex:w];
-                    
-                    NSURL *url = [URLs objectAtIndex:w];
-                    // NSLog(@"%@ %@", us.ID,imagen2.IDusuario);
-                    
-                    
-                    Usuario * TempUser =[[Usuario alloc]init];
-                    TempUser=us;
-                    
-                    TempUser.URLimagen= [url absoluteString];
-                    
-                    
-                    //  NSLog(@"Imagen Perfil Cache");
-                    [arrayGuardado replaceObjectAtIndex:w withObject:TempUser];
-                    
-                    
-                    
-                }
-                //terminado =YES;
-                guardado=YES;
-               /* dispatch_async(dispatch_get_main_queue(), ^{
-                    [collection reloadData];
-                });*/
-                
-                    [self CargarImagenes];
-                
-             
-            }
-            
-            
-        }
-    }
-    
-    
-    
-}
-
--(void)CargarImagenes{
-    NSLog(@"Cargando Imagenes");
-   __block BOOL Error=NO;
-    imagenesCargadas = [[NSMutableArray alloc]init];
-    AFHTTPClient *httpClient  = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@""]];
-    [httpClient.operationQueue setMaxConcurrentOperationCount:1] ;
-    NSMutableArray *operationsArray = [NSMutableArray array];
-    for (Usuario *us in arrayBuscar) {
-        
-     //   NSLog(@"URL: %@", us.URLimagen);
-        
-        NSURL * URL = [[NSURL alloc]initWithString:us.URLimagen];
-        
-        AFImageRequestOperation *getImageOperation =
-        [AFImageRequestOperation imageRequestOperationWithRequest:[NSURLRequest requestWithURL:URL]
-                                             imageProcessingBlock:nil
-                                                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                                              //
-                                                              // Save image
-                                                              //
-                                                                    if(image != nil){
-                                                              [imagenesCargadas addObject:image];
-                                                                    }
-                                                                    else{
-                                                                        Error=YES;
-                                                                        NSLog(@"Image request CACHE error!");
-                                                                    }
-                                                          }
-                                                          failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                                              if((error.domain == NSURLErrorDomain) && (error.code == NSURLErrorCancelled))
-                                                                  NSLog(@"Image request cancelled!");
-                                                              else
-                                                                  NSLog(@"Image request error!");
-                                                          }];
-        
-        [operationsArray addObject:getImageOperation];
-        
-        
-        //
-        // Lock user interface by pop-up dialog with process indicator and "Cancel download" button
-        //
-        
-        
-        
-        
-    }
-    
-    [httpClient enqueueBatchOfHTTPRequestOperations:operationsArray
-                                      progressBlock:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
-                                          //
-                                          // Handle process indicator
-                                          //
-                                          //   NSLog(@"Imagenes: %@", imagenesCargadas);
-                                          //  NSLog(@"Completado");
-                                      } completionBlock:^(NSArray *operations) {
-                                          //
-                                          // Remove blocking dialog, do next tasks
-                                          //+
-                                          if(Error){
-                                              [self changeSorting];
-                                          }
-                                          else{
-                                          NSLog(@"Imagenes: %lu", (unsigned long)[imagenesCargadas count]);
-                                          
-                                          terminado2 = YES;
-                                          dispatch_async(dispatch_get_main_queue(), ^{
-                                              [collection reloadData];
-                                              
-                                              /* for (int i =0; i< [imagenesCargadas count]; i++) {
-                                               //  UIImageView *Img = [[UIImageView alloc]initWithImage:[imagenesCargadas objectAtIndex:i]];
-                                               UIImage * image = [imagenesCargadas objectAtIndex:i];
-                                               [carousel reloadInputViews];
-                                               [carousel reloadItemAtIndex:i animated:NO];
-                                               }*/
-                                          
-                                          });}
-                                          
-                                          
-                                      }];
-}
-
-
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     NSLog(@"%d Count ", [arrayBuscar count]);
@@ -764,40 +393,40 @@
     
 }
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    Usuario *items;
     
-    
-    #define IMAGE_VIEW_TAG 99
+     #define IMAGE_VIEW_TAG 99
     
     Cell *cell =[collectionView dequeueReusableCellWithReuseIdentifier:@"CELL_ID"forIndexPath:indexPath];
+    
+    Usuario *items;
+    UIImageView*imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, cell.image.frame.size.width,  cell.image.frame.size.height)];
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.clipsToBounds = YES;
+    imageView.tag = IMAGE_VIEW_TAG;
+
+    
+    
     if (terminado) {
-       //  NSLog(@"Terminado Cell");
+
         items = [arrayBuscar objectAtIndex:indexPath.item];
-        //if (guardado == YES) {
-           // NSLog(@"Guardado");
-         //   NSData *datos = [NSKeyedArchiver archivedDataWithRootObject:arrayMostrar];
-         //   [[NSUserDefaults standardUserDefaults] setObject:datos forKey:@"DatosGuardados"];
-          //  guardado=NO;
-       // }
+
     }
     else{
        // NSLog(@" No Terminado");
         items = [arrayGuardado objectAtIndex:indexPath.item];
+        imageView.image= items.imagen;
+        [cell.image addSubview:imageView];
     }
 
-    
+    if (items.imagen != nil) {
+        imageView.image= items.imagen;
+        [cell.image addSubview:imageView];
+    }
     cell.name.text = items.usuario;
     
     if (cell == nil)
     {
-        //create new cell
-       
-		
-		//add AsyncImageView to cell
-		UIImageView*imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, cell.image.frame.size.width,  cell.image.frame.size.height)];
-		imageView.contentMode = UIViewContentModeScaleAspectFill;
-		imageView.clipsToBounds = YES;
-		imageView.tag = IMAGE_VIEW_TAG;
+
 		[cell.image addSubview:imageView];
         if (imageView.image == nil) {
             NSLog(@"Nil");
@@ -805,52 +434,9 @@
             cell.backgroundColor = [UIColor blueColor];
             [cell reloadInputViews];
         }
-	//	[imageView release];
-		
-		//common settings
-       
+	
     }
-       if (terminado2) {
-           
-           
-        //   NSLog(@"Terminado2");
-	//get image view
-           
-	//UIImageView *imageView =  ((UIImageView *)cell.image);
-	//[AsyncImageLoader defaultCache];
-    //cancel loading previous image for cell
-    
-          // imageView.image = items.imagen;
-    //load the image
-           /*
-           NSURL *URL = [NSURL URLWithString:items.URLimagen];
-           NSURLRequest *urlRequest = [NSURLRequest requestWithURL:URL];
-        __block Cell * cellB = cell;
-           [cell.image setImageWithURLRequest:urlRequest
-                                      placeholderImage:nil
-                                               success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                                   cellB.image.image = image;
-                                               } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                                   NSLog(@"Failed to download image: %@", error);
-                                               }];
-     */
-           if ([imagenesCargadas count] !=0) {
-           
-           if([imagenesCargadas objectAtIndex:indexPath.item] != nil){
-            
-               UIImageView*imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, cell.image.frame.size.width,  cell.image.frame.size.height)];
-               imageView.contentMode = UIViewContentModeScaleAspectFill;
-               imageView.clipsToBounds = YES;
-               imageView.tag = IMAGE_VIEW_TAG;
-               imageView.image= [imagenesCargadas objectAtIndex:indexPath.item];
-
-           [cell.image addSubview:imageView];
-           }
-           [cell reloadInputViews];
-           
-           }
-   
-    }
+  
     
   [MBProgressHUD hideHUDForView:self.view animated:YES];
     if (recargando) {
@@ -870,7 +456,7 @@
          [segue.destinationViewController setEstado:Estado];
             [segue.destinationViewController setID:IDa];
          [segue.destinationViewController setUrlPasada:UrlA];
-
+      [segue.destinationViewController setImagen:item.imagen];
      }
      
      
