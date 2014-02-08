@@ -349,7 +349,7 @@
         
         
         NSLog(@"Empezando a Descargar: ");
-        [[Descargar alloc] descargarImagenes:arrayBuscar grupo:@"Amigos"];
+        [[Descargar alloc] descargarImagenes:arrayBuscar grupo:@"Amigos" vez:@"0"];
         
     });
     

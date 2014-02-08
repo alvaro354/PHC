@@ -296,7 +296,7 @@
                                                object:nil];
     
     
-    [[Descargar alloc] descargarImagenes:usuarioA grupo:@"Perfil"];
+    [[Descargar alloc] descargarImagenes:usuarioA grupo:@"Perfil" vez:@"0"];
     
     [usuarioA removeAllObjects];
 }
@@ -452,13 +452,19 @@
 
 - (void)obtenerImagenPerfil:(NSNotification *)notification
 {
-    NSDictionary *dict = [notification userInfo];
     
+    NSDictionary *dict = [notification userInfo];
+    if (usuario==nil) {
+        usuario=[[Usuario alloc]init];
+    
+    }
     NSMutableArray * imagenesA=[dict objectForKey:@"Imagenes"];
     for (UIImage * imagen in imagenesA) {
         usuario.imagen=imagen;
+        NSLog(@"Imagen Perfil Obtenida");
     }
     
+  //  Img=[[UIImageView alloc]init];
     Img.layer.borderWidth=1.5;
     Img.layer.borderColor=[UIColor blackColor].CGColor;
     
@@ -467,13 +473,16 @@
     Img.layer.cornerRadius = 8.0;
     Img.image=usuario.imagen;
     
+    [Img reloadInputViews];
+    [self.view reloadInputViews];
+    
         NSData *datos = [NSKeyedArchiver archivedDataWithRootObject:usuario];
     [[NSUserDefaults standardUserDefaults] setObject:datos forKey:@"Usuario"];
  
     
 }
 
-- (void)imagenes{
+- (void) imagenes{
     
     NSLog(@"Obteniendo datos");
     NSDate *myDate = [NSDate date];
@@ -1001,7 +1010,7 @@ Url = [[UrlDatos objectAtIndex:indexTocado] absoluteString];
     }}
 
 
-- (void)viewDidUnload
+- (void) viewDidUnload
 {
     
     label = nil;

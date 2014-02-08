@@ -119,7 +119,7 @@
     
 }
 
--(void) descargarImagenes:(NSMutableArray*)array grupo:(NSString*)grupo{
+-(void) descargarImagenes:(NSMutableArray*)array grupo:(NSString*)grupo vez:(NSString*)vez{
     
  
     
@@ -149,8 +149,15 @@
         NSString * usuario = [NSString stringWithFormat:@"?userID=%@",user];
         NSString * token = [NSString stringWithFormat:@"&token=%@",tokenS];
         NSString * IDURL = [NSString stringWithFormat:@"&ID=%@",userA.ID];
-        NSString * perfil = [NSString stringWithFormat:@"&perfil=0"];
+        NSString * vezU = [NSString stringWithFormat:@"&vez=%@",vez];
+        NSString * perfil;
         NSString * date = [NSString stringWithFormat:@"&date=%@",[df stringFromDate:myDate]];
+        if ([grupo isEqualToString:@"Perfil"]) {
+            perfil= [NSString stringWithFormat:@"&perfil=1"];
+        }
+        else if ([grupo isEqualToString:@"Amigos"]){
+             perfil= [NSString stringWithFormat:@"&perfil=2"];
+        }
        
         
         
@@ -162,6 +169,7 @@
         hostStr=[hostStr stringByAppendingString:IDURL];
          hostStr=[hostStr stringByAppendingString:perfil];
         hostStr=[hostStr stringByAppendingString:date];
+         hostStr=[hostStr stringByAppendingString:vezU];
         
         hostStr = [hostStr stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
         

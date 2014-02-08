@@ -721,6 +721,8 @@
 		B1294AF318A2781B008447A8 /* Descargas */ = {
 			isa = PBXGroup;
 			children = (
+				B11D92F817D1311F006AD5B4 /* Cache.h */,
+				B11D92F917D1311F006AD5B4 /* Cache.m */,
 				B1294AF418A27828008447A8 /* Descargar.h */,
 				B1294AF518A27828008447A8 /* Descargar.m */,
 			);
@@ -780,8 +782,6 @@
 				B18E296A16E6674A0002B903 /* Plantillas */,
 				B1A004861705FAE700BEBC80 /* CeldaInvitacionesCell.h */,
 				B1A004871705FAE800BEBC80 /* CeldaInvitacionesCell.m */,
-				B11D92F817D1311F006AD5B4 /* Cache.h */,
-				B11D92F917D1311F006AD5B4 /* Cache.m */,
 				B1B5CC5016974983000F4F69 /* Usuario.h */,
 				B1B5CC5116974983000F4F69 /* Usuario.m */,
 				B1B5CC4D1697485F000F4F69 /* UsuariosVCP.h */,
