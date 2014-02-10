@@ -204,7 +204,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(obtenerImagenes:)
-                                                 name:@"ImagenesCargadas"
+                                                 name:@"ImagenesPerfilCargadas"
                                                object:nil];
 
    
@@ -349,7 +349,8 @@
         
         
         NSLog(@"Empezando a Descargar: ");
-        [[Descargar alloc] descargarImagenes:arrayBuscar grupo:@"Amigos" vez:@"0"];
+        [[Descargar alloc]descargarImagenPerfil:arrayBuscar grupo:@"Amigos"];
+       
         
     });
     

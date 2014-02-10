@@ -59,6 +59,7 @@
 -(IBAction)refrescar:(id)sender;
 - (void)imagenes;
 - (void)obtenerImagenPerfil:(NSNotification *)notification;
+- (void)obtenerImagenes:(NSNotification *)notification;
 - (void)terminado;
 @property (nonatomic, retain) __block NSTimer *timer;
 @property (nonatomic, retain) NSTimer *timer2;
