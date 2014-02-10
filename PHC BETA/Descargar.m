@@ -149,7 +149,7 @@
         
         NSString * usuario = [NSString stringWithFormat:@"?userID=%@",user];
         NSString * token = [NSString stringWithFormat:@"&token=%@",tokenS];
-        NSString * IDURL = [NSString stringWithFormat:@"&ID=%@",userA.ID];
+        NSString * IDURL = [NSString stringWithFormat:@"&idF=%@",userA.ID];
         NSString * vezU = [NSString stringWithFormat:@"&vez=%d",vez];
         NSString * perfil= [NSString stringWithFormat:@"&perfil=2"];
         NSString * date = [NSString stringWithFormat:@"&date=%@",[df stringFromDate:myDate]];
@@ -174,8 +174,12 @@
                                                               // Save image
                                                               //
                                                               if(image != nil){
-                                                                
-                                                                  [imagenesCargadas addObject:image];
+                                                            
+                                                                  Imagen * img = [[Imagen alloc]init];
+                                                                  img.imagen=[self addBorderToImage:image];
+                                                                  img.IDusuario=userA.ID;
+                                                                  img.URL=[NSString stringWithFormat:@"%@",request.URL];
+                                                                  [imagenesCargadas addObject:img];
                                                               }
                                                               else{
                                                                   Error=YES;
@@ -195,6 +199,8 @@
         //
         // Lock user interface by pop-up dialog with process indicator and "Cancel download" button
         //
+            
+        
             vez++;
         }
         
@@ -255,23 +261,15 @@
         
         NSString * user = [[NSUserDefaults standardUserDefaults]objectForKey:@"ID_usuario"];
         NSString * tokenS = [[NSUserDefaults standardUserDefaults]objectForKey:@"token"];
-        
-        
-        
-        
+ 
         
         NSString * usuario = [NSString stringWithFormat:@"?userID=%@",user];
         NSString * token = [NSString stringWithFormat:@"&token=%@",tokenS];
-        NSString * IDURL = [NSString stringWithFormat:@"&ID=%@",userA.ID];
-       // NSString * vezU = [NSString stringWithFormat:@"&vez=%@",vez];
-        NSString * perfil;
+        NSString * IDURL = [NSString stringWithFormat:@"&idF=%@",userA.ID];
+       NSString * vezU = [NSString stringWithFormat:@"&vez=0"];
+        NSString * perfil = [NSString stringWithFormat:@"&perfil=1"];
         NSString * date = [NSString stringWithFormat:@"&date=%@",[df stringFromDate:myDate]];
-        if ([grupo isEqualToString:@"Perfil"]) {
-            perfil= [NSString stringWithFormat:@"&perfil=1"];
-        }
-        else if ([grupo isEqualToString:@"Amigos"]){
-            perfil= [NSString stringWithFormat:@"&perfil=2"];
-        }
+       
         
         
         
@@ -283,7 +281,7 @@
         hostStr=[hostStr stringByAppendingString:IDURL];
         hostStr=[hostStr stringByAppendingString:perfil];
         hostStr=[hostStr stringByAppendingString:date];
-       // hostStr=[hostStr stringByAppendingString:vezU];
+        hostStr=[hostStr stringByAppendingString:vezU];
         
         hostStr = [hostStr stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
         
@@ -520,5 +518,51 @@
     [[NSUserDefaults standardUserDefaults] setObject:datos forKey:grupoP];
     
 }
+
+- (UIImage *)addBorderToImage:(UIImage *)image {
+	CGImageRef bgimage = [image CGImage];
+	float widt = CGImageGetWidth(bgimage);
+	float heigh = CGImageGetHeight(bgimage);
+	
+    // Create a temporary texture data buffer
+	void *data = malloc(widt * heigh * 4);
+	
+	// Draw image to buffer
+	CGContextRef ctx = CGBitmapContextCreate(data,
+                                             widt,
+                                             heigh,
+                                             8,
+                                             widt * 4,
+                                             CGImageGetColorSpace(image.CGImage),
+                                             kCGImageAlphaPremultipliedLast);
+	CGContextDrawImage(ctx, CGRectMake(0, 0, (CGFloat)widt, (CGFloat)heigh), bgimage);
+	
+	//Set the stroke (pen) color
+	CGContextSetStrokeColorWithColor(ctx, [UIColor blackColor].CGColor);
+    
+	//Set the width of the pen mark
+	CGFloat borderWidth = (float)widt*0.05;
+	CGContextSetLineWidth(ctx, borderWidth);
+    
+	//Start at 0,0 and draw a square
+	CGContextMoveToPoint(ctx, 0.0, 0.0);
+	CGContextAddLineToPoint(ctx, 0.0, heigh);
+	CGContextAddLineToPoint(ctx, widt, heigh);
+	CGContextAddLineToPoint(ctx, widt, 0.0);
+	CGContextAddLineToPoint(ctx, 0.0, 0.0);
+	
+	//Draw it
+	CGContextStrokePath(ctx);
+    
+    // write it to a new image
+	CGImageRef cgimage = CGBitmapContextCreateImage(ctx);
+	UIImage *newImage = [UIImage imageWithCGImage:cgimage];
+	CFRelease(cgimage);
+	CGContextRelease(ctx);
+	
+    // auto-released
+	return newImage;
+}
+
 
 @end

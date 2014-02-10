@@ -9,7 +9,7 @@
 #import "Imagen.h"
 
 @implementation Imagen
-@synthesize ID,IDusuario,imagen,Etiquetas,Nombre, Fecha,perfil, comentarios, publico,altura,XML;
+@synthesize ID,IDusuario,imagen,Etiquetas,Nombre, Fecha,perfil, comentarios, publico,altura,XML,URL;
 -(void)encodeWithCoder:(NSCoder *)encoder
 {
     [encoder encodeObject:ID forKey:@"ID"];
@@ -23,6 +23,7 @@
     [encoder encodeObject:publico forKey:@"publico"];
     [encoder encodeObject:altura forKey:@"altura"];
      [encoder encodeObject:XML forKey:@"xml"];
+    [encoder encodeObject:URL forKey:@"URL"];
 }
 
 -(id)initWithCoder:(NSCoder *)decoder
@@ -38,7 +39,7 @@
     publico= [decoder decodeObjectForKey:@"publico"];
     altura= [decoder decodeObjectForKey:@"altura"];
     XML= [decoder decodeObjectForKey:@"xml"];
-    
+    URL= [decoder decodeObjectForKey:@"URL"];
     
     return self;
 }

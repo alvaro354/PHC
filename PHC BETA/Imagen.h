@@ -21,6 +21,7 @@
 @property(nonatomic, strong) NSString *altura;
 @property(nonatomic, retain) NSMutableArray *comentarios;
 @property(nonatomic, retain) NSString *XML;
+@property(nonatomic, retain) NSString *URL;
 //@property(nonatomic, strong) NSString *ID;
 
 @end

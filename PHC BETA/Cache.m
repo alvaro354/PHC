@@ -170,9 +170,10 @@
     
     NSArray *array = [fileName componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"&"]];
     for (NSString * st in array) {
-        //   NSLog(@"%@",st);
+          // NSLog(@"%@",st);
         if ([st rangeOfString:@"idF"].location != NSNotFound) {
             self.idf= [NSString stringWithString:st];
+           // NSLog(@"idF: %@",self.idf);
         }
         if ([st rangeOfString:@"vez"].location != NSNotFound) {
             self.vez= [NSString stringWithString:st];

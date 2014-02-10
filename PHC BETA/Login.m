@@ -736,7 +736,7 @@
          numeroObjetos ++;
         
         CGFloat W = image.size.width ;
-        CGFloat H = image.size.height;
+       // CGFloat H = image.size.height;
       //  NSLog(@"X:%f Y:%f W:%f H:%f" ,X,Y,W,H);
         
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(X, Y, W, W)];

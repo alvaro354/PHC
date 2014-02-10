@@ -195,6 +195,7 @@
       timer2= [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(act) userInfo:nil repeats: NO];
     [self viewDidLoad];
      */
+    [imagenesCargadas removeAllObjects];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString* string = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"URLCache"];
     NSString * usuarioID = [[NSUserDefaults standardUserDefaults] stringForKey:@"ID_usuario"];
@@ -222,6 +223,9 @@
     act=YES;
     [self viewDidLoad];
    
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [self imagenPerfil];
 }
 - (void)viewDidLoad
 {
@@ -272,7 +276,7 @@
       
         //Cargar imagen perfil
         
-        [self imagenPerfil];
+        //[self imagenPerfil];
         
         
     
@@ -354,7 +358,7 @@
     NSDictionary *dict = [notification userInfo];
    
     NSMutableArray * imagenesA=[dict objectForKey:@"Imagenes"];
-    for (UIImage * imagen in imagenesA) {
+    for (Imagen * imagen in imagenesA) {
         [imagenesCargadas addObject:imagen];
       
     }
@@ -539,9 +543,8 @@
         NSLog(@"Cargando imagen : %lu",(unsigned long)index);
       //  UIImageView * Img = [[UIImageView alloc]initWithImage:[imagenesCargadas objectAtIndex:index]];
         if([imagenesCargadas objectAtIndex:index] != nil){
-            view.layer.borderWidth= 5.0f;
-            view.layer.borderColor=[UIColor blackColor].CGColor;
-        ((UIImageView *)view).image= [imagenesCargadas objectAtIndex:index];
+            
+        ((UIImageView *)view).image= ((Imagen*)[imagenesCargadas objectAtIndex:index]).imagen;
         }
       //  view.backgroundColor =[UIColor blueColor];
     //    view.layer.borderWidth= 2.0;
@@ -620,9 +623,9 @@
 
    
       NSLog(@"%d index",indexTocado);
-    if (indexTocado <= [UrlDatos count]) {
+    if (indexTocado <= [imagenesCargadas count]) {
         
-Url = [[UrlDatos objectAtIndex:indexTocado] absoluteString];
+    Url = ((Imagen*)[imagenesCargadas objectAtIndex:indexTocado]).URL;
     NSLog(@"%@ URL index",Url);
     
     width=sender.frame.size.width;
@@ -665,9 +668,7 @@ Url = [[UrlDatos objectAtIndex:indexTocado] absoluteString];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
--(void)viewWillAppear:(BOOL)animated{
 
-}
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

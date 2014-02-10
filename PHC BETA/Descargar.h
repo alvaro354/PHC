@@ -16,6 +16,7 @@
 #import "AFHTTPClient.h"
 #import "AFImageRequestOperation.h"
 #import "Usuario.h"
+#import "Imagen.h"
 
 @interface Descargar : NSObject{
     BOOL Error;

@@ -21,6 +21,7 @@
 #import "UICKeyChainStore.h"
 #import "fileUploadEngine.h"
 #import "Descargar.h"
+#import "Imagen.h"
 
 
 @interface Perfil: UIViewController <NSURLConnectionDelegate, NSURLConnectionDataDelegate,iCarouselDataSource,iCarouselDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate>{

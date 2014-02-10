@@ -262,7 +262,7 @@ static UIImage * AFInflatedImageFromResponseWithDataAtScale(NSHTTPURLResponse *r
                         requestB.dataPath = [string stringByAppendingPathComponent:[NSString stringWithFormat:@"idF=%@",imagen2.IDusuario]];
                     }
                     
-                    
+                   // NSLog(@"Cache File Path Guardado: %@",[requestB.dataPath stringByAppendingPathComponent:filePath]);
                     
                     [[NSFileManager defaultManager] createFileAtPath:[requestB.dataPath stringByAppendingPathComponent:filePath]
                                                             contents:data
@@ -270,7 +270,7 @@ static UIImage * AFInflatedImageFromResponseWithDataAtScale(NSHTTPURLResponse *r
                     
                     
                     
-                    
+                 /*
                     for (int w =0; w<[arrayGuardado count];w++) {
                         
                         NSData *datos = [[NSUserDefaults standardUserDefaults] objectForKey:@"DatosGuardados"];
@@ -300,6 +300,7 @@ static UIImage * AFInflatedImageFromResponseWithDataAtScale(NSHTTPURLResponse *r
                             
                         }
                     }
+                  */
                     
                 }
                 else{
@@ -395,9 +396,11 @@ static UIImage * AFInflatedImageFromResponseWithDataAtScale(NSHTTPURLResponse *r
     
     [self initCache];
     
-    //  NSLog(@" Nombre: %@.%@.%@",idf,vez,perfil);
+    // NSLog(@" Nombre: %@.%@.%@",idf,vez,perfil);
     fileName = [NSString stringWithFormat:@"%@.%@.%@",self.idf,self.vez,self.perfil];
+    
 	self.filePath = [self.dataPath stringByAppendingPathComponent:fileName];
+    //NSLog(@" File Path: %@",filePath);
     
 }
 - (void) initCache
@@ -414,7 +417,7 @@ static UIImage * AFInflatedImageFromResponseWithDataAtScale(NSHTTPURLResponse *r
     
 	/* check for existence of cache directory */
 	if ([[NSFileManager defaultManager] fileExistsAtPath:self.dataPath]) {
-        //  NSLog(@"Directorio Existe Path : %@",dataPath);
+         // NSLog(@"Directorio Existe Path : %@",dataPath);
 		return;
 	}
     
@@ -423,7 +426,7 @@ static UIImage * AFInflatedImageFromResponseWithDataAtScale(NSHTTPURLResponse *r
                                   withIntermediateDirectories:YES
                                                    attributes:nil
                                                         error:nil];
-        //  NSLog(@"Directorio Creado Path : %@",dataPath);
+         // NSLog(@"Directorio Creado Path : %@",dataPath);
 		
 		return;
 	}
