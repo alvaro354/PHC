@@ -305,7 +305,7 @@
     NSData *datos = [defaults objectForKey:@"DatosAmigo"];
     usuario = [NSKeyedUnarchiver unarchiveObjectWithData:datos];
     Name.text=[defaults objectForKey:@"usuario"];
-    Img.image=usuario.imagen;
+   // Img.image=usuario.imagen;
     Amigo=usuario.usuario;
     ID=usuario.ID;
     
@@ -609,6 +609,7 @@
         
   [segue.destinationViewController setHeight:height];
         [segue.destinationViewController setUrl:Url];
+        [segue.destinationViewController setImagenPasar:imagenPasar];
         
         
     }
@@ -630,6 +631,9 @@
     
     width=sender.frame.size.width;
     height=sender.frame.size.height*3;
+        
+        imagenPasar=[[Imagen alloc]init];
+        imagenPasar=[imagenesCargadas objectAtIndex:indexTocado];
     
     Imagenes* secondViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Imagenes"];
             NSLog(@"%f Altura", height);

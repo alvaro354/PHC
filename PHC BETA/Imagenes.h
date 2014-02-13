@@ -10,8 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "ScrollView.h"
 #import "AsyncImageView.h"
-
-
+#import "Imagen.h"
 
 @interface Imagenes : UIViewController<UIScrollViewDelegate, UIGestureRecognizerDelegate , UIAlertViewDelegate ,UIActionSheetDelegate>{
     BOOL toolbarHidden ;
@@ -31,6 +30,7 @@
 -(IBAction)editar:(id)sender;
 @property (weak, nonatomic) IBOutlet UIToolbar *barraSuperior;
 @property (nonatomic,strong) UIImage* imageFondo;
+@property (nonatomic,strong) Imagen* ImagenPasar;
 @property (nonatomic,strong) NSString* url;
 @property (nonatomic,strong) NSURL* urlDatos;
 @property (weak, nonatomic) IBOutlet UIToolbar *barraInferior;

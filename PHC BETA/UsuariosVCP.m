@@ -229,6 +229,7 @@
     }
     NSData *datos = [NSKeyedArchiver archivedDataWithRootObject:arrayBuscar];
     [[NSUserDefaults standardUserDefaults] setObject:datos forKey:@"DatosGuardados"];
+    arrayMostrar = [[NSMutableArray alloc]initWithArray:arrayBuscar];
    
  
     terminado=YES;

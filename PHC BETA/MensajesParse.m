@@ -411,7 +411,7 @@ NSData *newData = [string dataUsingEncoding:NSUTF8StringEncoding];
      NSString *post6=[NSString stringWithFormat:@"&idf=%@",IDMS];
     NSString *post7=[NSString stringWithFormat:@"&privado=%@",privadoS];
     
-    NSString *urlString= @"http://lanchosoftware.es/phc/xmlUpload.php?";
+    NSString *urlString= @"http://lanchosoftware.com:8080/PHC/subirXML.php";
     // NSString *urlString= @"http://lanchosoftware.es/app/imagenperfil.php?";
     urlString = [urlString stringByAppendingString:post];
     urlString = [urlString stringByAppendingString:post2];

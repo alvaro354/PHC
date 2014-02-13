@@ -19,7 +19,7 @@
 @end
 
 @implementation Imagenes
-@synthesize barraInferior,barraSuperior,imageFondo,ViewFondo, width,height,urlDatos,url;
+@synthesize barraInferior,barraSuperior,imageFondo,ViewFondo, width,height,urlDatos,url,ImagenPasar;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -342,23 +342,59 @@
                  titulo.text=imagen2.Nombre;
                  [titulo reloadInputViews];
                  
+                 
+                 
+                 if (imagen2.altura != nil) {
+                     [UIView beginAnimations:@"Resize" context:nil];
+                     [UIView setAnimationDuration:0.5];
+                     
+                     __block UIImageView * imgVB= ViewFondo;
+                     __block UIScrollView * scrollVB= scroll;
+                     
+                     
+                     imgVB = [[UIImageView alloc] initWithFrame:CGRectMake(0, ([[UIScreen mainScreen] bounds].size.height/2)-([imagen2.altura floatValue]/2), 320, [imagen2.altura floatValue])];
+                     //imgVB.center = self.navigationController.view.center;
+                     
+                     imgVB.image = ImagenPasar.imagen;
+                     
+                     scrollVB =[[UIScrollView alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
+                     
+                     
+                     //scrollVB.center=self.navigationController.view.center;
+                     scrollVB.userInteractionEnabled=YES;
+                     
+                     [self.view insertSubview:scrollVB belowSubview:barraInferior];
+                     [scrollVB addSubview:imgVB];
+                     /*
+                      UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(move:)];
+                      [panRecognizer setMinimumNumberOfTouches:1];
+                      [panRecognizer setMaximumNumberOfTouches:1];
+                      [panRecognizer setDelegate:self];
+                      [scroll addGestureRecognizer:panRecognizer];
+                      
+                      */
+                     scrollVB.scrollEnabled = YES;
+                     
+                     // For supporting zoom,
+                     scrollVB.minimumZoomScale = 1;
+                     scrollVB.maximumZoomScale = 1.5;
+                     
+                     
+                     viewI.frame = CGRectMake(0, 0,320, [imagen2.altura floatValue]);
+                     [viewI layoutSubviews];
+                     [viewI reloadInputViews];
+                     [self.view reloadInputViews];
+                     [UIView commitAnimations];
+                 }
+                 
+                 
              });   }];
-    if (imagen2.altura != nil) {
-        [UIView beginAnimations:@"Resize" context:nil];
-        [UIView setAnimationDuration:0.5];
-
-        
-    viewI.frame = CGRectMake(0, 0,320, [imagen2.altura floatValue]);
-        [viewI layoutSubviews];
-    [viewI reloadInputViews];
-    [self.view reloadInputViews];
-        [UIView commitAnimations];
-    }
+    
     
     }
 -(void)viewWillAppear:(BOOL)animated{
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
-     
+    
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
@@ -370,111 +406,10 @@
     //self.navigationController.navigationBar.tintColor=[UIColor whiteColor];
      //self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
     
-    NSString *post6 =[NSString stringWithFormat:@"%@&perfil=4",url];
-    
-    
-    NSLog(@"%@ URL", post6);
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:post6]];
-    
-    NSOperationQueue *cola = [NSOperationQueue new];
-    [NSURLConnection sendAsynchronousRequest:request queue:cola completionHandler:^(NSURLResponse *response, NSData *datas, NSError *error)
-     {
-         dispatch_async(dispatch_get_main_queue(), ^{
-             SBJsonParser *parser = [[SBJsonParser alloc] init];
-             NSString* newStr = [[NSString alloc]initWithData:datas encoding:NSASCIIStringEncoding];
-             const char *convert = [newStr UTF8String];
-             NSString *responseString = [NSString stringWithUTF8String:convert];
-             
-             
-             NSArray *returned = [parser objectWithString:responseString  error:nil];
-             
-             
-             NSLog(@"%@ Response", responseString);
-             // NSLog(@"%@",error);
-             
-             
-             // NSMutableArray *mmutable = [NSMutableArray array];
-             for (NSDictionary *dict in returned){
-                 
-                 imagen2 = [[Imagen alloc] init];
-                 
-                 
-                 
-                 [imagen2 setID:[dict objectForKey:@"ID"]];
-                 [imagen2 setIDusuario:[dict objectForKey:@"IDusuario"]];
-                 [imagen2 setEtiquetas:[dict objectForKey:@"Amigos"]];
-                 [imagen2 setFecha:[dict objectForKey:@"Fecha"]];
-                 [imagen2 setNombre:[dict objectForKey:@"Titulo"]];
-                 [imagen2 setPublico:[dict objectForKey:@"Publico"]];
-                 [imagen2 setVez:[dict objectForKey:@"Vez"]];
-                 [imagen2 setAltura:[dict objectForKey:@"Altura"]];
-                 
-             }
-         //    [[UIApplication sharedApplication] setStatusBarHidden:YES];
-             NSLog(@"%@ Titulo", imagen2.Nombre);
-             NSLog(@"%@ Etiquetas", imagen2.Etiquetas);
-   
-             titulo.text=imagen2.Nombre;
-             titulo.adjustsFontSizeToFitWidth=YES;
-             [titulo reloadInputViews];
-             
-               // self.navigationController.navigationBar.topItem.title=imagen2.Nombre;
-             
-             NSLog(@"%@ Altura BD", imagen2.altura);
-             viewI = [[UIImageView alloc]init];
-             viewI.frame = CGRectMake(0, 0,320, [imagen2.altura floatValue]);
-             
-             
-             NSString *post0 =[NSString stringWithFormat:@"&perfil=0"];
-             
-             NSString * url2 = [url stringByAppendingString:post0];
-             NSString *post7 =[NSString stringWithFormat:@"&perfil=5"];
-             
-             NSString * url3 = [url stringByAppendingString:post7];
-             urlDatos = [NSURL URLWithString:url3];
-             
-             
-             
-             /*
-             scroll =[[ScrollView alloc] initWithFrame:self.view.frame];
-             scroll.delegate =self;
-             //scroll.contentSize = viewI.frame.size;
-            // viewI.frame=self.view.frame;
-             
-             viewI.center=self.view.center;
-             
-             scroll.center=self.view.center;
-             scroll.userInteractionEnabled=YES;
-             
-             [self.view insertSubview:scroll belowSubview:barraInferior];
-             [scroll addSubview:viewI]; */
-             /*
-
-              UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(move:)];
-              [panRecognizer setMinimumNumberOfTouches:1];
-              [panRecognizer setMaximumNumberOfTouches:1];
-              [panRecognizer setDelegate:self];
-              [scroll addGestureRecognizer:panRecognizer];
-              
-              */ /*
-             scroll.scrollEnabled = NO;
-        
-             // For supporting zoom,
-             scroll.minimumZoomScale = 1;
-             scroll.maximumZoomScale = 1.5;
-             */
-             [ViewFondo removeFromSuperview];
-             
-            // [[UIApplication sharedApplication] setStatusBarHidden:YES   withAnimation:UIStatusBarAnimationFade];
-             [self.view sizeToFit];
-             
-             [self CargarImagenes];
-
-             
-         });   }];
+  
     //[self.view reloadInputViews];
     [super viewDidLoad];
+      [self Datos];
   	// Do any additional setup after loading the view.
 }
 -(void)CargarImagenes{

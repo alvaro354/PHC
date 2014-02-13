@@ -331,14 +331,14 @@
     NSString * usuario = [NSString stringWithFormat:@"?username=%@",encodedStringUsu];
        NSString * contrasena = [NSString stringWithFormat:@"&password=%@",encodedStringCon ];
      NSString * date = [NSString stringWithFormat:@"&date=%@",[df stringFromDate:myDate]];
-                NSString * pushToken = [NSString stringWithFormat:@"&Ptoken=%@",tokenPush];
+                NSString * pushToken = [NSString stringWithFormat:@"&tokenP=%@",tokenPush];
     NSLog(@"Usuario: %@",usuario);
     NSLog(@"Contrasena: %@",contrasena);
  
     hostStr= [hostStr stringByAppendingString:usuario];
     hostStr=[hostStr stringByAppendingString:contrasena];
     hostStr=[hostStr stringByAppendingString:date];
-             hostStr=[hostStr stringByAppendingString:pushToken];
+    hostStr=[hostStr stringByAppendingString:pushToken];
     
       NSLog(@"URL: %@",hostStr);
             NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];

@@ -721,6 +721,10 @@
 		B1294AF318A2781B008447A8 /* Descargas */ = {
 			isa = PBXGroup;
 			children = (
+				B19F988E174AB61700BB05CE /* MensajesParse.h */,
+				B19F988F174AB61700BB05CE /* MensajesParse.m */,
+				B12D917B177DAE2200774613 /* ComentariosPase.h */,
+				B12D917C177DAE2200774613 /* ComentariosPase.m */,
 				B11D92F817D1311F006AD5B4 /* Cache.h */,
 				B11D92F917D1311F006AD5B4 /* Cache.m */,
 				B1294AF418A27828008447A8 /* Descargar.h */,
@@ -839,8 +843,6 @@
 				B19F9885174A479D00BB05CE /* PrivadosViewController.m */,
 				B19F988B174AB54500BB05CE /* Mensajes.h */,
 				B19F988C174AB54500BB05CE /* Mensajes.m */,
-				B19F988E174AB61700BB05CE /* MensajesParse.h */,
-				B19F988F174AB61700BB05CE /* MensajesParse.m */,
 				B1FBEFEE176374BE00B98C45 /* ImagenAsync.h */,
 				B1FBEFEF176374BE00B98C45 /* ImagenAsync.m */,
 				B1F340061770668B00016782 /* VerMensajes.h */,
@@ -849,8 +851,6 @@
 				B1AEA2341771F8DA009AE6E1 /* SprinFlowLayout.m */,
 				B1026893177F016700A346BD /* VerComentarios.h */,
 				B1026894177F016700A346BD /* VerComentarios.m */,
-				B12D917B177DAE2200774613 /* ComentariosPase.h */,
-				B12D917C177DAE2200774613 /* ComentariosPase.m */,
 				B1AD7EEC182285030019C17F /* Localizacion.h */,
 				B1AD7EED182285030019C17F /* Localizacion.m */,
 				B1B6D330182C04AD002C7444 /* Dia.h */,

@@ -175,6 +175,7 @@
                                                               //
                                                               if(image != nil){
                                                             
+                                                                  NSLog(@"Response: %d",[response statusCode]);
                                                                   Imagen * img = [[Imagen alloc]init];
                                                                   img.imagen=[self addBorderToImage:image];
                                                                   img.IDusuario=userA.ID;

@@ -54,6 +54,8 @@
     float width;
     float height;
     int VezF;
+    
+    Imagen* imagenPasar;
 }
 -(void) uploadImage:(UIImage *)image;
 -(IBAction)cambiarImagen:(id)sender;
