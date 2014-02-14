@@ -131,7 +131,7 @@
             NSString *post7 =[NSString stringWithFormat:@"&perfil=%@",perfil];
         NSString *post =[NSString stringWithFormat:@"idF=%@",IDM];
         
-        NSString *hostStr = @"http://lanchosoftware.es/phc/DescargarXml.php?";
+        NSString *hostStr = @"http://lanchosoftware.com:8080/PHC/descargarXML.php?";
         hostStr = [hostStr stringByAppendingString:post];
         hostStr = [hostStr stringByAppendingString:post2];
         hostStr = [hostStr stringByAppendingString:post3];
@@ -232,7 +232,7 @@
     NSString *post7 =[NSString stringWithFormat:@"&perfil=0"];
     NSString *post =[NSString stringWithFormat:@"idF=%@",IDM];
     
-    NSString *hostStr = @"http://lanchosoftware.es/phc/DescargarXml.php?";
+    NSString *hostStr = @"http://lanchosoftware.com:8080/PHC/descargarXML.php?";
     hostStr = [hostStr stringByAppendingString:post];
     hostStr = [hostStr stringByAppendingString:post2];
     hostStr = [hostStr stringByAppendingString:post3];
@@ -411,7 +411,7 @@ NSData *newData = [string dataUsingEncoding:NSUTF8StringEncoding];
      NSString *post6=[NSString stringWithFormat:@"&idf=%@",IDMS];
     NSString *post7=[NSString stringWithFormat:@"&privado=%@",privadoS];
     
-    NSString *urlString= @"http://lanchosoftware.com:8080/PHC/subirXML.php";
+    NSString *urlString= @"http://lanchosoftware.com:8080/PHC/subirXML.php?";
     // NSString *urlString= @"http://lanchosoftware.es/app/imagenperfil.php?";
     urlString = [urlString stringByAppendingString:post];
     urlString = [urlString stringByAppendingString:post2];
@@ -453,6 +453,8 @@ NSData *newData = [string dataUsingEncoding:NSUTF8StringEncoding];
          dispatch_async(dispatch_get_main_queue(), ^{
        //  [MBProgressHUD hideHUDForView:self.view animated:YES];
          NSString *returnString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+             
+             NSLog(@"Mensaje de la Subida: %@",returnString);
          if ( [returnString isEqualToString:@"Yes"]) {
            
               [[NSNotificationCenter defaultCenter] postNotificationName:@"Mensajes" object:self userInfo:nil];
