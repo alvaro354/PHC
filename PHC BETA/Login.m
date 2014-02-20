@@ -331,9 +331,11 @@
     NSString * usuario = [NSString stringWithFormat:@"?username=%@",encodedStringUsu];
        NSString * contrasena = [NSString stringWithFormat:@"&password=%@",encodedStringCon ];
      NSString * date = [NSString stringWithFormat:@"&date=%@",[df stringFromDate:myDate]];
-                NSString * pushToken = [NSString stringWithFormat:@"&tokenP=%@",tokenPush];
+            
+            NSString * pushToken = [NSString stringWithFormat:@"&tokenP=%@",tokenPush];
     NSLog(@"Usuario: %@",usuario);
     NSLog(@"Contrasena: %@",contrasena);
+    NSLog(@"Token Push: %@",tokenPush);
  
     hostStr= [hostStr stringByAppendingString:usuario];
     hostStr=[hostStr stringByAppendingString:contrasena];

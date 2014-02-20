@@ -454,22 +454,31 @@ NSData *newData = [string dataUsingEncoding:NSUTF8StringEncoding];
        //  [MBProgressHUD hideHUDForView:self.view animated:YES];
          NSString *returnString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
              
-             NSLog(@"Mensaje de la Subida: %@",returnString);
-         if ( [returnString isEqualToString:@"Yes"]) {
+          
+         if ( [returnString isEqualToString:@"OK"]) {
            
-              [[NSNotificationCenter defaultCenter] postNotificationName:@"Mensajes" object:self userInfo:nil];
              
+             NSLog(@"Recargando");
          
          }
          else{
              //[MBProgressHUD hideHUDForView:self.view animated:YES];
              UIAlertView *alertsuccess = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Error"
-                                                                   delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-             [alertsuccess show];
+                                                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+             
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 //Show alert here
+                 [alertsuccess show];
+             });
+             
+             
          }
+        NSLog(@"Mensaje de la Subida:%@",returnString);
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"Mensajes" object:self userInfo:nil];
          self->returnData=[[NSMutableData alloc]initWithData:data];
          
          });   }];
+    
    // NSLog(@"%u",[returnData length]);
     
     NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
