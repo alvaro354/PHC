@@ -285,6 +285,26 @@ urlT = [[NSURL alloc]initWithString:hostStr];
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
+
+- (void)obtenerImagenes:(NSNotification *)notification
+{
+    
+    NSDictionary *dict = [notification userInfo];
+    imagenesCargadas= [[NSMutableArray alloc]init];
+    NSMutableArray * imagenesA=[dict objectForKey:@"Imagenes"];
+    for (Imagen * imagen in imagenesA) {
+        [imagenesCargadas addObject:imagen];
+        
+    }
+    
+    NSLog(@"Imagenes Obtenidas Recargando Carrusel...");
+    completado=YES;
+    [carousel reloadData];
+    
+    
+}
+
+
 -(void)cerrarV{
     [self dismissViewControllerAnimated:YES completion:nil];
 //    [self.view removeFromSuperview];
@@ -307,7 +327,7 @@ urlT = [[NSURL alloc]initWithString:hostStr];
     NSString * tokenID = [[NSUserDefaults standardUserDefaults] stringForKey:@"token"];
     NSString * usuarioID = [[NSUserDefaults standardUserDefaults] stringForKey:@"ID_usuario"];
     
-    NSString *post1 =[NSString stringWithFormat:@"id=%@",usuarioID];
+    NSString *post1 =[NSString stringWithFormat:@"userID=%@",usuarioID];
     NSString *post2 =[NSString stringWithFormat:@"&vez=%d",vez];
     NSString *post3=[NSString stringWithFormat:@"&date=%@",[df stringFromDate:myDate]];
     NSString *post4=[NSString stringWithFormat:@"&token=%@",tokenID];
@@ -316,7 +336,7 @@ urlT = [[NSURL alloc]initWithString:hostStr];
     
     
     
-    NSString *hostStr = @"http://lanchosoftware.es/phc/downloadImage.php?";
+  NSString *hostStr = @"http://lanchosoftware.com:8080/PHC/descargarImagenes.php?";
     hostStr = [hostStr stringByAppendingString:post1];
    
     hostStr = [hostStr stringByAppendingString:post3];
@@ -327,86 +347,7 @@ urlT = [[NSURL alloc]initWithString:hostStr];
     NSLog(@"%@ URL",hostStr);
     
     
-    /*
-     
-     self.flUploadEngine = [[fileUploadEngine alloc] initWithHostName:@"lanchosoftware.es" customHeaderFields:nil];
-     [self.flUploadEngine cacheMemoryCost];
-     
-     
-     __weak typeof(self) weakSelf = self;
-     self.flOperation = [self.flUploadEngine postDataToServer:nil path:hostStr post:NO];
-     [self.flOperation addCompletionHandler:^(MKNetworkOperation* operation) {
-     
-     
-     if([operation isCachedResponse]) {
-     NSLog(@"Data from cache");
-     }
-     else {
-     NSLog(@"Data from server");
-     }
-     
-     NSData *datas = [operation responseData];
-     NSString *_key = @"alvarol2611995";
-     
-     
-     _key= [_key stringByAppendingString:[df stringFromDate:myDate]];
-     CCOptions padding = kCCOptionECBMode;
-     NSString *string = [[NSString alloc] initWithData:datas encoding:NSASCIIStringEncoding];
-     NSData *_secretData = [NSData dataWithBase64EncodedString:string];
-     
-     NSData *encryptedData = [crypto decrypt:_secretData  key:[_key dataUsingEncoding:NSUTF8StringEncoding] padding:&padding];
-     
-     NSString *returnString = [[NSString alloc] initWithData:datas encoding:NSUTF8StringEncoding];
-     
-     if ([returnString isEqualToString:@"No"]) {
-     [ weakSelf.flUploadEngine cancelAllOperations];
-     if ([ weakSelf.items count]==0) {
-     [ weakSelf.carousel removeFromSuperview];
-     }
-     else{
-     NSLog(@"Array: %@",  weakSelf.items);
-     NSLog(@"Terminado numero: %lu", (unsigned long)[ weakSelf.items count]);
-     // [timer invalidate];
-     //   Imagen= [items objectAtIndex:3];
-     //  Img.image=Imagen;
-     vez=0;
-     [ weakSelf.carousel reloadData];
-     }
-     
-     
-     }
-     else{
-     if (![self isJPEGValid:encryptedData]) {
-     NSLog(@"Invalido");
-     }
-     UIImage *imagen =[[UIImage alloc]initWithData:encryptedData];
-     if (imagen != nil) {
-     [items addObject:imagen];
-     NSLog(@"Imagen data: %lu , Vez: %d", (unsigned long)[encryptedData length], vez);
-     }
-     
-     else{
-     NSLog(@"Invalido NIL");
-     }
-     vez++;
-     [self imagenes];
-     
-     }}
-     
-     errorHandler:^(MKNetworkOperation *errorOp, NSError* error) {
-     NSLog(@"%@", error);
-     UIAlertView *alert2 = [[UIAlertView alloc] initWithTitle:@"Error"
-     message:[error localizedDescription]
-     delegate:nil
-     cancelButtonTitle:@"Dismiss"
-     otherButtonTitles:nil];
-     [alert2 show];
-     }];
-     
-     [self.flUploadEngine useCache];
-     [self.flUploadEngine enqueueOperation:self.flOperation ];
-     
-     */
+    
     
     NSMutableArray *URLs = [NSMutableArray array];
     UrlDatos=[NSMutableArray array];
@@ -417,151 +358,26 @@ urlT = [[NSURL alloc]initWithString:hostStr];
     NSOperationQueue *cola = [NSOperationQueue new];
     [NSURLConnection sendAsynchronousRequest:request queue:cola completionHandler:^(NSURLResponse *response, NSData *datas, NSError *error)
      {
-         NSString *  serverOutput = [[NSString alloc] initWithData:datas encoding: NSASCIIStringEncoding];
-         int fotos = serverOutput.intValue;
-         while (vez<fotos) {
+         dispatch_async(dispatch_get_main_queue(), ^{
+             NSString *  serverOutput = [[NSString alloc] initWithData:datas encoding: NSASCIIStringEncoding];
+             int fotos = serverOutput.intValue;
+             NSLog(@"Fotos Int : %d",fotos);
+             usuario= [[Usuario alloc]init];
+             usuario.ID = ID;
+             NSMutableArray * usuarioA = [[NSMutableArray alloc]init];
+             [usuarioA addObject:usuario];
              
-             NSString *vezS = [NSString stringWithFormat:@"%d", vez];
-             NSDate* myDate = [NSDate date];
-             NSDateFormatter *df = [NSDateFormatter new];
-             NSDateFormatter *dma = [NSDateFormatter new];
-             [df setDateFormat:@"dd"];
-             [dma setDateFormat:@"dd-mm-yyyy"];
+             [[NSNotificationCenter defaultCenter] addObserver:self
+                                                      selector:@selector(obtenerImagenes:)
+                                                          name:@"Fotos"
+                                                        object:nil];
              
-             NSString* _key = @"alvarol2611995";
+             [[Descargar alloc]descargarImagenes:usuarioA grupo:@"Fotos" fotos:fotos];
              
-             
-             _key= [_key stringByAppendingString:[df stringFromDate:myDate]];
-             
-             NSString * tokenID = [[NSUserDefaults standardUserDefaults] stringForKey:@"token"];
-             NSString * usuarioID = [[NSUserDefaults standardUserDefaults] stringForKey:@"ID_usuario"];
-             
-             NSString *post2=[NSString stringWithFormat:@"date=%@",[df stringFromDate:myDate]];
-             NSString *post3=[NSString stringWithFormat:@"&dia=%@",[dma stringFromDate:myDate]];
-             NSString *post4=[NSString stringWithFormat:@"&token=%@",tokenID];
-             NSString *post5 =[NSString stringWithFormat:@"&id=%@",usuarioID];
-             NSString *post6 =[NSString stringWithFormat:@"&perfil=0"];
-             NSString *post7 =[NSString stringWithFormat:@"&vez=%@",vezS];
-             
-             NSString *post =[NSString stringWithFormat:@"&idF=%@",ID];
-             
-             NSString *hostStr = @"http://lanchosoftware.es/phc/downloadImage.php?";
-             
-             hostStr = [hostStr stringByAppendingString:post2];
-             hostStr = [hostStr stringByAppendingString:post3];
-             hostStr = [hostStr stringByAppendingString:post4];
-             hostStr = [hostStr stringByAppendingString:post5];
-             hostStr = [hostStr stringByAppendingString:post];
-             hostStr = [hostStr stringByAppendingString:post7];
-             hostStr = [hostStr stringByAppendingString:post6];
-          
-            // NSLog(@"URL ANTES: %@",hostStr);
-             
-             [UrlDatos addObject:hostStr];
-             
-             //hostStr = [hostStr stringByAppendingString:post6];
-             // NSLog(@"URL despues: %@",hostStr);
-             [URLs addObject:[NSURL URLWithString:hostStr]];
-             
-             vez ++;
-         }
-         
-         NSLog(@"Terminado");
-         if (URLs != nil ) {
-         self.imageURLs =URLs;
-            /*  dispatch_async(dispatch_get_main_queue(), ^{
-         [carousel reloadData];
-              });*/
-             [self CargarImagenes];
-         }
-         else{
-             NSLog(@"No tiene Fotos");
-         }
-     }];
+         }); }];
     
     
 }
--(void)CargarImagenes{
-    __block BOOL Error =NO;
-    imagenesCargadas = [[NSMutableArray alloc]init];
-    AFHTTPClient *httpClient  = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@""]];
-    [httpClient.operationQueue setMaxConcurrentOperationCount:1] ;
-    NSMutableArray *operationsArray = [NSMutableArray array];
-    for (NSURL *imageURL in self.imageURLs) {
-        
-        
-        
-        
-        
-        AFImageRequestOperation *getImageOperation =
-        [AFImageRequestOperation imageRequestOperationWithRequest:[NSURLRequest requestWithURL:imageURL]
-                                             imageProcessingBlock:nil
-                                                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                                              //
-                                                              // Save image
-                                                              //
-                                                              if (image!=nil) {
-                                                                  [imagenesCargadas addObject:image];
-                                                              }else{
-                                                                  NSLog(@"Image request Cache error!");
-                                                                  Error=YES;
-                                                              }
-                                                          }
-                                                          failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                                              if((error.domain == NSURLErrorDomain) && (error.code == NSURLErrorCancelled))
-                                                                  NSLog(@"Image request cancelled!");
-                                                              else
-                                                                  NSLog(@"Image request error!");
-                                                          }];
-        
-        [operationsArray addObject:getImageOperation];
-        
-        
-        //
-        // Lock user interface by pop-up dialog with process indicator and "Cancel download" button
-        //
-        
-        
-        
-        
-    }
-    
-    [httpClient enqueueBatchOfHTTPRequestOperations:operationsArray
-                                      progressBlock:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
-                                          //
-                                          // Handle process indicator
-                                          //
-                                          //   NSLog(@"Imagenes: %@", imagenesCargadas);
-                                          //  NSLog(@"Completado");
-                                      } completionBlock:^(NSArray *operations) {
-                                          //
-                                          // Remove blocking dialog, do next tasks
-                                          //+
-                                          if (Error) {
-                                              [self refrescar:nil];
-
-                                          }
-                                          else{
-                                          NSLog(@"Imagenes: %lu", (unsigned long)[imagenesCargadas count]);
-                                          
-                                          
-                                          dispatch_async(dispatch_get_main_queue(), ^{
-                                               completado=YES;
-                                              [carousel reloadData];
-                                             
-                                              /* for (int i =0; i< [imagenesCargadas count]; i++) {
-                                               //  UIImageView *Img = [[UIImageView alloc]initWithImage:[imagenesCargadas objectAtIndex:i]];
-                                               UIImage * image = [imagenesCargadas objectAtIndex:i];
-                                               [carousel reloadInputViews];
-                                               [carousel reloadItemAtIndex:i animated:NO];
-                                               }*/
-                                          });}
-                                          
-                                          
-                                      }];
-}
-
-
 
 
 
@@ -593,11 +409,12 @@ urlT = [[NSURL alloc]initWithString:hostStr];
 }
 - (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel
 {
-    if ([imageURLs count] == 0) {
+    if ([imagenesCargadas count] == 0) {
+        NSLog(@"0 URLS");
         return 0;
     }
     else{
-        return [imageURLs count];
+        return [imagenesCargadas count];
     }
 }
 
@@ -608,19 +425,7 @@ urlT = [[NSURL alloc]initWithString:hostStr];
 }
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view
 {
-    //UIButton *button = (UIButton *)view;
-    /*
-     UIImage *image =[[UIImage alloc] init];
-     //no button available to recycle, so create new one
-     if ([items count] != 0) {
-     NSLog(@"Index: %d", index);
-     image = [items objectAtIndex:index];
-     }
-     */
     
-    
-    
-    //cancel any previously loading images for this view
    	if (view == nil)
 	{
         
@@ -677,7 +482,8 @@ urlT = [[NSURL alloc]initWithString:hostStr];
         NSLog(@"Cargando imagen : %lu",(unsigned long)index);
         //  UIImageView * Img = [[UIImageView alloc]initWithImage:[imagenesCargadas objectAtIndex:index]];
         if([imagenesCargadas objectAtIndex:index] != nil){
-            ((UIImageView *)view).image= [imagenesCargadas objectAtIndex:index];
+            
+            ((UIImageView *)view).image= ((Imagen*)[imagenesCargadas objectAtIndex:index]).imagen;
         }
         //  view.backgroundColor =[UIColor blueColor];
         //    view.layer.borderWidth= 2.0;

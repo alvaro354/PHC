@@ -19,6 +19,7 @@
 #import "iCarousel.h"
 #import "Imagen.h"
 #import "DescargaImagenes.h"
+#import "Descargar.h"
 #import "fileUploadEngine.h"
 
 
