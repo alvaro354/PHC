@@ -249,6 +249,8 @@
     [httpClient.operationQueue setMaxConcurrentOperationCount:1] ;
     NSMutableArray *operationsArray = [NSMutableArray array];
     
+    urlsTemp= [[NSMutableArray alloc]init];
+    grupoTmp=[[NSString alloc] initWithString:grupo];
     
     NSDate *myDate = [NSDate date];
     NSDateFormatter *df = [NSDateFormatter new];
@@ -256,7 +258,7 @@
     
     for (Usuario *userA in array) {
         
-        
+        [urlsTemp addObject:userA];
         NSString *hostStr = @"http://lanchosoftware.com:8080/PHC/descargarImagenes.php";
         
         
@@ -333,6 +335,10 @@
                                           if(Error){
                                               //[self changeSorting];
                                                NSLog(@"ERROR IMAGENES");
+                                               if ([grupo isEqualToString:@"Perfil"]) {
+                                              [self borrarCachePerfil];
+                                                   
+                                               }
                                           }
                                           else{
                                               NSLog(@"Imagenes: %lu", (unsigned long)[imagenesCargadas count]);
@@ -363,7 +369,20 @@
     
 }
 
-
+-(void)borrarCachePerfil{
+    NSLog(@"Borrando Cache - Volver a cargar fotos");
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    
+    NSString *string =[[paths objectAtIndex:0] stringByAppendingPathComponent:@"URLCache"];
+   
+    string = [string stringByAppendingPathComponent:@"Perfil"];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath: string]) {
+        [[NSFileManager defaultManager] removeItemAtPath:string error:nil];
+        [self descargarImagenPerfil:urlsTemp grupo:grupoTmp];
+    }
+}
 
 -(void)subirImagen:(UIImage*)imagen perfil:(int)perfil{
     

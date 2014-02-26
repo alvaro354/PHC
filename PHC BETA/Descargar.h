@@ -21,6 +21,8 @@
 @interface Descargar : NSObject{
     BOOL Error;
     NSMutableArray* imagenesCargadas;
+    NSMutableArray* urlsTemp;
+    NSString* grupoTmp;
    
    
 }
