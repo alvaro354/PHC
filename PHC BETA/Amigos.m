@@ -378,7 +378,10 @@ urlT = [[NSURL alloc]initWithString:hostStr];
     
     
 }
-
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:@"Fotos"];
+}
 
 
 - (BOOL)isJPEGValid:(NSData *)jpeg {

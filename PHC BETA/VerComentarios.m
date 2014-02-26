@@ -117,43 +117,12 @@
                     for (Mensajes * mensaje in user.comentarios) {
                         [mensajes addObject:mensaje];
                     
-                    NSLog(@"%lu Count Comentarios",(unsigned long)[mensajes  count]);
-                    NSLog(@"%@ Anadido VerComentarios",mensajes );
-                        NSDate* myDate = [NSDate date];
-                        NSDateFormatter *df = [NSDateFormatter new];
-                        NSDateFormatter *dma = [NSDateFormatter new];
-                        [df setDateFormat:@"dd"];
-                        [dma setDateFormat:@"dd-mm-yyyy"];
-                        
-                        NSString* _key = @"alvarol2611995";
-                        
-                        
-                        _key= [_key stringByAppendingString:[df stringFromDate:myDate]];
-                        
-                        NSString * tokenID = [[NSUserDefaults standardUserDefaults] stringForKey:@"token"];
-                        NSString * usuarioID = [[NSUserDefaults standardUserDefaults] stringForKey:@"ID_usuario"];
-                        
-                        NSString *post2=[NSString stringWithFormat:@"date=%@",[df stringFromDate:myDate]];
-                        NSString *post3=[NSString stringWithFormat:@"&dia=%@",[dma stringFromDate:myDate]];
-                        NSString *post4=[NSString stringWithFormat:@"&token=%@",tokenID];
-                        NSString *post5 =[NSString stringWithFormat:@"&id=%@",usuarioID];
-                        NSString *post6 =[NSString stringWithFormat:@"&perfil=1"];
-                        NSString *post7 =[NSString stringWithFormat:@"&vez=0"];
-                        
-                        NSString *post =[NSString stringWithFormat:@"&idF=%@",mensaje.IDusuario];
-                        
-                        NSString *hostStr = @"http://lanchosoftware.es/phc/downloadImage.php?";
-                        hostStr = [hostStr stringByAppendingString:post2];
-                        hostStr = [hostStr stringByAppendingString:post3];
-                        hostStr = [hostStr stringByAppendingString:post4];
-                        hostStr = [hostStr stringByAppendingString:post5];
-                        hostStr = [hostStr stringByAppendingString:post6];
-                        hostStr = [hostStr stringByAppendingString:post7];
-                        hostStr = [hostStr stringByAppendingString:post];
-                        
-                        
-                        
-                        [URLs addObject:[NSURL URLWithString:hostStr]];
+                        Usuario * user = [[Usuario alloc]init];
+                        user.ID=mensaje.IDusuario;
+                        NSLog(@"%lu Count Comentarios",(unsigned long)[mensajes  count]);
+                        NSLog(@"%@ Anadido VerComentarios",mensajes );
+            
+                        [URLs addObject:user];
 
                     
                 }
@@ -200,86 +169,34 @@
     NSLog(@"Aqui se debreia borrar fotos del usuario corrupto");
 }
 -(void)CargarImagenes{
-    __block BOOL Error =NO;
-    NSLog(@"Cargando Imagenes");
-    imagenesCargadas = [[NSMutableArray alloc]init];
-    AFHTTPClient *httpClient  = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@""]];
-    [httpClient.operationQueue setMaxConcurrentOperationCount:1] ;
-    NSMutableArray *operationsArray = [NSMutableArray array];
-    for (NSURL *URLi in URLs) {
-        
-     
-        
-        AFImageRequestOperation *getImageOperation =
-        [AFImageRequestOperation imageRequestOperationWithRequest:[NSURLRequest requestWithURL:URLi]
-                                             imageProcessingBlock:nil
-                                                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                                              //
-                                                              // Save image
-                                                              //
-                                                              //
-                                                              if (image!=nil) {
-                                                                  [imagenesCargadas addObject:image];
-                                                              }else{
-                                                                  NSLog(@"Image request Cache error!");
-                                                                  Error=YES;
-                                                              }
-
-                                                          }
-                                                          failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                                              if((error.domain == NSURLErrorDomain) && (error.code == NSURLErrorCancelled))
-                                                                  NSLog(@"Image request cancelled!");
-                                                              else
-                                                                  NSLog(@"Image request error!");
-                                                          }];
-        
-        [operationsArray addObject:getImageOperation];
-        
-        
-        //
-        // Lock user interface by pop-up dialog with process indicator and "Cancel download" button
-        //
-        
-        
-        
-        
-    }
     
-    [httpClient enqueueBatchOfHTTPRequestOperations:operationsArray
-                                      progressBlock:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
-                                          //
-                                          // Handle process indicator
-                                          //
-                                          //   NSLog(@"Imagenes: %@", imagenesCargadas);
-                                          //  NSLog(@"Completado");
-                                      } completionBlock:^(NSArray *operations) {
-                                          //
-                                          // Remove blocking dialog, do next tasks
-                                          //+
-                                          if (Error) {
-                                              [self RecargarImagenes];
-                                              
-                                          }
-                                          else{
-                                          NSLog(@"Imagenes: %lu", (unsigned long)[imagenesCargadas count]);
-                                          
-                                          terminado2 = YES;
-                                          dispatch_async(dispatch_get_main_queue(), ^{
-                                              [table reloadData];
-                                              
-                                              /* for (int i =0; i< [imagenesCargadas count]; i++) {
-                                               //  UIImageView *Img = [[UIImageView alloc]initWithImage:[imagenesCargadas objectAtIndex:i]];
-                                               UIImage * image = [imagenesCargadas objectAtIndex:i];
-                                               [carousel reloadInputViews];
-                                               [carousel reloadItemAtIndex:i animated:NO];
-                                               }*/
-                                          });}
-                                          
-                                          
-                                      }];
+   [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(obtenerImagenes:)
+                                                 name:@"ImagenesPerfilCargadas"
+                                               object:nil];
+
+    dispatch_queue_t myQueue = dispatch_queue_create("My Queue",NULL);
+    dispatch_async(myQueue, ^{
+        
+        
+        NSLog(@"Empezando a Descargar: ");
+        [[Descargar alloc]descargarImagenPerfil:URLs grupo:@"Amigos"];
+        
+        
+    });
 }
-
-
+- (void)obtenerImagenes:(NSNotification *)notification
+{
+    NSLog(@"Imagenes Recibidas");
+    NSDictionary *dict = [notification userInfo];
+    
+    imagenesCargadas=[dict objectForKey:@"Imagenes"];
+ 
+    terminado2=YES;
+ 
+    [table reloadData];
+    
+}
 
 
 - (void) viewDidAppear:(BOOL)animated {

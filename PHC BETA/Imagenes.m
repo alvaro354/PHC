@@ -69,6 +69,7 @@
     if ([segue.identifier isEqualToString:@"ComentariosS"]) {
         UINavigationController *nav = [segue destinationViewController];
         VerComentarios *myVC = (VerComentarios *)nav.topViewController;
+        imagen2;
         [myVC setUs:imagen2];
        
         

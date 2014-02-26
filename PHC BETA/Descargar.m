@@ -328,8 +328,11 @@
                                           
                                       } completionBlock:^(NSArray *operations) {
                                           
+                                          
+                                          
                                           if(Error){
                                               //[self changeSorting];
+                                               NSLog(@"ERROR IMAGENES");
                                           }
                                           else{
                                               NSLog(@"Imagenes: %lu", (unsigned long)[imagenesCargadas count]);
@@ -345,6 +348,7 @@
                                                                                                     userInfo:diccionarioPasarDatos];
                                               }
                                               else if ([grupo isEqualToString:@"Amigos"]){
+                                                   
                                                   [[NSNotificationCenter defaultCenter] postNotificationName:@"ImagenesPerfilCargadas"
                                                                                                       object:nil
                                                                                                     userInfo:diccionarioPasarDatos];

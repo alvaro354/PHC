@@ -131,7 +131,7 @@
     NSString *post7 =[NSString stringWithFormat:@"&perfil=%@",perfil];
     NSString *post =[NSString stringWithFormat:@"idF=%@",IDM];
     
-    NSString *hostStr = @"http://lanchosoftware.es/phc/DescargarComentarios.php?";
+    NSString *hostStr = @"http://lanchosoftware.com:8080/PHC/descargarComentarios.php?";
     hostStr = [hostStr stringByAppendingString:post];
     hostStr = [hostStr stringByAppendingString:post2];
     hostStr = [hostStr stringByAppendingString:post3];
@@ -232,7 +232,7 @@
     NSString *post7 =[NSString stringWithFormat:@"&perfil=0"];
     NSString *post =[NSString stringWithFormat:@"idF=%@",IDM];
     
-    NSString *hostStr = @"http://lanchosoftware.es/phc/DescargarComentarios.php?";
+    NSString *hostStr = @"http://lanchosoftware.com:8080/PHC/descargarComentarios.php?";
     hostStr = [hostStr stringByAppendingString:post];
     hostStr = [hostStr stringByAppendingString:post2];
     hostStr = [hostStr stringByAppendingString:post3];
@@ -407,10 +407,10 @@
     NSString *post3=[NSString stringWithFormat:@"&dia=%@",[dma stringFromDate:myDate]];
     NSString *post4=[NSString stringWithFormat:@"&hora=%@",[hms stringFromDate:myDate]];
     NSString *post5=[NSString stringWithFormat:@"&token=%@",tokenID];
-    NSString *post6=[NSString stringWithFormat:@"&idf=%@",IDMS];
+    NSString *post6=[NSString stringWithFormat:@"&idF=%@",IDMS];
     NSString *post7=[NSString stringWithFormat:@"&privado=%@",privadoS];
     
-    NSString *urlString= @"http://lanchosoftware.es/phc/ComentariosUpload.php?";
+    NSString *urlString= @"http://lanchosoftware.com:8080/PHC/subirComentarios.php?";
     // NSString *urlString= @"http://lanchosoftware.es/app/imagenperfil.php?";
     urlString = [urlString stringByAppendingString:post];
     urlString = [urlString stringByAppendingString:post2];
@@ -452,6 +452,7 @@
          dispatch_async(dispatch_get_main_queue(), ^{
              //  [MBProgressHUD hideHUDForView:self.view animated:YES];
              NSString *returnString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+             NSLog(@"Retorno: %@", returnString);
              if ( [returnString isEqualToString:@"Yes"]) {
                  
                /*

@@ -135,6 +135,16 @@
 -(void)viewWillAppear:(BOOL)animated{
 
 }
+
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"ImagenesPerfilCargadas"
+                                                  object:nil];
+}
 - (void)viewDidLoad
 {
     self.navigationController.navigationBar.barTintColor =[UIColor colorWithRed:0.35 green:0.67 blue:0.985 alpha:1];
