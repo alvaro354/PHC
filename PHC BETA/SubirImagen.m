@@ -125,13 +125,14 @@
     NSString *post3=[NSString stringWithFormat:@"&dia=%@",[dma stringFromDate:myDate]];
     NSString *post4=[NSString stringWithFormat:@"&hora=%@",[hms stringFromDate:myDate]];
     NSString *post5=[NSString stringWithFormat:@"&token=%@",tokenID];
-     NSString *post6=[NSString stringWithFormat:@"&titulo=%@",encodedTitulo ];
-     NSString *post7=[NSString stringWithFormat:@"&publico=%ld",(long)privacidad.selectedSegmentIndex];
-         NSString *post8=[NSString stringWithFormat:@"&etiquetas=%@",encodedAmigos ];
-     NSString *post9=[NSString stringWithFormat:@"&altura=%f",imagen.size.height];
+    NSString *post6=[NSString stringWithFormat:@"&titulo=%@",encodedTitulo ];
+    NSString *post7=[NSString stringWithFormat:@"&publico=%ld",(long)privacidad.selectedSegmentIndex];
+    NSString *post8=[NSString stringWithFormat:@"&etiquetas=%@",encodedAmigos ];
+    NSString *post9=[NSString stringWithFormat:@"&altura=%f",imagen.size.height];
+    NSString *post10=[NSString stringWithFormat:@"&perfil=2"];
     
     
-    NSString *urlString= @"http://lanchosoftware.es/phc/imageupload.php?";
+    NSString *urlString= @"http://lanchosoftware.com:8080/PHC/subirImagen.php?";
     // NSString *urlString= @"http://lanchosoftware.es/app/imagenperfil.php?";
     urlString = [urlString stringByAppendingString:post];
     urlString = [urlString stringByAppendingString:post2];
@@ -142,6 +143,7 @@
      urlString = [urlString stringByAppendingString:post7];
     urlString = [urlString stringByAppendingString:post8];
     urlString = [urlString stringByAppendingString:post9];
+    urlString = [urlString stringByAppendingString:post10];
     
         NSLog(@"URL: %@",urlString);
     
