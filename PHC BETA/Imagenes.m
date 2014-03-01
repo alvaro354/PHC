@@ -163,7 +163,7 @@
          NSString *post3 =[NSString stringWithFormat:@"&idOb=%@",imagen2.ID];
          NSString *post4 =[NSString stringWithFormat:@"&funcion=1"];
         
-        NSString *hostStr = @"http://lanchosoftware.es/phc/borrar.php?";
+        NSString *hostStr = @"http://lanchosoftware.com:8080/PHC/borrar.php?";
         hostStr = [hostStr stringByAppendingString:post];
         hostStr = [hostStr stringByAppendingString:post2];
         hostStr = [hostStr stringByAppendingString:post5];
