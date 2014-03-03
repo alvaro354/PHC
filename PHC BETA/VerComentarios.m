@@ -33,16 +33,20 @@
 -(IBAction)volver:(id)sender{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
--(IBAction)recargar:(id)sender{
+-(IBAction)recargarBoton:(id)sender{
     terminado2=NO;
     [imagenesCargadas removeAllObjects];
      NSLog(@"Recargar Pulsado");
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"ComentariosD" object:nil];
     [self recargar];
-    [table reloadData];
     
     
+    
+    if ([imagenesCargadas count] >0) {
+  
     [table reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
-    
+    [table reloadData];
+    }
     
     
     
@@ -131,25 +135,7 @@
         
         
         if (mensajes.count!= 0) {
-            /*
-             [collection performBatchUpdates:^{
-             [collection reloadData];
-             } completion:^(BOOL finished) {
-             NSLog(@"Reload");
-             [collection setNeedsLayout];
-             [collection setNeedsDisplay];
-             
-             
-             [scrollView setNeedsLayout];
-             [scrollView setNeedsDisplay];
-             [self.view setNeedsLayout];
-             [self.view setNeedsDisplay];
-             
-             
-             [self reloadInputViews];
-             
-             }];
-             */
+          
             NSLog(@"Reload");
             //[collection reloadData];
             Vez = [vezS intValue];
@@ -161,7 +147,7 @@
     if (descargado==NO) {
         
         NSLog(@"mensajes NO");
-        [self recargar];
+        [self recargarBoton:nil];
     }
 }
 -(void)RecargarImagenes{
@@ -169,34 +155,25 @@
     NSLog(@"Aqui se debreia borrar fotos del usuario corrupto");
 }
 -(void)CargarImagenes{
-    
-   [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(obtenerImagenes:)
-                                                 name:@"ImagenesPerfilCargadas"
-                                               object:nil];
+
 
     dispatch_queue_t myQueue = dispatch_queue_create("My Queue",NULL);
     dispatch_async(myQueue, ^{
         
         
         NSLog(@"Empezando a Descargar: ");
-        [[Descargar alloc]descargarImagenPerfil:URLs grupo:@"Amigos"];
+        [[Descargar alloc]descargarImagenPerfil:URLs grupo:@"Amigos" completationBlock:^(NSMutableArray *imagenesDescargadas) {
+            imagenesCargadas=[[NSMutableArray alloc] initWithArray:imagenesDescargadas];
+            
+            terminado2=YES;
+            
+            [table reloadData];
+        }];
         
         
     });
 }
-- (void)obtenerImagenes:(NSNotification *)notification
-{
-    NSLog(@"Imagenes Recibidas");
-    NSDictionary *dict = [notification userInfo];
-    
-    imagenesCargadas=[dict objectForKey:@"Imagenes"];
- 
-    terminado2=YES;
- 
-    [table reloadData];
-    
-}
+
 
 
 - (void) viewDidAppear:(BOOL)animated {

@@ -9,8 +9,6 @@
 #import "Usuario.h"
 #import <CoreLocation/CoreLocation.h>
 #import "MBProgressHUD.h"
-#import "LoadEngine.h"
-#import "fileUploadEngine.h"
 #import "Imagen.h"
 #import "Descargar.h"
 
@@ -23,7 +21,6 @@
     NSMutableArray *arrayMostrar;
     NSMutableArray *arrayBuscar;
     NSMutableArray *arrayGuardado;
-    LoadEngine *downlaod;
     NSDictionary *data;
     NSString *serverOutput;
     NSString *userString;
@@ -66,6 +63,4 @@
 -(void)Cargar;
 -(void)terminar;
 -(void)fin;
-@property (strong, nonatomic) fileUploadEngine *flUploadEngine;
-@property (strong, nonatomic) MKNetworkOperation *flOperation;
 @end

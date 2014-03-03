@@ -286,23 +286,6 @@ urlT = [[NSURL alloc]initWithString:hostStr];
 	// Do any additional setup after loading the view.
 }
 
-- (void)obtenerImagenes:(NSNotification *)notification
-{
-    
-    NSDictionary *dict = [notification userInfo];
-    imagenesCargadas= [[NSMutableArray alloc]init];
-    NSMutableArray * imagenesA=[dict objectForKey:@"Imagenes"];
-    for (Imagen * imagen in imagenesA) {
-        [imagenesCargadas addObject:imagen];
-        
-    }
-    
-    NSLog(@"Imagenes Obtenidas Recargando Carrusel...");
-    completado=YES;
-    [carousel reloadData];
-    
-    
-}
 
 
 -(void)cerrarV{
@@ -367,12 +350,18 @@ urlT = [[NSURL alloc]initWithString:hostStr];
              NSMutableArray * usuarioA = [[NSMutableArray alloc]init];
              [usuarioA addObject:usuario];
              
-             [[NSNotificationCenter defaultCenter] addObserver:self
-                                                      selector:@selector(obtenerImagenes:)
-                                                          name:@"Fotos"
-                                                        object:nil];
-             
-             [[Descargar alloc]descargarImagenes:usuarioA grupo:@"Fotos" fotos:fotos];
+             [[Descargar alloc]descargarImagenes:usuarioA grupo:@"Fotos" fotos:fotos completationBlock:^(NSMutableArray *imagenesDescargadas) {
+                
+                 imagenesCargadas= [[NSMutableArray alloc]init];
+                 for (Imagen * imagen in imagenesDescargadas) {
+                     [imagenesCargadas addObject:imagen];
+                     
+                 }
+                 
+                 NSLog(@"Imagenes Obtenidas Recargando Carrusel...");
+                 completado=YES;
+                 [carousel reloadData];
+             }];
              
          }); }];
     

@@ -26,7 +26,7 @@
     NSString *usuarioPasar;
         NSString *idUsuarioPasar;
 }
--(IBAction)recargar:(id)sender;
+-(IBAction)recargarBoton:(id)sender;
 -(IBAction)volver:(id)sender;
 -(IBAction)enviar:(id)sender;
 - (void)Mensajes;

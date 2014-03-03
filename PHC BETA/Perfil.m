@@ -157,12 +157,34 @@
     NSMutableArray * usuarioA = [[NSMutableArray alloc]init];
     [usuarioA addObject:usuario];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(obtenerImagenPerfil:)
-                                                 name:@"Perfil"
-                                               object:nil];
-    
-    [[Descargar alloc]descargarImagenPerfil:usuarioA grupo:@"Perfil"];
+    [[Descargar alloc]descargarImagenPerfil:usuarioA grupo:@"Perfil" completationBlock:^(NSMutableArray *imagenesDescargadas) {
+        
+        if (usuario==nil) {
+            usuario=[[Usuario alloc]init];
+            
+        }
+        
+        for (UIImage * imagen in imagenesDescargadas) {
+            usuario.imagen=imagen;
+            NSLog(@"Imagen Perfil Obtenida");
+        }
+        
+        //  Img=[[UIImageView alloc]init];
+        Img.layer.borderWidth=1.5;
+        Img.layer.borderColor=[UIColor blackColor].CGColor;
+        
+        
+        Img.clipsToBounds=YES;
+        Img.layer.cornerRadius = 8.0;
+        Img.image=usuario.imagen;
+        
+        [Img reloadInputViews];
+        [self.view reloadInputViews];
+        
+        NSData *datos = [NSKeyedArchiver archivedDataWithRootObject:usuario];
+        [[NSUserDefaults standardUserDefaults] setObject:datos forKey:@"Usuario"];
+        
+    }];
    
     
     [usuarioA removeAllObjects];
@@ -195,6 +217,7 @@
       timer2= [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(act) userInfo:nil repeats: NO];
     [self viewDidLoad];
      */
+    
     [imagenesCargadas removeAllObjects];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString* string = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"URLCache"];
@@ -207,6 +230,7 @@
 
     
     [imagenesCargadas removeAllObjects];
+    [UrlDatos removeAllObjects];
     completado=NO;
     vez=0;
     [carousel reloadData];
@@ -225,7 +249,21 @@
    
 }
 -(void)viewWillAppear:(BOOL)animated{
+     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+     NSData *datos = [defaults objectForKey:@"DatosAmigo"];
+     usuario = [NSKeyedUnarchiver unarchiveObjectWithData:datos];
+     Name.text=[defaults objectForKey:@"usuario"];
+     // Img.image=usuario.imagen;
+     Amigo=usuario.usuario;
+     ID=usuario.ID;
+     
+     
+     
+     [self.view reloadInputViews];
+     carousel.type = iCarouselTypeLinear;
+     //timer= [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(imagenes) userInfo:nil repeats:YES];
     [self imagenPerfil];
+    [self imagenes];
 }
 - (void)viewDidLoad
 {
@@ -301,73 +339,14 @@
      */
 
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSData *datos = [defaults objectForKey:@"DatosAmigo"];
-    usuario = [NSKeyedUnarchiver unarchiveObjectWithData:datos];
-    Name.text=[defaults objectForKey:@"usuario"];
-   // Img.image=usuario.imagen;
-    Amigo=usuario.usuario;
-    ID=usuario.ID;
-    
-    
-    
-    [self.view reloadInputViews];
-    carousel.type = iCarouselTypeLinear;
-    //timer= [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(imagenes) userInfo:nil repeats:YES];
-    [self imagenes];
     // [NSTimer scheduledTimerWithTimeInterval:35 target:self selector:@selector(getData) userInfo:nil repeats:YES];
     }
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
 
-- (void)obtenerImagenPerfil:(NSNotification *)notification
-{
-    
-    NSDictionary *dict = [notification userInfo];
-    if (usuario==nil) {
-        usuario=[[Usuario alloc]init];
-    
-    }
-    NSMutableArray * imagenesA=[dict objectForKey:@"Imagenes"];
-    for (UIImage * imagen in imagenesA) {
-        usuario.imagen=imagen;
-        NSLog(@"Imagen Perfil Obtenida");
-    }
-    
-  //  Img=[[UIImageView alloc]init];
-    Img.layer.borderWidth=1.5;
-    Img.layer.borderColor=[UIColor blackColor].CGColor;
-    
-    
-    Img.clipsToBounds=YES;
-    Img.layer.cornerRadius = 8.0;
-    Img.image=usuario.imagen;
-    
-    [Img reloadInputViews];
-    [self.view reloadInputViews];
-    
-        NSData *datos = [NSKeyedArchiver archivedDataWithRootObject:usuario];
-    [[NSUserDefaults standardUserDefaults] setObject:datos forKey:@"Usuario"];
- 
-    
-}
-- (void)obtenerImagenes:(NSNotification *)notification
-{
-    
-    NSDictionary *dict = [notification userInfo];
-   
-    NSMutableArray * imagenesA=[dict objectForKey:@"Imagenes"];
-    for (Imagen * imagen in imagenesA) {
-        [imagenesCargadas addObject:imagen];
-      
-    }
-      NSLog(@"Imagenes Obtenidas Recargando Carrusel...");
-    completado=YES;
-    [carousel reloadData];
-    
-    
-}
+
+
 
 
 - (void) imagenes{
@@ -423,12 +402,13 @@
              NSMutableArray * usuarioA = [[NSMutableArray alloc]init];
              [usuarioA addObject:usuario];
              
-             [[NSNotificationCenter defaultCenter] addObserver:self
-                                                      selector:@selector(obtenerImagenes:)
-                                                          name:@"Fotos"
-                                                        object:nil];
-             
-             [[Descargar alloc]descargarImagenes:usuarioA grupo:@"Fotos" fotos:fotos];
+           //  [[Descargar alloc]descargarImagenes:usuarioA grupo:@"Fotos" fotos:fotos];
+             [[Descargar alloc]descargarImagenes:usuarioA grupo:@"Fotos" fotos:fotos completationBlock:^(NSMutableArray *imagenesDescargadas) {
+                 imagenesCargadas= [[NSMutableArray alloc]initWithArray:imagenesDescargadas];
+                 completado=YES;
+                 [carousel reloadData];
+             }];
+              
     
          }); }];
     
@@ -464,6 +444,7 @@
         return 0;
     }
     else{
+        NSLog(@"Imagenes en el carrousel: %d", [imagenesCargadas count]);
         return [imagenesCargadas count];
     }
 }
@@ -496,26 +477,6 @@
             
             
    view = [[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 106, 160)] autorelease];
-      
-    /*
-        __block UIView * SelfB = view;
-        //__block UIView * viewB = imgv;
-        NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL: [imageURLs objectAtIndex:index]];
-        urlRequest.timeoutInterval=120;
-        
-        [(UIImageView*)view setImageWithURLRequest:urlRequest
-                                  placeholderImage:[UIImage imageNamed:@"placeholder.png"]
-                                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                             //  ((UIImageView*)SelfB).image=image;
-                                               
-                                               
-                                           } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                               NSLog(@"Failed to download image: %@", error);
-                                          
-                                           }];
-     
-*/
-   
      
             view.contentMode = UIViewContentModeScaleAspectFit;
         

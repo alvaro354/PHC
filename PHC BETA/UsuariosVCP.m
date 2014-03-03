@@ -25,7 +25,7 @@
 @end
 
 @implementation UsuariosVCP
-@synthesize locationManager,uploadOperation,imageURLs,flOperation,flUploadEngine,indicador, ascending,descargar;
+@synthesize locationManager,uploadOperation,imageURLs,indicador, ascending,descargar;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -335,42 +335,49 @@
     }
     
         NSString * usuarioID = [[NSUserDefaults standardUserDefaults] stringForKey:@"ID_usuario"];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(obtenerAmigos:)
-                                                 name:@"AmigosCargados"
-                                               object:nil];
+ 
     
     
-        [[Descargar alloc]descargarDeAmigos:usuarioID];
-    
-}
-
-- (void)obtenerAmigos:(NSNotification *)notification
-{
-    NSDictionary *dict = [notification userInfo];
-    
-    arrayBuscar=[dict objectForKey:@"Amigos"];
-    
-    terminado =YES;
-   
-    
-    dispatch_queue_t myQueue = dispatch_queue_create("My Queue",NULL);
-    dispatch_async(myQueue, ^{
-        
-        
-        NSLog(@"Empezando a Descargar: ");
-        [[Descargar alloc]descargarImagenPerfil:arrayBuscar grupo:@"Amigos"];
-       
-        
-    });
-    
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [collection reloadData];
-    });
-
-
+        [[Descargar alloc]descargarDeAmigos:usuarioID completationBlock:^(NSMutableArray *amigos) {
+            
+            
+            arrayBuscar=[[NSMutableArray alloc]initWithArray:amigos];
+            
+            terminado =YES;
+            
+            
+            dispatch_queue_t myQueue = dispatch_queue_create("My Queue",NULL);
+            dispatch_async(myQueue, ^{
+                
+                
+                NSLog(@"Empezando a Descargar: ");
+                [[Descargar alloc]descargarImagenPerfil:arrayBuscar grupo:@"Amigos" completationBlock:^(NSMutableArray *imagenesDescargadas) {
+                    
+                    for (int i =0; i<[arrayBuscar count]; i++) {
+                        Usuario *usuario = [arrayBuscar objectAtIndex:i];
+                        usuario.imagen=[[UIImage alloc]init];
+                        usuario.imagen=[imagenesDescargadas objectAtIndex:i];
+                        NSLog(@"Imagen heigth: %f", usuario.imagen.size.height);
+                        [arrayBuscar replaceObjectAtIndex:i withObject:usuario];
+                    }
+                    NSData *datos = [NSKeyedArchiver archivedDataWithRootObject:arrayBuscar];
+                    [[NSUserDefaults standardUserDefaults] setObject:datos forKey:@"DatosGuardados"];
+                    arrayMostrar = [[NSMutableArray alloc]initWithArray:arrayBuscar];
+                    
+                    
+                    terminado=YES;
+                    terminadoImagenes=YES;
+                    [collection reloadData];
+                }];
+                
+                
+            });
+            
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [collection reloadData];
+            });
+        }];
     
 }
 

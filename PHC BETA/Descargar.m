@@ -10,7 +10,7 @@
 
 @implementation Descargar
 
--(void) descargarDeAmigos:(NSString*)ID{
+-(void) descargarDeAmigos:(NSString*)ID completationBlock:(void (^)(NSMutableArray * amigos))success{
     
      __block NSMutableArray * amigos = [[NSMutableArray alloc]init];
 
@@ -99,14 +99,9 @@
                  
              }
              
-             NSArray* arrayObjects= [[NSArray alloc]initWithObjects:amigos, nil];
-             NSArray* arrayClaves= [[NSArray alloc]initWithObjects:@"Amigos", nil];
+             success(amigos);
              
-             NSDictionary *diccionarioPasarDatos =[[NSDictionary alloc]initWithObjects:arrayObjects forKeys:arrayClaves];
              
-             [[NSNotificationCenter defaultCenter] postNotificationName:@"AmigosCargados"
-                                                                 object:nil
-                                                               userInfo:diccionarioPasarDatos];
              [array removeAllObjects];
         
              
@@ -240,7 +235,123 @@
 
 }
 
--(void) descargarImagenPerfil:(NSMutableArray*)array grupo:(NSString*)grupo {
+-(void) descargarImagenes:(NSMutableArray*)array grupo:(NSString*)grupo fotos:(int)fotos completationBlock:(void (^)( NSMutableArray* imagenesDescargadas))success {
+    
+    
+    NSLog(@"Descargando Imagenes");
+    int vez=0;
+    
+    imagenesCargadas = [[NSMutableArray alloc]init];
+    AFHTTPClient *httpClient  = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@""]];
+    [httpClient.operationQueue setMaxConcurrentOperationCount:1] ;
+    NSMutableArray *operationsArray = [NSMutableArray array];
+    
+    
+    NSDate *myDate = [NSDate date];
+    NSDateFormatter *df = [NSDateFormatter new];
+    [df setDateFormat:@"dd"];
+    
+    for (Usuario *userA in array) {
+        while (vez<fotos) {
+            
+            NSString *hostStr = @"http://lanchosoftware.com:8080/PHC/descargarImagenes.php";
+            
+            
+            NSString * user = [[NSUserDefaults standardUserDefaults]objectForKey:@"ID_usuario"];
+            NSString * tokenS = [[NSUserDefaults standardUserDefaults]objectForKey:@"token"];
+            
+            
+            
+            
+            
+            NSString * usuario = [NSString stringWithFormat:@"?userID=%@",user];
+            NSString * token = [NSString stringWithFormat:@"&token=%@",tokenS];
+            NSString * IDURL = [NSString stringWithFormat:@"&idF=%@",userA.ID];
+            NSString * vezU = [NSString stringWithFormat:@"&vez=%d",vez];
+            NSString * perfil= [NSString stringWithFormat:@"&perfil=2"];
+            NSString * date = [NSString stringWithFormat:@"&date=%@",[df stringFromDate:myDate]];
+            
+            hostStr=[hostStr stringByAppendingString:usuario];
+            hostStr=[hostStr stringByAppendingString:token];
+            hostStr=[hostStr stringByAppendingString:IDURL];
+            hostStr=[hostStr stringByAppendingString:perfil];
+            hostStr=[hostStr stringByAppendingString:date];
+            hostStr=[hostStr stringByAppendingString:vezU];
+            
+            hostStr = [hostStr stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+            
+            NSURL * URL = [[NSURL alloc]initWithString:hostStr];
+            NSLog(@"URL Imagen %d: %@",vez,URL);
+            
+            AFImageRequestOperation *getImageOperation =
+            [AFImageRequestOperation imageRequestOperationWithRequest:[NSURLRequest requestWithURL:URL]
+                                                 imageProcessingBlock:nil
+                                                              success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                                                  //
+                                                                  // Save image
+                                                                  //
+                                                                  if(image != nil){
+                                                                      
+                                                                      NSLog(@"Response: %d",[response statusCode]);
+                                                                      Imagen * img = [[Imagen alloc]init];
+                                                                      img.imagen=[self addBorderToImage:image];
+                                                                      img.IDusuario=userA.ID;
+                                                                      img.URL=[NSString stringWithFormat:@"%@",request.URL];
+                                                                      [imagenesCargadas addObject:img];
+                                                                  }
+                                                                  else{
+                                                                      Error=YES;
+                                                                      NSLog(@"Image request CACHE error!");
+                                                                  }
+                                                              }
+                                                              failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                                                  if((error.domain == NSURLErrorDomain) && (error.code == NSURLErrorCancelled))
+                                                                      NSLog(@"Image request cancelled!");
+                                                                  else
+                                                                      NSLog(@"Image request error!");
+                                                              }];
+            
+            [operationsArray addObject:getImageOperation];
+            
+            
+            //
+            // Lock user interface by pop-up dialog with process indicator and "Cancel download" button
+            //
+            
+            
+            vez++;
+        }
+        
+        
+    }
+    
+    [httpClient enqueueBatchOfHTTPRequestOperations:operationsArray
+                                      progressBlock:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
+                                          
+                                      } completionBlock:^(NSArray *operations) {
+                                          
+                                          if(Error){
+                                              NSLog(@"ERROR");
+                                              //[self changeSorting];
+                                          }
+                                          else{
+                                              NSLog(@"Imagenes Descargadas: %lu", (unsigned long)[imagenesCargadas count]);
+                                              
+                                              success(imagenesCargadas);
+                                              
+                                              
+                                          }
+                                          
+                                          //     dispatch_group_leave(group);
+                                      }];
+    
+    
+
+    
+}
+
+
+-(void) descargarImagenPerfil:(NSMutableArray*)array grupo:(NSString*)grupo completationBlock:(void (^)(NSMutableArray * imagenesDescargadas))success {
     
     
     
@@ -343,23 +454,7 @@
                                           else{
                                               NSLog(@"Imagenes: %lu", (unsigned long)[imagenesCargadas count]);
                                               
-                                              NSArray* arrayObjects= [[NSArray alloc]initWithObjects:grupo,imagenesCargadas, nil];
-                                              NSArray* arrayClaves= [[NSArray alloc]initWithObjects:@"grupo",@"Imagenes", nil];
-                                              
-                                              NSDictionary *diccionarioPasarDatos =[[NSDictionary alloc]initWithObjects:arrayObjects forKeys:arrayClaves];
-                                              
-                                              if ([grupo isEqualToString:@"Perfil"]) {
-                                                  [[NSNotificationCenter defaultCenter] postNotificationName:@"Perfil"
-                                                                                                      object:nil
-                                                                                                    userInfo:diccionarioPasarDatos];
-                                              }
-                                              else if ([grupo isEqualToString:@"Amigos"]){
-                                                   
-                                                  [[NSNotificationCenter defaultCenter] postNotificationName:@"ImagenesPerfilCargadas"
-                                                                                                      object:nil
-                                                                                                    userInfo:diccionarioPasarDatos];
-                                              }
-                                              
+                                              success(imagenesCargadas);
                                           }
                                           
                                           //     dispatch_group_leave(group);
@@ -380,7 +475,7 @@
     
     if ([[NSFileManager defaultManager] fileExistsAtPath: string]) {
         [[NSFileManager defaultManager] removeItemAtPath:string error:nil];
-        [self descargarImagenPerfil:urlsTemp grupo:grupoTmp];
+        [self descargarImagenPerfil:urlsTemp grupo:grupoTmp completationBlock:nil];
     }
 }
 

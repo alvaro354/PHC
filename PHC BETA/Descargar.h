@@ -19,6 +19,8 @@
 #import "Imagen.h"
 
 @interface Descargar : NSObject{
+    
+    
     BOOL Error;
     NSMutableArray* imagenesCargadas;
     NSMutableArray* urlsTemp;
@@ -28,11 +30,11 @@
 }
 
 
--(void) descargarDeAmigos:(NSString*)ID;
--(void) descargarImagenes:(NSMutableArray*)array grupo:(NSString*)grupo fotos:(int)fotos;
+-(void) descargarDeAmigos:(NSString*)ID completationBlock:(void (^)(NSMutableArray * amigos))success;
 -(NSMutableArray*)ObtenerArray;
 -(void) guardarDatos:(NSMutableArray*)arrayP grupo:(NSString*)grupoP;
 -(void)subirImagen:(UIImage*)imagen perfil:(int)perfil;
--(void) descargarImagenPerfil:(NSMutableArray*)array grupo:(NSString*)grupo;
+-(void) descargarImagenPerfil:(NSMutableArray*)array grupo:(NSString*)grupo completationBlock:(void (^)(NSMutableArray * imagenesDescargadas))success;
+-(void) descargarImagenes:(NSMutableArray*)array grupo:(NSString*)grupo fotos:(int)fotos completationBlock:(void (^)( NSMutableArray* imagenesDescargadas))success;
 
 @end
