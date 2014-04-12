@@ -13,7 +13,6 @@
 		B109B8681826AC87000B4272 /* PopularesView.m in Sources */ = {isa = PBXBuildFile; fileRef = B109B8671826AC87000B4272 /* PopularesView.m */; };
 		B10EABC317F9ADB4007E7ADE /* NSDataGZipAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B10EABC217F9ADB4007E7ADE /* NSDataGZipAdditions.m */; };
 		B115493F17778004006E0A24 /* EtiquetasViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B115493E17778004006E0A24 /* EtiquetasViewController.m */; };
-		B1157069177E4EA400C43827 /* libFlurry_4.2.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1157068177E4EA400C43827 /* libFlurry_4.2.2.a */; };
 		B11D92FA17D1311F006AD5B4 /* Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = B11D92F917D1311F006AD5B4 /* Cache.m */; };
 		B11E9ACD16DBEB7E008A1193 /* 1 in Resources */ = {isa = PBXBuildFile; fileRef = B11E9AAF16DBEB7E008A1193 /* 1 */; };
 		B11E9ACE16DBEB7E008A1193 /* 2 in Resources */ = {isa = PBXBuildFile; fileRef = B11E9AB016DBEB7E008A1193 /* 2 */; };
@@ -45,6 +44,7 @@
 		B11E9AE816DBEB7E008A1193 /* 28 in Resources */ = {isa = PBXBuildFile; fileRef = B11E9ACA16DBEB7E008A1193 /* 28 */; };
 		B11E9AE916DBEB7E008A1193 /* 29 in Resources */ = {isa = PBXBuildFile; fileRef = B11E9ACB16DBEB7E008A1193 /* 29 */; };
 		B11E9AEA16DBEB7E008A1193 /* 30 in Resources */ = {isa = PBXBuildFile; fileRef = B11E9ACC16DBEB7E008A1193 /* 30 */; };
+		B1259F0C18F940A00089AA32 /* libFlurry_4.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1259F0B18F940A00089AA32 /* libFlurry_4.4.0.a */; };
 		B1293FB6175275EC002F5587 /* SpeechBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = B1293FB5175275EC002F5587 /* SpeechBubbleView.m */; };
 		B1293FB9175276A4002F5587 /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B1293FB8175276A4002F5587 /* MessageTableViewCell.m */; };
 		B1294AF618A27828008447A8 /* Descargar.m in Sources */ = {isa = PBXBuildFile; fileRef = B1294AF518A27828008447A8 /* Descargar.m */; };
@@ -276,8 +276,6 @@
 		B10EABC217F9ADB4007E7ADE /* NSDataGZipAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDataGZipAdditions.m; sourceTree = "<group>"; };
 		B115493D17778004006E0A24 /* EtiquetasViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EtiquetasViewController.h; sourceTree = "<group>"; };
 		B115493E17778004006E0A24 /* EtiquetasViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EtiquetasViewController.m; sourceTree = "<group>"; };
-		B1157067177E4EA400C43827 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
-		B1157068177E4EA400C43827 /* libFlurry_4.2.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_4.2.2.a; sourceTree = "<group>"; };
 		B11D92F817D1311F006AD5B4 /* Cache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cache.h; sourceTree = "<group>"; };
 		B11D92F917D1311F006AD5B4 /* Cache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cache.m; sourceTree = "<group>"; };
 		B11E9AAF16DBEB7E008A1193 /* 1 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 1; sourceTree = "<group>"; };
@@ -310,6 +308,8 @@
 		B11E9ACA16DBEB7E008A1193 /* 28 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 28; sourceTree = "<group>"; };
 		B11E9ACB16DBEB7E008A1193 /* 29 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 29; sourceTree = "<group>"; };
 		B11E9ACC16DBEB7E008A1193 /* 30 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 30; sourceTree = "<group>"; };
+		B1259F0A18F940A00089AA32 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
+		B1259F0B18F940A00089AA32 /* libFlurry_4.4.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_4.4.0.a; sourceTree = "<group>"; };
 		B1293FB4175275EC002F5587 /* SpeechBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpeechBubbleView.h; path = "PHC BETA/SpeechBubbleView.h"; sourceTree = "<group>"; };
 		B1293FB5175275EC002F5587 /* SpeechBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SpeechBubbleView.m; path = "PHC BETA/SpeechBubbleView.m"; sourceTree = "<group>"; };
 		B1293FB7175276A4002F5587 /* MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageTableViewCell.h; path = "PHC BETA/MessageTableViewCell.h"; sourceTree = "<group>"; };
@@ -621,10 +621,10 @@
 				B15CC0B71697403F000AAED0 /* libsqlite3.0.dylib in Frameworks */,
 				B15CC0B516974036000AAED0 /* MobileCoreServices.framework in Frameworks */,
 				B15CC0B31697402D000AAED0 /* iAd.framework in Frameworks */,
-				B1157069177E4EA400C43827 /* libFlurry_4.2.2.a in Frameworks */,
 				B15CC0B116974028000AAED0 /* MessageUI.framework in Frameworks */,
 				B15CC0AF16974022000AAED0 /* Twitter.framework in Frameworks */,
 				B15CBF9F1696F350000AAED0 /* UIKit.framework in Frameworks */,
+				B1259F0C18F940A00089AA32 /* libFlurry_4.4.0.a in Frameworks */,
 				B15CBFA11696F350000AAED0 /* Foundation.framework in Frameworks */,
 				B15CBFA31696F350000AAED0 /* CoreGraphics.framework in Frameworks */,
 			);
@@ -654,15 +654,6 @@
 				B16F53991837895300C92A49 /* VerPopularesViewController.m */,
 			);
 			name = Novedades;
-			sourceTree = "<group>";
-		};
-		B1157066177E4EA400C43827 /* Flurry */ = {
-			isa = PBXGroup;
-			children = (
-				B1157067177E4EA400C43827 /* Flurry.h */,
-				B1157068177E4EA400C43827 /* libFlurry_4.2.2.a */,
-			);
-			path = Flurry;
 			sourceTree = "<group>";
 		};
 		B11E9AAE16DBEB63008A1193 /* Imagenes login */ = {
@@ -718,6 +709,15 @@
 			name = "Imagenes login";
 			sourceTree = "<group>";
 		};
+		B1259F0918F940A00089AA32 /* Flurry */ = {
+			isa = PBXGroup;
+			children = (
+				B1259F0A18F940A00089AA32 /* Flurry.h */,
+				B1259F0B18F940A00089AA32 /* libFlurry_4.4.0.a */,
+			);
+			path = Flurry;
+			sourceTree = "<group>";
+		};
 		B1294AF318A2781B008447A8 /* Descargas */ = {
 			isa = PBXGroup;
 			children = (
@@ -736,7 +736,7 @@
 		B15CBF8F1696F34F000AAED0 = {
 			isa = PBXGroup;
 			children = (
-				B1157066177E4EA400C43827 /* Flurry */,
+				B1259F0918F940A00089AA32 /* Flurry */,
 				B1D2B7E7173EB6E0007CE785 /* ImageIO.framework */,
 				B1A004441702127A00BEBC80 /* SystemConfiguration.framework */,
 				B1FEAB6C16C7F873003BABBB /* libz.dylib */,
@@ -1650,6 +1650,7 @@
 					"$(inherited)",
 					"\\\"$(SRCROOT)/Library\\\"",
 					"$(SRCROOT)/Flurry",
+					"$(PROJECT_DIR)/Flurry",
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1674,6 +1675,7 @@
 					"$(inherited)",
 					"\\\"$(SRCROOT)/Library\\\"",
 					"$(SRCROOT)/Flurry",
+					"$(PROJECT_DIR)/Flurry",
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
