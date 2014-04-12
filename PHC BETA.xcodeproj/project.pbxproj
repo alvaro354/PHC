@@ -50,6 +50,8 @@
 		B1293FB9175276A4002F5587 /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B1293FB8175276A4002F5587 /* MessageTableViewCell.m */; };
 		B1294AF618A27828008447A8 /* Descargar.m in Sources */ = {isa = PBXBuildFile; fileRef = B1294AF518A27828008447A8 /* Descargar.m */; };
 		B12D917D177DAE2200774613 /* ComentariosPase.m in Sources */ = {isa = PBXBuildFile; fileRef = B12D917C177DAE2200774613 /* ComentariosPase.m */; };
+		B13A2B5A18F946E500258C92 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B13A2B5918F946E500258C92 /* Accelerate.framework */; };
+		B13A2B5E18F947D800258C92 /* MenuBlur.m in Sources */ = {isa = PBXBuildFile; fileRef = B13A2B5D18F947D800258C92 /* MenuBlur.m */; };
 		B14E9E5217956B4B00272766 /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B14E9E5117956B4B00272766 /* UICKeyChainStore.m */; };
 		B159E9251754DBF2001BD23B /* BubbleLefthand.png in Resources */ = {isa = PBXBuildFile; fileRef = B159E9231754DBF2001BD23B /* BubbleLefthand.png */; };
 		B159E9261754DBF2001BD23B /* BubbleRighthand.png in Resources */ = {isa = PBXBuildFile; fileRef = B159E9241754DBF2001BD23B /* BubbleRighthand.png */; };
@@ -321,6 +323,9 @@
 		B1294AF518A27828008447A8 /* Descargar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Descargar.m; sourceTree = "<group>"; };
 		B12D917B177DAE2200774613 /* ComentariosPase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComentariosPase.h; sourceTree = "<group>"; };
 		B12D917C177DAE2200774613 /* ComentariosPase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComentariosPase.m; sourceTree = "<group>"; };
+		B13A2B5918F946E500258C92 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		B13A2B5C18F947D800258C92 /* MenuBlur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuBlur.h; sourceTree = "<group>"; };
+		B13A2B5D18F947D800258C92 /* MenuBlur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuBlur.m; sourceTree = "<group>"; };
 		B14E9E5017956B4B00272766 /* UICKeyChainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UICKeyChainStore.h; path = "PHC BETA/UICKeyChainStore.h"; sourceTree = "<group>"; };
 		B14E9E5117956B4B00272766 /* UICKeyChainStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UICKeyChainStore.m; path = "PHC BETA/UICKeyChainStore.m"; sourceTree = "<group>"; };
 		B159E9231754DBF2001BD23B /* BubbleLefthand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BubbleLefthand.png; sourceTree = "<group>"; };
@@ -613,6 +618,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B13A2B5A18F946E500258C92 /* Accelerate.framework in Frameworks */,
 				B1AD7EF0182289C40019C17F /* CoreLocation.framework in Frameworks */,
 				B1A004451702127A00BEBC80 /* SystemConfiguration.framework in Frameworks */,
 				B1D2B7E8173EB6E0007CE785 /* ImageIO.framework in Frameworks */,
@@ -745,15 +751,19 @@
 			name = Descargas;
 			sourceTree = "<group>";
 		};
+		B13A2B5B18F9475400258C92 /* MenuBlur */ = {
+			isa = PBXGroup;
+			children = (
+				B13A2B5C18F947D800258C92 /* MenuBlur.h */,
+				B13A2B5D18F947D800258C92 /* MenuBlur.m */,
+			);
+			name = MenuBlur;
+			sourceTree = "<group>";
+		};
 		B15CBF8F1696F34F000AAED0 = {
 			isa = PBXGroup;
 			children = (
 				B1259F0918F940A00089AA32 /* Flurry */,
-				B1D2B7E7173EB6E0007CE785 /* ImageIO.framework */,
-				B1A004441702127A00BEBC80 /* SystemConfiguration.framework */,
-				B1FEAB6C16C7F873003BABBB /* libz.dylib */,
-				B1FEAB6A16C7F858003BABBB /* Security.framework */,
-				B1FEAB5E16C67C48003BABBB /* AssetsLibrary.framework */,
 				B15CBFDC1696F36C000AAED0 /* Resources */,
 				B15CBFA41696F350000AAED0 /* PHC BETA */,
 				B15CBFCB1696F350000AAED0 /* PHC BETATests */,
@@ -774,6 +784,12 @@
 		B15CBF9D1696F350000AAED0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B13A2B5918F946E500258C92 /* Accelerate.framework */,
+				B1D2B7E7173EB6E0007CE785 /* ImageIO.framework */,
+				B1A004441702127A00BEBC80 /* SystemConfiguration.framework */,
+				B1FEAB6C16C7F873003BABBB /* libz.dylib */,
+				B1FEAB6A16C7F858003BABBB /* Security.framework */,
+				B1FEAB5E16C67C48003BABBB /* AssetsLibrary.framework */,
 				B1AD7EEF182289C40019C17F /* CoreLocation.framework */,
 				B15CC0B816974055000AAED0 /* QuartzCore.framework */,
 				B15CC0B61697403F000AAED0 /* libsqlite3.0.dylib */,
@@ -793,6 +809,7 @@
 		B15CBFA41696F350000AAED0 /* PHC BETA */ = {
 			isa = PBXGroup;
 			children = (
+				B13A2B5B18F9475400258C92 /* MenuBlur */,
 				B1294AF318A2781B008447A8 /* Descargas */,
 				B161A1E917C7AECE00A80E70 /* PHC BETA.entitlements */,
 				B18E296A16E6674A0002B903 /* Plantillas */,
@@ -1483,6 +1500,7 @@
 				B10EABC317F9ADB4007E7ADE /* NSDataGZipAdditions.m in Sources */,
 				B14E9E5217956B4B00272766 /* UICKeyChainStore.m in Sources */,
 				B1FEAB6916C7F82F003BABBB /* NSString+AESCrypt.m in Sources */,
+				B13A2B5E18F947D800258C92 /* MenuBlur.m in Sources */,
 				B1FEAB7016C7F8BA003BABBB /* MBProgressHUD.m in Sources */,
 				B1F340081770668B00016782 /* VerMensajes.m in Sources */,
 				B1C3F7E716DEA8C7000B8D15 /* NSData+Base64.m in Sources */,

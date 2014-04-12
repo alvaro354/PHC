@@ -364,12 +364,26 @@
                         <outlet property="registrarB" destination="xti-7U-Qln" id="IJG-GN-mTr"/>
                         <outlet property="usuarioText" destination="kcx-Nb-R1W" id="feS-Md-rna"/>
                         <outlet property="viewS" destination="0zP-Xg-LYm" id="gwC-mK-2c1"/>
-                        <segue destination="Bei-d1-993" kind="modal" identifier="PrincipalS" id="QAI-Fa-yZc"/>
+                        <segue destination="EAB-qU-buP" kind="modal" identifier="PrincipalS" id="rcv-o3-nJH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IWi-F0-qPM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-969" y="-836"/>
+            <point key="canvasLocation" x="-1146" y="-933"/>
+        </scene>
+        <!--Menu Blur-->
+        <scene sceneID="VhY-Lt-XT9">
+            <objects>
+                <viewController id="EAB-qU-buP" customClass="MenuBlur" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pRo-cx-qRP">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uoo-iM-i0R" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-615" y="-997"/>
         </scene>
         <!--Navigation Controller - Item-->
         <scene sceneID="hY7-rd-Ivc">
