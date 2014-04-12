@@ -45,6 +45,7 @@
 		B11E9AE916DBEB7E008A1193 /* 29 in Resources */ = {isa = PBXBuildFile; fileRef = B11E9ACB16DBEB7E008A1193 /* 29 */; };
 		B11E9AEA16DBEB7E008A1193 /* 30 in Resources */ = {isa = PBXBuildFile; fileRef = B11E9ACC16DBEB7E008A1193 /* 30 */; };
 		B1259F0C18F940A00089AA32 /* libFlurry_4.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1259F0B18F940A00089AA32 /* libFlurry_4.4.0.a */; };
+		B1259F1018F944D20089AA32 /* RNBlurredSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B1259F0F18F944D20089AA32 /* RNBlurredSideViewController.m */; };
 		B1293FB6175275EC002F5587 /* SpeechBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = B1293FB5175275EC002F5587 /* SpeechBubbleView.m */; };
 		B1293FB9175276A4002F5587 /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B1293FB8175276A4002F5587 /* MessageTableViewCell.m */; };
 		B1294AF618A27828008447A8 /* Descargar.m in Sources */ = {isa = PBXBuildFile; fileRef = B1294AF518A27828008447A8 /* Descargar.m */; };
@@ -310,6 +311,8 @@
 		B11E9ACC16DBEB7E008A1193 /* 30 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 30; sourceTree = "<group>"; };
 		B1259F0A18F940A00089AA32 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		B1259F0B18F940A00089AA32 /* libFlurry_4.4.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_4.4.0.a; sourceTree = "<group>"; };
+		B1259F0E18F944D20089AA32 /* RNBlurredSideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNBlurredSideViewController.h; sourceTree = "<group>"; };
+		B1259F0F18F944D20089AA32 /* RNBlurredSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBlurredSideViewController.m; sourceTree = "<group>"; };
 		B1293FB4175275EC002F5587 /* SpeechBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpeechBubbleView.h; path = "PHC BETA/SpeechBubbleView.h"; sourceTree = "<group>"; };
 		B1293FB5175275EC002F5587 /* SpeechBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SpeechBubbleView.m; path = "PHC BETA/SpeechBubbleView.m"; sourceTree = "<group>"; };
 		B1293FB7175276A4002F5587 /* MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageTableViewCell.h; path = "PHC BETA/MessageTableViewCell.h"; sourceTree = "<group>"; };
@@ -718,6 +721,15 @@
 			path = Flurry;
 			sourceTree = "<group>";
 		};
+		B1259F0D18F944B90089AA32 /* BlurredSide */ = {
+			isa = PBXGroup;
+			children = (
+				B1259F0E18F944D20089AA32 /* RNBlurredSideViewController.h */,
+				B1259F0F18F944D20089AA32 /* RNBlurredSideViewController.m */,
+			);
+			name = BlurredSide;
+			sourceTree = "<group>";
+		};
 		B1294AF318A2781B008447A8 /* Descargas */ = {
 			isa = PBXGroup;
 			children = (
@@ -897,6 +909,7 @@
 		B15CBFDC1696F36C000AAED0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B1259F0D18F944B90089AA32 /* BlurredSide */,
 				B19F9887174AB4A900BB05CE /* XMLSupport */,
 				B1A00446170212BB00BEBC80 /* MKNetworkKit */,
 				B1B5CC4916974813000F4F69 /* NSStringAdditions.h */,
@@ -1458,6 +1471,7 @@
 				B1B5CC4716974804000F4F69 /* SBJsonUTF8Stream.m in Sources */,
 				B1B5CC4816974804000F4F69 /* SBJsonWriter.m in Sources */,
 				B1B5CC4C16974827000F4F69 /* Cell.m in Sources */,
+				B1259F1018F944D20089AA32 /* RNBlurredSideViewController.m in Sources */,
 				B1764F8C17CD104E00845AF8 /* AFJSONRequestOperation.m in Sources */,
 				B1B5CC4F1697485F000F4F69 /* UsuariosVCP.m in Sources */,
 				B1B5CC5216974984000F4F69 /* Usuario.m in Sources */,

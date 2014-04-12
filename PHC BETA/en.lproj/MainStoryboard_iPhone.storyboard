@@ -663,7 +663,7 @@
                                 <rect key="frame" x="16" y="155" width="289" height="357"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CeldaInvitaciones" editingAccessoryType="checkmark" id="Zuf-Lz-nXB" customClass="CeldaInvitacionesCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CeldaInvitacionesBuscar" editingAccessoryType="checkmark" id="Zuf-Lz-nXB" customClass="CeldaInvitacionesCell">
                                         <rect key="frame" x="0.0" y="55" width="289" height="58"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Zuf-Lz-nXB" id="0ey-KQ-cgh">
@@ -809,7 +809,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CeldaInvitaciones" editingAccessoryType="checkmark" id="boF-VC-oi8" customClass="CeldaInvitacionesCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CeldaEtiquetas" editingAccessoryType="checkmark" id="boF-VC-oi8" customClass="CeldaInvitacionesCell">
                                         <rect key="frame" x="0.0" y="10" width="280" height="58"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="boF-VC-oi8" id="ftH-nX-1IW">
@@ -985,7 +985,7 @@
                                                 <rect key="frame" x="0.0" y="164" width="280" height="214"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <prototypes>
-                                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CeldaInvitaciones" editingAccessoryType="checkmark" id="z21-ju-J5t" customClass="CeldaInvitacionesCell">
+                                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CeldaIPonerEtiquetas" editingAccessoryType="checkmark" id="z21-ju-J5t" customClass="CeldaInvitacionesCell">
                                                         <rect key="frame" x="0.0" y="55" width="280" height="58"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="z21-ju-J5t" id="ruG-vH-zaB">
@@ -1691,6 +1691,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="c52-t3-zUx"/>
         <segue reference="ql0-co-PNP"/>
-        <segue reference="kNV-WL-Ni4"/>
+        <segue reference="edR-hb-tWR"/>
     </inferredMetricsTieBreakers>
 </document>

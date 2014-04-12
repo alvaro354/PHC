@@ -496,7 +496,7 @@
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     //CeldaInvitacionesCell *cell = (CeldaInvitacionesCell *)[tableView dequeueReusableCellWithIdentifier:@"CeldaInvitaciones"];
     
-    static NSString *CellIdentifier = @"CeldaInvitaciones";
+    static NSString *CellIdentifier = @"CeldaIPonerEtiquetas";
     CeldaInvitacionesCell *cell = (CeldaInvitacionesCell *)[tableView dequeueReusableCellWithIdentifier:@"CeldaInvitaciones"];
     
     if (cell == nil) {
