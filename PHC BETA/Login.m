@@ -745,7 +745,7 @@
         imageView.layer.borderWidth=2.0;
         imageView.layer.borderColor=[UIColor whiteColor].CGColor;
         imageView.clipsToBounds=YES;
-        imageView.layer.cornerRadius = 6.0;
+        imageView.layer.cornerRadius = 1.0;
         imageView.backgroundColor = [UIColor colorWithPatternImage:image];
         
         imageView.alpha=0;
@@ -780,7 +780,7 @@
         [self fadeView:view fadeOut:YES];
         view.backgroundColor = [UIColor colorWithPatternImage:imagen];
         view.clipsToBounds=YES;
-        view.layer.cornerRadius = 8.0;
+        view.layer.cornerRadius =  1.0;
         [self fadeView:view fadeOut:NO];
         
 

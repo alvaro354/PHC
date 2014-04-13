@@ -29,6 +29,7 @@
 @synthesize Amigo,Name,Estado,Imagen,Img,timer,timer2, imageURLs;
 @synthesize carousel;
 @synthesize items, wrap, flOperation,flUploadEngine;
+@synthesize vistaOpciones,vistaPerfil;
 
 -(IBAction)cambiarImagen:(id)sender{
     
@@ -270,12 +271,18 @@
     
     NSLog(@"Perfil");
     
+    vistaPerfil.layer.borderColor= [UIColor grayColor].CGColor;
+    vistaPerfil.layer.borderWidth=1;
+    vistaOpciones.layer.borderColor= [UIColor grayColor].CGColor;
+    vistaOpciones.layer.borderWidth=1;
+    
     self.navigationController.navigationBar.barTintColor =[UIColor colorWithRed:0.35 green:0.67 blue:0.985 alpha:1];
     self.navigationController.navigationBar.tintColor=[UIColor whiteColor];
     
       self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
 
      self.carousel.centerItemWhenSelected = NO;
+    self.carousel.clipsToBounds=YES;
        
     UIBarButtonItem *flipButton = [[UIBarButtonItem alloc]
                                    initWithTitle:@"Salir"
@@ -297,7 +304,7 @@
   
     
       self.view.backgroundColor = [UIColor colorWithRed:219/255.0 green:226/255.0 blue:237/255.0 alpha:1.0];
-    carousel.backgroundColor   = [UIColor colorWithRed:219/255.0 green:226/255.0 blue:237/255.0 alpha:1.0];
+    //carousel.backgroundColor   = [UIColor colorWithRed:219/255.0 green:226/255.0 blue:237/255.0 alpha:1.0];
      self.navigationController.navigationBar.topItem.title=@"Perfil";
    /* UIBezierPath *maskPath;
     maskPath = [UIBezierPath bezierPathWithRoundedRect:  self.navigationController.navigationBar.bounds byRoundingCorners:(UIRectCornerTopLeft | UIRectCornerTopRight) cornerRadii:CGSizeMake(8.0, 8.0)];

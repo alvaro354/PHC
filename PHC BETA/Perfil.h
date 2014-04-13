@@ -64,6 +64,8 @@
 - (void)obtenerImagenPerfil:(NSNotification *)notification;
 - (void)obtenerImagenes:(NSNotification *)notification;
 - (void)terminado;
+@property (strong, nonatomic) IBOutlet UIView *vistaPerfil;
+@property (strong, nonatomic) IBOutlet UIView *vistaOpciones;
 @property (nonatomic, retain) __block NSTimer *timer;
 @property (nonatomic, retain) NSTimer *timer2;
 @property(nonatomic,strong) NSString * Amigo;
