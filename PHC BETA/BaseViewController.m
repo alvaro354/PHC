@@ -104,8 +104,9 @@
    // self.tabBar.translucent =YES;
  
     
-     self.tabBar.barTintColor =[UIColor colorWithRed:0.35 green:0.67 blue:0.985 alpha:1];
+     //self.tabBar.barTintColor =[UIColor colorWithRed:0.35 green:0.67 blue:0.985 alpha:1];
     
+     self.tabBar.barTintColor = [UIColor colorWithRed:0.47 green:0.4 blue:0.78 alpha:1];
     
      self.tabBar.tintColor = [UIColor whiteColor];
    //  self.tabBar.backgroundColor = [UIColor whiteColor];

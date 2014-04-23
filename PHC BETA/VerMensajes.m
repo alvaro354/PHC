@@ -240,12 +240,12 @@
     scrollViewEnviar.delegate=self;
     
     
-    self.view.backgroundColor=[UIColor colorWithRed:0.35 green:0.67 blue:0.985 alpha:1];
-    barraSuperior.barTintColor =[UIColor colorWithRed:0.35 green:0.67 blue:0.985 alpha:1];
+    self.view.backgroundColor=[UIColor colorWithRed:0.47 green:0.4 blue:0.78 alpha:1];
+    barraSuperior.barTintColor =[UIColor colorWithRed:0.47 green:0.4 blue:0.78 alpha:1];
     barraSuperior.tintColor =[UIColor whiteColor];
     barraSuperior.translucent=NO;
     barraInferior.tintColor =[UIColor whiteColor];
-    barraInferior.backgroundColor =[UIColor colorWithRed:0.35 green:0.67 blue:0.985 alpha:1];
+    barraInferior.backgroundColor =[UIColor colorWithRed:0.47 green:0.4 blue:0.78 alpha:1];
     
     [self.view addSubview:barraInferior];
     [self reloadInputViews];

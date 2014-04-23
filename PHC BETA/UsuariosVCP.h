@@ -35,6 +35,7 @@
      NSString *IDa;
      NSString *UrlA;
     UIImage *img;
+    UIColor * color ;
   
     BOOL timer;
     __block BOOL terminado;

@@ -328,7 +328,7 @@
                  
                  [imagen2 setID:[dict objectForKey:@"ID"]];
                  [imagen2 setIDusuario:[dict objectForKey:@"IDusuario"]];
-                 [imagen2 setEtiquetas:[dict objectForKey:@"Amigos"]];
+                 [imagen2 setEtiquetas:[dict objectForKey:@"Etiquetas"]];
                  [imagen2 setFecha:[dict objectForKey:@"Fecha"]];
                  [imagen2 setNombre:[dict objectForKey:@"Titulo"]];
                   [imagen2 setPublico:[dict objectForKey:@"Publico"]];
@@ -340,8 +340,10 @@
                 NSLog(@"%@ Titulo", imagen2.Nombre);
                  NSLog(@"%@ Etiquetas", imagen2.Etiquetas);
                  NSLog(@"%@ Altura BD", imagen2.altura);
+                 if (imagen2.Nombre != (id)[NSNull null]) {
                  titulo.text=imagen2.Nombre;
                  [titulo reloadInputViews];
+                 }
                  
                  
                  

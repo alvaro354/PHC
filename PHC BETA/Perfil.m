@@ -101,6 +101,7 @@
     NSLog(@"MEMORIA");
     [items removeAllObjects];
 }
+
 -(void)viewDidAppear:(BOOL)animated{
    // [self viewDidLoad];
     self.navigationController.navigationBar.topItem.title=@"Perfil";
@@ -276,7 +277,7 @@
     vistaOpciones.layer.borderColor= [UIColor grayColor].CGColor;
     vistaOpciones.layer.borderWidth=1;
     
-    self.navigationController.navigationBar.barTintColor =[UIColor colorWithRed:0.35 green:0.67 blue:0.985 alpha:1];
+    self.navigationController.navigationBar.barTintColor =[UIColor colorWithRed:0.47 green:0.4 blue:0.78 alpha:1];
     self.navigationController.navigationBar.tintColor=[UIColor whiteColor];
     
       self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};

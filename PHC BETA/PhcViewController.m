@@ -22,8 +22,8 @@
 {
     [super viewDidLoad];
     
-    self.tabBar.barTintColor =[UIColor colorWithRed:0.35 green:0.67 blue:0.985 alpha:1];
-    
+   // self.tabBar.barTintColor =[UIColor colorWithRed:0.35 green:0.67 blue:0.985 alpha:1];
+    self.tabBar.barTintColor =[UIColor colorWithRed:0.47 green:0.4 blue:0.78 alpha:1];
     self.tabBar.tintColor = [UIColor whiteColor];
     //  self.tabBar.backgroundColor = [UIColor whiteColor];
     
@@ -33,7 +33,13 @@
     //[self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     //self.navigationController.navigationBar.backgroundColor =[UIColor colorWithRed:0.17 green:0.522 blue:0.725 alpha:1];
  //   self.view.backgroundColor =[UIColor colorWithRed:0.17 green:0.522 blue:0.725 alpha:1];
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.17 green:0.522 blue:0.725 alpha:1];
+   
+    ///VALIDO
+   // self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.17 green:0.522 blue:0.725 alpha:1];
+    
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.47 green:0.4 blue:0.78 alpha:1];
+    
+    
     //[self.navigationController.navigationBar setBackgroundColor:[UIColor colorWithRed:0.17 green:0.522 blue:0.725 alpha:1]];
     
     self.viewControllers = [NSArray arrayWithObjects:

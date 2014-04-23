@@ -22,6 +22,7 @@
 
 @interface UsuariosVCP ()
 
+
 @end
 
 @implementation UsuariosVCP
@@ -40,7 +41,7 @@
 -(IBAction)AparecerBarra:(id)sender{
     if (Barra ==NO) {
         barraBuscar=[[UISearchBar alloc] initWithFrame:CGRectMake(collection.frame.origin.x, collection.frame.origin.y, collection.frame.size.width, 40)];
-        barraBuscar.barTintColor = [UIColor colorWithRed:0.35 green:0.67 blue:0.985 alpha:1];
+        barraBuscar.barTintColor = [UIColor colorWithRed:0.47 green:0.4 blue:0.78 alpha:1];
         barraBuscar.tintColor= [UIColor whiteColor];
         barraBuscar.delegate=self;
         collection.clipsToBounds = YES;
@@ -93,7 +94,10 @@
                          }];
     }
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    color= [UIColor colorWithRed:0.25 green:0.87 blue:0.81 alpha:1];
+}
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     
@@ -132,9 +136,7 @@
     
    // self.navigationController.navigationBar.topItem.title.
 }
--(void)viewWillAppear:(BOOL)animated{
 
-}
 
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -147,7 +149,7 @@
 }
 - (void)viewDidLoad
 {
-    self.navigationController.navigationBar.barTintColor =[UIColor colorWithRed:0.35 green:0.67 blue:0.985 alpha:1];
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.47 green:0.4 blue:0.78 alpha:1];
     self.navigationController.navigationBar.tintColor=[UIColor whiteColor];
 
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
@@ -185,7 +187,7 @@
     
     refreshControl = [[UIRefreshControl alloc]
                       init];
-    refreshControl.tintColor =[UIColor colorWithRed:0.35 green:0.67 blue:0.985 alpha:1];;
+    refreshControl.tintColor =[UIColor colorWithRed:0.47 green:0.4 blue:0.78 alpha:1];
     [refreshControl addTarget:self action:@selector(changeSorting) forControlEvents:UIControlEventValueChanged];
     // self.refreshControl = refreshControl;
     [collection addSubview:refreshControl];
@@ -201,7 +203,7 @@
     NSData *datos = [[NSUserDefaults standardUserDefaults] objectForKey:@"DatosGuardados"];
     arrayGuardado = [NSKeyedUnarchiver unarchiveObjectWithData:datos];
     
-    NSLog(@"%u Amigos",[arrayGuardado count]);
+    NSLog(@"%lu Amigos",(unsigned long)[arrayGuardado count]);
     
     if ([arrayGuardado count]==0)  {
         NSLog(@" %lu Array Guardado",(unsigned long)[arrayGuardado count]);
