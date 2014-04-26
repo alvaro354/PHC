@@ -344,7 +344,7 @@
             
             
             arrayBuscar=[[NSMutableArray alloc]initWithArray:amigos];
-            
+            [[NSUserDefaults standardUserDefaults]setInteger:[arrayBuscar count] forKey:@"NumeroAmigos"];
             terminado =YES;
             
             

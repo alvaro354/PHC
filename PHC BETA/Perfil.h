@@ -48,7 +48,9 @@
     BOOL act;
     BOOL completado;
     UICKeyChainStore * keychain;
+    __weak IBOutlet UILabel *numeroAmigos;
  
+    __weak IBOutlet UILabel *numeroFotos;
     NSInteger indexTocado;
   //  NSArray* intVisible;
     float width;

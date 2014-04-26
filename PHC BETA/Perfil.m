@@ -36,6 +36,9 @@
     imagePicker = [[UIImagePickerController alloc] init];
     imagePicker.delegate = self;
     imagePicker.allowsEditing=YES;
+    imagePicker.navigationBar.titleTextAttributes= @{ NSForegroundColorAttributeName :[UIColor colorWithRed:0.47 green:0.4 blue:0.78 alpha:1]};
+    imagePicker.navigationBar.barTintColor= [UIColor whiteColor];
+    imagePicker.navigationBar.tintColor = [UIColor colorWithRed:0.47 green:0.4 blue:0.78 alpha:1];
     imagePicker.view.clipsToBounds=YES;
     imagePicker.view.layer.cornerRadius = 8.0;
     [self presentViewController:imagePicker animated:YES completion:nil];
@@ -43,6 +46,7 @@
     
 }
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo {
+  
     [self dismissViewControllerAnimated:imagePicker completion:nil];
     sleep(3);
      NSLog(@"Subir");
@@ -254,12 +258,13 @@
      NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
      NSData *datos = [defaults objectForKey:@"DatosAmigo"];
      usuario = [NSKeyedUnarchiver unarchiveObjectWithData:datos];
+     Name.font = [UIFont fontWithName:@"Helvetica Neue" size:22];
      Name.text=[defaults objectForKey:@"usuario"];
      // Img.image=usuario.imagen;
      Amigo=usuario.usuario;
      ID=usuario.ID;
-     
-     
+    numeroAmigos.text=[NSString stringWithFormat:@"%hd",(short)[defaults integerForKey:@"NumeroAmigos"]];
+    numeroFotos.text=[NSString stringWithFormat:@""];
      
      [self.view reloadInputViews];
      carousel.type = iCarouselTypeLinear;
@@ -404,6 +409,7 @@
          dispatch_async(dispatch_get_main_queue(), ^{
          NSString *  serverOutput = [[NSString alloc] initWithData:datas encoding: NSASCIIStringEncoding];
          int fotos = serverOutput.intValue;
+         numeroFotos.text=[NSString stringWithFormat:@"%d",fotos];
              NSLog(@"Fotos Int : %d",fotos);
              usuario= [[Usuario alloc]init];
              usuario.ID = [[NSUserDefaults standardUserDefaults] stringForKey:@"ID_usuario"];
